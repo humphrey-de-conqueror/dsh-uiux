@@ -1,13 +1,13 @@
 /**
  * HTTP routes behind the preview tab.
  *
- * Three exact routes: the rendered demo page, the style picker rows, and the follow
- * state. They are registered only when the host exposes `webServer`, so a host
+ * Four exact routes: the rendered demo page, the style picker rows, the follow state,
+ * and the gallery rows. They are registered only when the host exposes `webServer`, so a host
  * without the web surface keeps the tools and the skill.
  */
 
 import { findStyle } from './catalog.js'
-import { DEFAULT_PREVIEW_SLUG, PREVIEW_WIDTHS, previewPage, styleIndex } from './preview.js'
+import { DEFAULT_PREVIEW_SLUG, PREVIEW_WIDTHS, galleryIndex, previewPage, styleIndex } from './preview.js'
 
 /** Route prefix shared by every preview endpoint. */
 export const PREVIEW_PREFIX = '/dsh-uiux/preview'
@@ -35,6 +35,11 @@ export function registerRoutes(ctx, options) {
           kind: 'exact',
           path: `${PREVIEW_PREFIX}/state.json`,
           handler: stateHandler(options),
+        }),
+        child.webServer.register({
+          kind: 'exact',
+          path: `${PREVIEW_PREFIX}/gallery.json`,
+          handler: galleryHandler(options),
         }),
       ]
       return () => {
@@ -80,6 +85,18 @@ function stylesHandler(options) {
       revision: preview.snapshot().revision,
       defaultSlug: DEFAULT_PREVIEW_SLUG,
     })
+  }
+}
+
+/**
+ * Serve the gallery rows.
+ * @param {{ catalog: import('./catalog.js').CatalogEntry[] }} options - catalog.
+ * @returns {(req: import('node:http').IncomingMessage, res: import('node:http').ServerResponse) => void} request handler.
+ */
+function galleryHandler(options) {
+  const rows = galleryIndex(options.catalog)
+  return (_req, res) => {
+    sendJson(res, { styles: rows })
   }
 }
 

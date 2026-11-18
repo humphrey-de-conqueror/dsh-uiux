@@ -51,6 +51,16 @@ stage width to check responsiveness, reload, or open the page in its own tab.
 The demo page is built from the same CSS custom properties `uiux_spec` returns, so the
 preview cannot drift from the spec.
 
+Both panes are also one click away from the composer's **+** menu as the `uiux-preview` and
+`uiux-gallery` commands.
+
+## Gallery
+
+**Style gallery** shows all 79 styles as cards — both palettes, the type faces, the depth of
+the spec — with a filter box. Clicking a card opens it in the preview tab. The cards are painted
+from `/dsh-uiux/preview/gallery.json`, so the gallery needs no build step and no per-style
+iframe.
+
 ## What is inside
 
 - **20 full styles** with complete token sets, component recipes, do/don't rules,

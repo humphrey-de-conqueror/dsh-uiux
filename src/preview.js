@@ -148,6 +148,47 @@ footer { margin-top: var(--uiux-space-8, 32px); color: var(--uiux-color-text-mut
 }
 
 /**
+ * Build the rows the gallery tab renders: two palette strips plus the type faces,
+ * enough to show a style's character without loading 79 iframes.
+ * @param {import('./catalog.js').CatalogEntry[]} catalog - loaded catalog.
+ * @returns {object[]} gallery rows.
+ */
+export function galleryIndex(catalog) {
+  return catalog.map(entry => {
+    const tokens = entry.spec.tokens ?? {}
+    const type = tokens.type ?? {}
+    return {
+      slug: entry.slug,
+      name: entry.name,
+      depth: entry.depth,
+      oneLiner: entry.oneLiner,
+      light: palette(tokens.color?.light),
+      dark: palette(tokens.color?.dark),
+      display: type.display?.family ?? '',
+      body: type.body?.family ?? '',
+      radius: tokens.radius?.md ?? '8px',
+      density: tokens.space?.density ?? null,
+    }
+  })
+}
+
+/**
+ * Pick the roles a gallery card paints.
+ * @param {Record<string, string> | undefined} colors - one scheme's roles.
+ * @returns {{ bg: string, surface: string, text: string, accent: string, accentText: string, border: string }} card colors.
+ */
+function palette(colors = {}) {
+  return {
+    bg: colors.bg ?? '#ffffff',
+    surface: colors.surface ?? colors.bg ?? '#ffffff',
+    text: colors.text ?? '#111111',
+    accent: colors.accent ?? colors.text ?? '#111111',
+    accentText: colors.accentText ?? '#ffffff',
+    border: colors.border ?? colors.text ?? '#111111',
+  }
+}
+
+/**
  * Summarize the catalog for the preview tab's style picker.
  * @param {import('./catalog.js').CatalogEntry[]} catalog - loaded catalog.
  * @returns {{ slug: string, name: string, depth: string, oneLiner: string }[]} picker rows.

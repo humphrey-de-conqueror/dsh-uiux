@@ -7,7 +7,7 @@ import { test } from 'node:test'
 
 import { loadCatalog } from '../src/catalog.js'
 import { createPreviewState } from '../src/preview-state.js'
-import { DEFAULT_PREVIEW_SLUG, PREVIEW_WIDTHS, previewPage, styleIndex } from '../src/preview.js'
+import { DEFAULT_PREVIEW_SLUG, PREVIEW_WIDTHS, galleryIndex, previewPage, styleIndex } from '../src/preview.js'
 import { PREVIEW_PREFIX, registerRoutes } from '../src/routes.js'
 
 const catalog = loadCatalog('data/')
@@ -131,6 +131,7 @@ test('routes keep the documented paths under the preview prefix', () => {
   const { ctx, routes } = fakeHost()
   registerRoutes(ctx, { catalog, config: {}, preview: createPreviewState() })
   assert.deepEqual([...routes.keys()].sort(), [
+    `${PREVIEW_PREFIX}/gallery.json`,
     `${PREVIEW_PREFIX}/page.html`,
     `${PREVIEW_PREFIX}/state.json`,
     `${PREVIEW_PREFIX}/styles.json`,
@@ -182,4 +183,29 @@ test('styles route returns every picker row', () => {
   assert.equal(payload.styles.length, 79)
   assert.equal(payload.defaultSlug, DEFAULT_PREVIEW_SLUG)
   assert.ok(Object.hasOwn(PREVIEW_WIDTHS, 'auto'))
+})
+
+test('gallery index carries both palettes and the type faces', () => {
+  const rows = galleryIndex(catalog)
+  assert.equal(rows.length, 79)
+  for (const row of rows) {
+    assert.equal(typeof row.slug, 'string')
+    for (const scheme of ['light', 'dark']) {
+      for (const role of ['bg', 'surface', 'text', 'accent', 'accentText', 'border']) {
+        assert.match(row[scheme][role], /^#[0-9a-f]{6}(?:[0-9a-f]{2})?$/iu, `${row.slug} ${scheme}.${role}`)
+      }
+    }
+    assert.ok(row.display.length > 0, `${row.slug} display`)
+    assert.ok(row.body.length > 0, `${row.slug} body`)
+  }
+})
+
+test('gallery route returns every card row', () => {
+  const { ctx, routes } = fakeHost()
+  registerRoutes(ctx, { catalog, config: {}, preview: createPreviewState() })
+  const browse = response()
+  routes.get(`${PREVIEW_PREFIX}/gallery.json`)(request('/dsh-uiux/preview/gallery.json'), browse)
+  const payload = JSON.parse(browse.result().body)
+  assert.equal(payload.styles.length, 79)
+  assert.equal(payload.styles[0].light.bg.startsWith('#'), true)
 })

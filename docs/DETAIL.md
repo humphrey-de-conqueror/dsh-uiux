@@ -71,27 +71,34 @@ Parameters: `op` (`search`, `retrieve`, `list`), `query`, `ids`. Backed by the
 `retrieve` output can exceed a comfortable tool result, so responses are truncated with an
 explicit marker.
 
-## Preview tab
+## Preview and gallery tabs
 
-The client half (`client.js`) registers one right-sidebar tab type, `uiux-preview`, with a
-guide entry so it is reachable from the sidebar's add menu.
+The client half (`client.js`) registers two right-sidebar tab types, `uiux-preview` and
+`uiux-gallery`, each with a guide entry so both are reachable from the sidebar's add menu. It
+also registers the `uiux-preview` and `uiux-gallery` commands, so the composer's + menu opens
+either pane without leaving the keyboard.
 
-The pane shows a style dropdown, a light/dark toggle, three stage widths (full, 768, 390),
-a follow toggle, a reload button, and an iframe with the page. It follows the agent: every
-`uiux_spec` call records its slugs on the host, the pane polls `state.json`, and a revision
-bump adopts the first slug unless you pinned a style by hand.
+The preview pane shows a style dropdown, a light/dark toggle, three stage widths (full, 768,
+390), a follow toggle, a reload button, and an iframe with the page. It follows the agent:
+every `uiux_spec` call records its slugs on the host, the pane polls `state.json`, and a
+revision bump adopts the first slug unless you picked a style in the gallery.
 
-Content comes from three exact host routes:
+The gallery pane paints all 79 styles as native cards — both palettes, the display and body
+faces, the spec depth — with a filter box. Clicking a card pins that style and opens the
+preview pane. No iframes are involved, so 79 styles cost one JSON request.
+
+Content comes from four exact host routes:
 
 | Route | Purpose |
 | --- | --- |
 | `GET /dsh-uiux/preview/page.html?slug=&theme=&width=` | The demo page, composed from `uiux_spec` CSS output. |
 | `GET /dsh-uiux/preview/styles.json` | Picker rows for the whole catalog. |
 | `GET /dsh-uiux/preview/state.json` | Last spec slugs, revision, and the default style. |
+| `GET /dsh-uiux/preview/gallery.json` | Gallery cards: both palettes, type faces, radius, depth. |
 
 The client half ships as plain JavaScript — no build step, same loader format as DSH's own
 client plugins. A newly added `dsh.client` manifest field is picked up when the host boots,
-so the tab appears after a restart, not after a reinstall.
+so the tabs appear after a restart, not after a reinstall.
 
 ## Configuration
 
