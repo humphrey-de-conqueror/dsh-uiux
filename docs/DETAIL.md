@@ -11,6 +11,7 @@ execute it without inventing values. It ships one skill (`uiux`) and three tools
 | Tool | `uiux_styles` | Searches the catalog by mood words, domain, tags, or style name and returns a candidate table. |
 | Tool | `uiux_spec` | Renders one or more styles as Markdown, CSS custom properties, a Tailwind v4 `@theme` block, or JSON. |
 | Tool | `uiux_platform_guide` | Wraps Chrome's Modern Web Guidance: search 209 platform guides, then retrieve the ones that matter. |
+| Client tab | `uiux-preview` | Right-sidebar pane that previews a style as a rendered demo page. |
 
 The skill carries the workflow; the tools carry the data. A model that only sees the tool
 descriptions can still use them, which is why the tools are always registered rather than
@@ -70,6 +71,28 @@ Parameters: `op` (`search`, `retrieve`, `list`), `query`, `ids`. Backed by the
 `retrieve` output can exceed a comfortable tool result, so responses are truncated with an
 explicit marker.
 
+## Preview tab
+
+The client half (`client.js`) registers one right-sidebar tab type, `uiux-preview`, with a
+guide entry so it is reachable from the sidebar's add menu.
+
+The pane shows a style dropdown, a light/dark toggle, three stage widths (full, 768, 390),
+a follow toggle, a reload button, and an iframe with the page. It follows the agent: every
+`uiux_spec` call records its slugs on the host, the pane polls `state.json`, and a revision
+bump adopts the first slug unless you pinned a style by hand.
+
+Content comes from three exact host routes:
+
+| Route | Purpose |
+| --- | --- |
+| `GET /dsh-uiux/preview/page.html?slug=&theme=&width=` | The demo page, composed from `uiux_spec` CSS output. |
+| `GET /dsh-uiux/preview/styles.json` | Picker rows for the whole catalog. |
+| `GET /dsh-uiux/preview/state.json` | Last spec slugs, revision, and the default style. |
+
+The client half ships as plain JavaScript — no build step, same loader format as DSH's own
+client plugins. A newly added `dsh.client` manifest field is picked up when the host boots,
+so the tab appears after a restart, not after a reinstall.
+
 ## Configuration
 
 Set options in the bundle patch in your `cordis.yml`:
@@ -96,13 +119,17 @@ being ignored.
 ## Layout
 
 ```
-index.js                  plugin entry: validate config, load catalog, register tools and skill
+index.js                  plugin entry: validate config, load catalog, register tools, routes, and skill
+client.js                 client half: the right-sidebar preview tab
 src/config.js             option validation and defaults
 src/catalog.js            load and rank styles
 src/render.js             markdown, css, tailwind, json renderers with byte caps
 src/tools.js              the three tool definitions
 src/mwg.js                Modern Web Guidance subprocess adapter with an LRU cache
 src/skill-provider.js     the uiux skill provider
+src/preview.js            demo page composition and picker rows
+src/preview-state.js      last-spec slugs and the revision the pane polls
+src/routes.js             the three preview routes
 data/styles/*.json        one file per style
 data/brief-meta.json      authored palettes for brief styles
 data/platform-guide-ids.json  valid guide ids, used by the validator

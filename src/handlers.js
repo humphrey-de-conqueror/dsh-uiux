@@ -9,11 +9,11 @@ import { renderSpec } from './render.js'
 
 /**
  * Build the execute functions of the three tools.
- * @param {{ catalog: import('./catalog.js').CatalogEntry[], config: import('./config.js').UiuxConfig }} options - loaded catalog and resolved config.
+ * @param {{ catalog: import('./catalog.js').CatalogEntry[], config: import('./config.js').UiuxConfig, preview?: ReturnType<import('./preview-state.js').createPreviewState> }} options - loaded catalog, resolved config, and the preview follow state.
  * @returns {object} one async execute function per tool.
  */
 export function createHandlers(options) {
-  const { catalog, config } = options
+  const { catalog, config, preview } = options
 
   return {
     /**
@@ -59,6 +59,7 @@ export function createHandlers(options) {
       if (resolved.length === 0) {
         return `No style matched: ${unknown.join(', ')}. Call \`uiux_styles\` to find a valid slug.`
       }
+      preview?.record(resolved.map(entry => entry.slug))
       const perStyle = Math.max(2048, Math.floor(budget / resolved.length))
       const parts = resolved.map(entry => renderSpec(entry, {
         sections: args.sections,

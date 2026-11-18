@@ -81,37 +81,39 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
 body {
   margin: 0;
   padding: var(--uiux-space-8, 32px) var(--uiux-space-6, 24px);
   background: var(--uiux-color-bg);
   color: var(--uiux-color-text);
-  font-family: Inter;
+  font-family: Inter, system-ui;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 .shell { max-width: 1040px; margin: 0 auto; }
+.stage { max-width: auto; margin: 0 auto; }
 .eyebrow {
   margin: 0 0 var(--uiux-space-2, 8px);
   color: var(--uiux-color-text-muted);
   font-family: "Plus Jakarta Sans";
-  letter-spacing: 0.02em;
+  letter-spacing: 0em;
   text-transform: uppercase;
   font-size: 12px;
 }
 h1 {
   margin: 0 0 var(--uiux-space-3, 12px);
-  font-family: "Plus Jakarta Sans";
+  font-family: "Plus Jakarta Sans", system-ui;
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
 }
 .lede { margin: 0; max-width: 60ch; color: var(--uiux-color-text-muted); }
-.actions { display: flex; gap: var(--uiux-space-3, 12px); margin: var(--uiux-space-6, 24px) 0; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--uiux-space-3, 12px); margin: var(--uiux-space-6, 24px) 0; }
 .primary, .quiet {
-  border-radius: var(--uiux-radius-md);
+  border-radius: var(--uiux-radius-md, 8px);
   border: 1px solid var(--uiux-color-accent);
   background: var(--uiux-color-accent);
   color: var(--uiux-color-accent-text);
@@ -121,22 +123,22 @@ h1 {
   cursor: pointer;
 }
 .quiet { background: transparent; color: var(--uiux-color-text); border-color: var(--uiux-color-border); }
-.grid { display: grid; gap: var(--uiux-space-4, 16px); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.grid { display: grid; gap: var(--uiux-space-4, 16px); grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .card {
   border: 1px solid var(--uiux-color-border);
-  border-radius: var(--uiux-radius-lg);
+  border-radius: var(--uiux-radius-lg, 12px);
   background: var(--uiux-color-surface);
   padding: var(--uiux-space-5, 20px);
-  box-shadow: var(--uiux-shadow-sm, none);
+  box-shadow: var(--uiux-shadow-1, none);
 }
-.card h2 { margin: 0 0 var(--uiux-space-2, 8px); font-family: "Plus Jakarta Sans"; font-size: 18px; }
+.card h2 { margin: 0 0 var(--uiux-space-2, 8px); font-family: "Plus Jakarta Sans"; font-size: 1.125rem; }
 .card p { margin: 0; color: var(--uiux-color-text-muted); }
-.metric { font-family: "JetBrains Mono"; font-size: 34px; font-variant-numeric: tabular-nums; }
+.metric { font-family: "JetBrains Mono", ui-monospace; font-size: 2rem; font-variant-numeric: tabular-nums; }
 label { display: block; margin: var(--uiux-space-6, 24px) 0 var(--uiux-space-2, 8px); font-size: 12px; color: var(--uiux-color-text-muted); }
-input {
+input, select {
   width: 100%; max-width: 360px;
   border: 1px solid var(--uiux-color-border);
-  border-radius: var(--uiux-radius-md);
+  border-radius: var(--uiux-radius-md, 8px);
   background: var(--uiux-color-surface);
   color: var(--uiux-color-text);
   font: inherit;
@@ -148,33 +150,35 @@ footer { margin-top: var(--uiux-space-8, 32px); color: var(--uiux-color-text-mut
 </head>
 <body>
 <div class="shell">
-  <p class="eyebrow">Liquid Glass · full tier</p>
-  <h1>Aperture</h1>
-  <p class="lede">A calm control surface for ambient home devices.</p>
-  <div class="actions">
-    <button class="primary">Continue</button>
-    <button class="quiet">Review changes</button>
+  <div class="stage">
+    <p class="eyebrow">Liquid Glass · full tier</p>
+    <h1>Aperture</h1>
+    <p class="lede">A calm control surface for ambient devices, built from this style's own tokens.</p>
+    <div class="actions">
+      <button class="primary" type="button">Continue</button>
+      <button class="quiet" type="button">Review changes</button>
+    </div>
+    <div class="grid">
+      <section class="card">
+        <h2>Light</h2>
+        <p class="metric">42%</p>
+        <p>Daylight duration, held steady across the week.</p>
+      </section>
+      <section class="card">
+        <h2>Sessions</h2>
+        <p class="metric">1,204</p>
+        <p>Active control surfaces, no drops in the last hour.</p>
+      </section>
+      <section class="card">
+        <h2>Drift</h2>
+        <p class="metric">0.3s</p>
+        <p>Median response time to a device state change.</p>
+      </section>
+    </div>
+    <label for="uiux-preview-field">Project name</label>
+    <input id="uiux-preview-field" value="Northwind" autocomplete="off">
+    <footer>Tokens come from <code>uiux_spec</code> for <code>liquid-glass</code>. Only the demo layout is local.</footer>
   </div>
-  <div class="grid">
-    <section class="card">
-      <h2>Light</h2>
-      <p class="metric">42%</p>
-      <p>Daylight duration, held steady across the week.</p>
-    </section>
-    <section class="card">
-      <h2>Sessions</h2>
-      <p class="metric">1,204</p>
-      <p>Active control surfaces, no drops in the last hour.</p>
-    </section>
-    <section class="card">
-      <h2>Drift</h2>
-      <p class="metric">0.3s</p>
-      <p>Median response time to a device state change.</p>
-    </section>
-  </div>
-  <label for="name">Device name</label>
-  <input id="name" value="Living room" autocomplete="off">
-  <footer>Generated from <code>uiux_spec</code> output for <code>liquid-glass</code>. Tokens are unmodified; only the demo layout is local.</footer>
 </div>
 </body>
 </html>

@@ -23,6 +23,8 @@ that you copy directly instead of inventing values.
    - `tailwind` - paste the `@theme` block (Tailwind v4 assumed).
    - `json` - feed a generator or another tool.
    Name the style you applied in your reply so the user can ask for a different one.
+   The **Style preview** tab in the right sidebar renders whatever you last fetched, so
+   point the user there when they want to see the direction before you build.
 3. **Build.** Use the style's tokens for every color, radius, space, shadow, and duration.
    Build components from the `components` section before inventing new ones. Every value in
    the spec exists for a reason; if you deviate, say which value and why.

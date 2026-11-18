@@ -1,8 +1,8 @@
 {
   "name": "dsh-uiux",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Design-direction plugin for DeepSeek Harness: named visual styles with implementation-ready tokens, plus platform guidance and a review rubric.",
+  "description": "Design-direction plugin for DeepSeek Harness: named visual styles with implementation-ready tokens, platform guidance, a review rubric, and a live preview tab.",
   "type": "module",
   "license": "MIT",
   "main": "index.js",
@@ -11,10 +11,12 @@
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./locale/*.json": "./locale/*.json",
     "./package.json": "./package.json",
-    "./icon": "./icon.svg"
+    "./icon": "./icon.svg",
+    "./client": "./client.js"
   },
   "files": [
     "index.js",
+    "client.js",
     "src",
     "data",
     "skills",
@@ -50,6 +52,14 @@
     "bundle": {
       "patch": "./cordis.patch.yml",
       "listedByDefault": true
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-sidebar-right"
+      ]
     }
   },
   "icon": "./icon.svg"

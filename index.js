@@ -1,14 +1,17 @@
 /**
  * dsh-uiux — design direction for DeepSeek Harness.
  *
- * The bundle contributes one skill (`uiux`) and three tools: browse styles, read
- * a style spec, and consult Modern Web Guidance. Style data is packaged JSON;
- * nothing is fetched at runtime.
+ * The bundle contributes one skill (`uiux`), three tools (browse styles, read a
+ * style spec, consult Modern Web Guidance), and a right-sidebar preview tab that
+ * renders the style the agent last worked on. Style data is packaged JSON; nothing
+ * is fetched at runtime.
  */
 
 import { fileURLToPath } from 'node:url'
 import { loadCatalog } from './src/catalog.js'
 import { resolveConfig } from './src/config.js'
+import { createPreviewState } from './src/preview-state.js'
+import { registerRoutes } from './src/routes.js'
 import { registerSkills } from './src/skill-provider.js'
 import { registerTools } from './src/tools.js'
 
@@ -30,6 +33,8 @@ const PACKAGED_DATA = fileURLToPath(new URL('data/', import.meta.url))
 export function apply(ctx, config) {
   const resolved = resolveConfig(config)
   const catalog = loadCatalog(resolved.dataRoot ?? PACKAGED_DATA)
-  registerTools(ctx, { catalog, config: resolved })
+  const preview = createPreviewState()
+  registerTools(ctx, { catalog, config: resolved, preview })
+  registerRoutes(ctx, { catalog, config: resolved, preview })
   registerSkills(ctx, {})
 }

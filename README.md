@@ -39,6 +39,18 @@ interaction guidance, then review. You can also call the tools directly:
 | `uiux_spec` | Get one or more styles as Markdown, CSS, Tailwind v4, or JSON. |
 | `uiux_platform_guide` | Search Chrome's Modern Web Guidance, then retrieve the guides that matter. |
 
+## Preview
+
+Open **Style preview** from the right sidebar's add menu (or the sidebar guide page) to see
+a style rendered as a small demo page, without opening any file.
+
+The tab follows the agent: each time `uiux_spec` runs, the preview adopts the first style in
+that spec set. Pick another style from the dropdown to pin it, toggle light/dark, switch the
+stage width to check responsiveness, reload, or open the page in its own tab.
+
+The demo page is built from the same CSS custom properties `uiux_spec` returns, so the
+preview cannot drift from the spec.
+
 ## What is inside
 
 - **20 full styles** with complete token sets, component recipes, do/don't rules,
@@ -48,6 +60,7 @@ interaction guidance, then review. You can also call the tools directly:
   style-specific pass/fail review.
 - **Chrome Modern Web Guidance** wrapped as a tool, so interaction behaviour comes from a
   maintained platform source rather than model habit.
+- **A right-sidebar preview tab** that renders the style the agent last worked on.
 
 Full tier: aurora, bento-grid, claymorphism, cyberpunk, dark-luxury, data-dashboard,
 editorial, glassmorphism, japandi, liquid-glass, material-you, maximalist-pop,
