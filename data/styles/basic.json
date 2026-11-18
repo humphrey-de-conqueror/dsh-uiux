@@ -3,6 +3,7 @@
   "name": "Basic",
   "depth": "brief",
   "oneLiner": "Book and magazine grid language for reading, with editorial columns and expressive typography.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

@@ -1,13 +1,14 @@
 /**
  * HTTP routes behind the preview tab.
  *
- * Four exact routes: the rendered demo page, the style picker rows, the follow state,
- * and the gallery rows. They are registered only when the host exposes `webServer`, so a host
+ * Five exact routes: the rendered demo page, the style picker rows, the follow state,
+ * the gallery rows, and the per-style thumbnail. They are registered only when the host exposes `webServer`, so a host
  * without the web surface keeps the tools and the skill.
  */
 
 import { findStyle } from './catalog.js'
-import { DEFAULT_PREVIEW_SLUG, PREVIEW_WIDTHS, galleryIndex, previewPage, styleIndex } from './preview.js'
+import { DEFAULT_PREVIEW_SLUG, PREVIEW_WIDTHS, galleryIndex, previewPage, schemeOf, styleIndex } from './preview.js'
+import { previewThumb } from './thumb.js'
 
 /** Route prefix shared by every preview endpoint. */
 export const PREVIEW_PREFIX = '/dsh-uiux/preview'
@@ -41,6 +42,11 @@ export function registerRoutes(ctx, options) {
           path: `${PREVIEW_PREFIX}/gallery.json`,
           handler: galleryHandler(options),
         }),
+        child.webServer.register({
+          kind: 'exact',
+          path: `${PREVIEW_PREFIX}/thumb.svg`,
+          handler: thumbHandler(options),
+        }),
       ]
       return () => {
         for (const dispose of disposers) dispose()
@@ -65,7 +71,8 @@ function pageHandler(options) {
       sendText(res, 404, `Unknown style: ${requested}`)
       return
     }
-    const theme = url.searchParams.get('theme') === 'dark' ? 'dark' : 'light'
+    const requestedTheme = url.searchParams.get('theme')
+    const theme = requestedTheme === 'dark' || requestedTheme === 'light' ? requestedTheme : schemeOf(entry)
     const widthKey = url.searchParams.get('width') ?? 'auto'
     const width = Object.hasOwn(PREVIEW_WIDTHS, widthKey) ? widthKey : 'auto'
     sendHtml(res, previewPage(entry, { theme, width }))
@@ -89,12 +96,41 @@ function stylesHandler(options) {
 }
 
 /**
+ * Serve one style's thumbnail.
+ * @param {{ catalog: import('./catalog.js').CatalogEntry[] }} options - catalog.
+ * @returns {(req: import('node:http').IncomingMessage, res: import('node:http').ServerResponse) => void} request handler.
+ */
+function thumbHandler(options) {
+  return (req, res) => {
+    const url = new URL(req.url ?? '/', 'http://localhost')
+    const slug = url.searchParams.get('slug') ?? ''
+    const entry = options.catalog.find(candidate => candidate.slug === slug)
+    if (entry === undefined) {
+      sendText(res, 404, `Unknown style: ${slug}`)
+      return
+    }
+    const requestedScheme = url.searchParams.get('scheme')
+    const scheme = requestedScheme === 'dark' || requestedScheme === 'light' ? requestedScheme : schemeOf(entry)
+    const body = previewThumb(entry, { scheme })
+    res.writeHead(200, {
+      'Content-Type': 'image/svg+xml; charset=utf-8',
+      'Content-Length': Buffer.byteLength(body),
+      'Cache-Control': 'public, max-age=300',
+    })
+    res.end(body)
+  }
+}
+
+/**
  * Serve the gallery rows.
  * @param {{ catalog: import('./catalog.js').CatalogEntry[] }} options - catalog.
  * @returns {(req: import('node:http').IncomingMessage, res: import('node:http').ServerResponse) => void} request handler.
  */
 function galleryHandler(options) {
-  const rows = galleryIndex(options.catalog)
+  const rows = galleryIndex(options.catalog).map(row => ({
+    ...row,
+    thumb: `${PREVIEW_PREFIX}/thumb.svg?slug=${encodeURIComponent(row.slug)}`,
+  }))
   return (_req, res) => {
     sendJson(res, { styles: rows })
   }

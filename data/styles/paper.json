@@ -3,6 +3,7 @@
   "name": "Paper",
   "depth": "brief",
   "oneLiner": "Print-inspired warmth on paper-toned surfaces with minimal color and tactile edges.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

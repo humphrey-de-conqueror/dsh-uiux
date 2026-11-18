@@ -3,6 +3,7 @@
   "name": "Roku",
   "depth": "brief",
   "oneLiner": "Purple developer dashboard with top-bar navigation and card grids built for scanning.",
+  "preferredScheme": "dark",
   "aliases": [],
   "mood": [
     "expressive"

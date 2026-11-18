@@ -3,6 +3,7 @@
   "name": "Geometric",
   "depth": "brief",
   "oneLiner": "Precise shapes and a neutral palette, with a layout disciplined enough to stay out of the way.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

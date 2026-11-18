@@ -3,6 +3,7 @@
   "name": "Minimal",
   "depth": "brief",
   "oneLiner": "Stripped back to whitespace, type, and one accent, so the content carries all the weight.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

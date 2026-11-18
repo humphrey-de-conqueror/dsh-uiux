@@ -3,6 +3,7 @@
   "name": "Perspective",
   "depth": "brief",
   "oneLiner": "Isometric depth and vanishing points that guide attention through a constructed three-dimensional space.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

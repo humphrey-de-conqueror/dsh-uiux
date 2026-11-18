@@ -195,6 +195,8 @@ window.__ModuleLoader__.load({
 
       var followRef = React.useRef(true)
       var revisionRef = React.useRef(-1)
+      var schemesRef = React.useRef({})
+      var userThemeRef = React.useRef(false)
 
       React.useEffect(function () {
         followRef.current = follow
@@ -205,7 +207,12 @@ window.__ModuleLoader__.load({
         getJson(STYLES_URL)
           .then(function (payload) {
             if (cancelled) return
-            setStyles(payload.styles || [])
+            var rows = payload.styles || []
+            var schemes = {}
+            for (var index = 0; index < rows.length; index += 1) schemes[rows[index].slug] = rows[index].scheme
+            schemesRef.current = schemes
+            setStyles(rows)
+            if (!userThemeRef.current && schemes[rows[0] && rows[0].slug]) setTheme(schemes[rows[0].slug])
             setSlug(function (previous) {
               return previous || payload.defaultSlug || (payload.styles && payload.styles[0] && payload.styles[0].slug) || ''
             })
@@ -249,6 +256,12 @@ window.__ModuleLoader__.load({
         }
       }, [])
 
+      React.useEffect(function () {
+        if (userThemeRef.current) return
+        var native = schemesRef.current[slug]
+        if (native === 'light' || native === 'dark') setTheme(native)
+      }, [slug])
+
       var url = slug === '' ? '' : pageUrl(slug, theme, width, nonce)
 
       var options = styles.map(function (entry) {
@@ -278,13 +291,13 @@ window.__ModuleLoader__.load({
             key: 'light',
             type: 'button',
             style: controlStyle(theme === 'light'),
-            onClick: function () { setTheme('light') },
+            onClick: function () { userThemeRef.current = true; setTheme('light') },
           }, 'Light'),
           h('button', {
             key: 'dark',
             type: 'button',
             style: controlStyle(theme === 'dark'),
-            onClick: function () { setTheme('dark') },
+            onClick: function () { userThemeRef.current = true; setTheme('dark') },
           }, 'Dark'),
         ]),
         h('div', { key: 'width', style: { display: 'flex', gap: 4 } }, WIDTHS.map(function (item) {
@@ -374,56 +387,6 @@ window.__ModuleLoader__.load({
      */
     function GalleryCard(props) {
       var entry = props.entry
-      var light = entry.light
-      var dark = entry.dark
-      var strip = function (colors, label) {
-        return h('div', {
-          style: {
-            background: colors.bg,
-            color: colors.text,
-            borderBottom: '1px solid ' + colors.border,
-            padding: '10px 12px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            minHeight: 54,
-          },
-        }, [
-          h('span', {
-            key: 'aa',
-            style: {
-              fontFamily: entry.display + ', ' + entry.body + ', system-ui, sans-serif',
-              fontSize: 20,
-              lineHeight: 1,
-              fontWeight: 600,
-            },
-          }, 'Aa'),
-          h('span', {
-            key: 'chip',
-            style: {
-              background: colors.accent,
-              color: colors.accentText,
-              borderRadius: entry.radius,
-              fontSize: 10,
-              lineHeight: '16px',
-              padding: '0 6px',
-            },
-          }, 'Action'),
-          h('span', {
-            key: 'dot',
-            style: {
-              marginLeft: 'auto',
-              width: 8,
-              height: 8,
-              borderRadius: 999,
-              background: colors.surface,
-              border: '1px solid ' + colors.border,
-            },
-            title: label + ' surface',
-          }),
-        ])
-      }
-
       return h('button', {
         type: 'button',
         onClick: function () { props.onPick(entry.slug) },
@@ -442,8 +405,21 @@ window.__ModuleLoader__.load({
         },
         title: entry.oneLiner,
       }, [
-        strip(light, 'Light'),
-        strip(dark, 'Dark'),
+        h('img', {
+          key: 'thumb',
+          src: entry.thumb,
+          alt: entry.name + ' preview',
+          loading: 'lazy',
+          width: 320,
+          height: 200,
+          style: {
+            display: 'block',
+            width: '100%',
+            height: 'auto',
+            borderBottom: '1px solid ' + BORDER,
+            background: entry.light.bg,
+          },
+        }),
         h('div', { key: 'meta', style: { padding: '8px 10px 10px' } }, [
           h('div', { key: 'name', style: { fontSize: 13, fontWeight: 600, lineHeight: '18px' } }, entry.name),
           h('div', {
@@ -540,7 +516,7 @@ window.__ModuleLoader__.load({
                 overflow: 'auto',
                 padding: 10,
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
                 gap: 10,
                 alignContent: 'start',
               },

@@ -3,6 +3,7 @@
   "name": "Brutalism",
   "depth": "brief",
   "oneLiner": "Unadorned slab layout with raw type, visible structure, and a deliberate refusal of decoration.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

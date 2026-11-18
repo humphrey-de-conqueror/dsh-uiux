@@ -3,11 +3,36 @@
   "name": "Monochrome Architecture",
   "depth": "full",
   "oneLiner": "Structure as style: hairline grids, oversized neutral type, and not a single hue outside the grey spectrum.",
-  "aliases": ["architectural", "brutalist monochrome", "建筑风", "grey grid"],
-  "mood": ["precise", "austere", "professional", "spatial"],
-  "tags": ["architecture", "studio", "portfolio", "monochrome", "grid"],
-  "bestFor": ["architecture and design studios", "technical portfolio sites", "case-study and spec documents"],
-  "avoidFor": ["consumer social products", "children's products", "promotions that need colour urgency"],
+  "preferredScheme": "light",
+  "aliases": [
+    "architectural",
+    "brutalist monochrome",
+    "建筑风",
+    "grey grid"
+  ],
+  "mood": [
+    "precise",
+    "austere",
+    "professional",
+    "spatial"
+  ],
+  "tags": [
+    "architecture",
+    "studio",
+    "portfolio",
+    "monochrome",
+    "grid"
+  ],
+  "bestFor": [
+    "architecture and design studios",
+    "technical portfolio sites",
+    "case-study and spec documents"
+  ],
+  "avoidFor": [
+    "consumer social products",
+    "children's products",
+    "promotions that need colour urgency"
+  ],
   "tokens": {
     "color": {
       "light": {
@@ -64,15 +89,42 @@
         "tracking": "0.14em",
         "leading": 1.5
       },
-      "scale": ["0.6875rem", "0.75rem", "0.875rem", "0.9375rem", "1.5rem", "2.5rem", "6rem"],
-      "weights": [400, 500, 700]
+      "scale": [
+        "0.6875rem",
+        "0.75rem",
+        "0.875rem",
+        "0.9375rem",
+        "1.5rem",
+        "2.5rem",
+        "6rem"
+      ],
+      "weights": [
+        400,
+        500,
+        700
+      ]
     },
     "space": {
       "unit": "8px",
-      "scale": { "1": "8px", "2": "16px", "3": "24px", "4": "32px", "5": "48px", "6": "64px", "7": "96px", "8": "144px" },
+      "scale": {
+        "1": "8px",
+        "2": "16px",
+        "3": "24px",
+        "4": "32px",
+        "5": "48px",
+        "6": "64px",
+        "7": "96px",
+        "8": "144px"
+      },
       "density": "architectural"
     },
-    "radius": { "none": "0", "sm": "0", "md": "0", "lg": "0", "full": "0" },
+    "radius": {
+      "none": "0",
+      "sm": "0",
+      "md": "0",
+      "lg": "0",
+      "full": "0"
+    },
     "elevation": {
       "none": "none",
       "1": "0 1px 0 #C9C9C9",
@@ -87,8 +139,14 @@
       "corner-marks": "optional 8px L-shaped crop marks at container corners instead of borders"
     },
     "motion": {
-      "duration": { "fast": "150ms", "base": "300ms", "slow": "500ms" },
-      "easing": { "standard": "cubic-bezier(0.4, 0, 0.2, 1)" },
+      "duration": {
+        "fast": "150ms",
+        "base": "300ms",
+        "slow": "500ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.4, 0, 0.2, 1)"
+      },
       "reducedMotion": "opacity changes only; no width or position animation"
     }
   },
@@ -159,8 +217,36 @@
       "Muted grey metadata at 11px is the likeliest failure; keep it at 4.5:1 and never below 11px.",
       "Grayscale imagery must keep alt text descriptive, since colour cannot carry meaning."
     ],
-    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
+    ]
   },
-  "platformNotes": ["css-layout", "size-aware-styling", "precise-text-alignment", "equal-width-text-lines", "responsive-table", "content-first-noise-reduction"],
-  "sources": [{ "label": "Authored for dsh-uiux" }]
+  "platformNotes": [
+    "css-layout",
+    "size-aware-styling",
+    "precise-text-alignment",
+    "equal-width-text-lines",
+    "responsive-table",
+    "content-first-noise-reduction"
+  ],
+  "sources": [
+    {
+      "label": "Authored for dsh-uiux"
+    }
+  ]
 }

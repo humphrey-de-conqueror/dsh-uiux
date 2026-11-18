@@ -3,11 +3,36 @@
   "name": "Aurora",
   "depth": "full",
   "oneLiner": "A deep polar sky with slow bands of green and violet light drifting behind calm, low-noise interface chrome.",
-  "aliases": ["northern lights", "极光", "aurora borealis", "gradient aurora"],
-  "mood": ["atmospheric", "serene", "premium", "alive"],
-  "tags": ["ai", "dark", "gradient", "product", "immersive"],
-  "bestFor": ["AI and infrastructure products", "premium onboarding and empty states", "developer platforms with a hero moment"],
-  "avoidFor": ["dense operational dashboards", "print and email templates", "screens that must render on low-end GPUs"],
+  "preferredScheme": "dark",
+  "aliases": [
+    "northern lights",
+    "极光",
+    "aurora borealis",
+    "gradient aurora"
+  ],
+  "mood": [
+    "atmospheric",
+    "serene",
+    "premium",
+    "alive"
+  ],
+  "tags": [
+    "ai",
+    "dark",
+    "gradient",
+    "product",
+    "immersive"
+  ],
+  "bestFor": [
+    "AI and infrastructure products",
+    "premium onboarding and empty states",
+    "developer platforms with a hero moment"
+  ],
+  "avoidFor": [
+    "dense operational dashboards",
+    "print and email templates",
+    "screens that must render on low-end GPUs"
+  ],
   "tokens": {
     "color": {
       "light": {
@@ -64,15 +89,43 @@
         "tracking": "0.01em",
         "leading": 1.5
       },
-      "scale": ["0.75rem", "0.875rem", "1rem", "1.25rem", "1.75rem", "2.5rem", "4rem"],
-      "weights": [400, 500, 600]
+      "scale": [
+        "0.75rem",
+        "0.875rem",
+        "1rem",
+        "1.25rem",
+        "1.75rem",
+        "2.5rem",
+        "4rem"
+      ],
+      "weights": [
+        400,
+        500,
+        600
+      ]
     },
     "space": {
       "unit": "4px",
-      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "48px", "8": "80px" },
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "24px",
+        "6": "32px",
+        "7": "48px",
+        "8": "80px"
+      },
       "density": "airy"
     },
-    "radius": { "none": "0", "sm": "8px", "md": "12px", "lg": "20px", "xl": "28px", "full": "999px" },
+    "radius": {
+      "none": "0",
+      "sm": "8px",
+      "md": "12px",
+      "lg": "20px",
+      "xl": "28px",
+      "full": "999px"
+    },
     "elevation": {
       "none": "none",
       "1": "0 1px 0 rgba(234, 240, 255, 0.06) inset",
@@ -91,8 +144,15 @@
       "aura": "the gradient field is a fixed layer behind content; content surfaces stay opaque"
     },
     "motion": {
-      "duration": { "fast": "180ms", "base": "320ms", "slow": "1200ms" },
-      "easing": { "standard": "cubic-bezier(0.22, 1, 0.36, 1)", "drift": "cubic-bezier(0.45, 0, 0.55, 1)" },
+      "duration": {
+        "fast": "180ms",
+        "base": "320ms",
+        "slow": "1200ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "drift": "cubic-bezier(0.45, 0, 0.55, 1)"
+      },
       "reducedMotion": "freeze the aurora field in place; keep opacity transitions under 200ms"
     }
   },
@@ -162,8 +222,36 @@
       "Slow ambient motion still needs prefer-reduced-motion support — freeze, do not remove.",
       "The accent must stay at 3:1 against the darkest and lightest parts of the field for focus rings to remain visible."
     ],
-    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
+    ]
   },
-  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "dark-mode", "apply-webgl-shaders", "deliver-optimized-decorative-images", "visually-texture-content"],
-  "sources": [{ "label": "Authored for dsh-uiux" }]
+  "platformNotes": [
+    "component-specific-light-dark-theme",
+    "contrast-color",
+    "dark-mode",
+    "apply-webgl-shaders",
+    "deliver-optimized-decorative-images",
+    "visually-texture-content"
+  ],
+  "sources": [
+    {
+      "label": "Authored for dsh-uiux"
+    }
+  ]
 }

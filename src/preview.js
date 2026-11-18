@@ -168,8 +168,18 @@ export function galleryIndex(catalog) {
       body: type.body?.family ?? '',
       radius: tokens.radius?.md ?? '8px',
       density: tokens.space?.density ?? null,
+      scheme: schemeOf(entry),
     }
   })
+}
+
+/**
+ * The scheme a style is meant to be seen in.
+ * @param {import('./catalog.js').CatalogEntry} entry - catalog row.
+ * @returns {'light' | 'dark'} native scheme, light when a spec does not say.
+ */
+export function schemeOf(entry) {
+  return entry.spec.preferredScheme === 'dark' ? 'dark' : 'light'
 }
 
 /**
@@ -194,7 +204,13 @@ function palette(colors = {}) {
  * @returns {{ slug: string, name: string, depth: string, oneLiner: string }[]} picker rows.
  */
 export function styleIndex(catalog) {
-  return catalog.map(entry => ({ slug: entry.slug, name: entry.name, depth: entry.depth, oneLiner: entry.oneLiner }))
+  return catalog.map(entry => ({
+    slug: entry.slug,
+    name: entry.name,
+    depth: entry.depth,
+    oneLiner: entry.oneLiner,
+    scheme: schemeOf(entry),
+  }))
 }
 
 /** Per-style demo copy, falling back to neutral copy. */
@@ -253,7 +269,7 @@ function quoteFamily(family) {
  * @param {string} value - raw text.
  * @returns {string} escaped text.
  */
-function escapeHtml(value) {
+export function escapeHtml(value) {
   return String(value)
     .replace(/&/gu, '&amp;')
     .replace(/</gu, '&lt;')

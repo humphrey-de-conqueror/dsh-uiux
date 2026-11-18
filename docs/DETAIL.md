@@ -79,12 +79,16 @@ also registers the `uiux-preview` and `uiux-gallery` commands, so the composer's
 either pane without leaving the keyboard.
 
 The preview pane shows a style dropdown, a light/dark toggle, three stage widths (full, 768,
-390), a follow toggle, a reload button, and an iframe with the page. It follows the agent:
+390), a follow toggle, a reload button, and an iframe with the page. The pane adopts each style's
+`preferredScheme` when you pick one, and keeps your manual light/dark choice for that style. It follows the agent:
 every `uiux_spec` call records its slugs on the host, the pane polls `state.json`, and a
 revision bump adopts the first slug unless you picked a style in the gallery.
 
-The gallery pane paints all 79 styles as native cards — both palettes, the display and body
-faces, the spec depth — with a filter box. Clicking a card pins that style, opens the preview
+The gallery pane paints all 79 styles as cards, each with a thumbnail (`thumb.svg?slug=`) that
+reuses one wireframe — header bar, `Aa` hero, measure lines, accent action, three cards — painted
+from that style's own tokens. Every style declares `preferredScheme`, authored for the full tier
+and derived from `data/brief-meta.json` for briefs, so dark-first styles (Cyberpunk, Aurora,
+Terminal CRT, …) show dark, and the preview page opens in the native scheme until you toggle it. Clicking a card pins that style, opens the preview
 pane, and primes the composer with the request (`Use the Editorial style (\`editorial\`) …`)
 through the session's own input facade, so the agent learns the pick from a normal message. A
 hand-written draft is left alone and the user is told to clear it. The preview header's **Ask

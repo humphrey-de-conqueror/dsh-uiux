@@ -3,11 +3,37 @@
   "name": "Premium Minimalism",
   "depth": "full",
   "oneLiner": "Warm near-white paper, one serif voice, hairline rules, and vast quiet space — luxury communicated by restraint instead of decoration.",
-  "aliases": ["premium-minimal", "quiet luxury", "高级灰", "极简高级"],
-  "mood": ["calm", "refined", "expensive", "assured"],
-  "tags": ["luxury", "editorial", "commerce", "portfolio", "wellness"],
-  "bestFor": ["luxury commerce", "studio and portfolio sites", "wellness brands", "high-ticket services"],
-  "avoidFor": ["data-dense dashboards", "playful consumer apps", "kid-facing products"],
+  "preferredScheme": "light",
+  "aliases": [
+    "premium-minimal",
+    "quiet luxury",
+    "高级灰",
+    "极简高级"
+  ],
+  "mood": [
+    "calm",
+    "refined",
+    "expensive",
+    "assured"
+  ],
+  "tags": [
+    "luxury",
+    "editorial",
+    "commerce",
+    "portfolio",
+    "wellness"
+  ],
+  "bestFor": [
+    "luxury commerce",
+    "studio and portfolio sites",
+    "wellness brands",
+    "high-ticket services"
+  ],
+  "avoidFor": [
+    "data-dense dashboards",
+    "playful consumer apps",
+    "kid-facing products"
+  ],
   "tokens": {
     "color": {
       "light": {
@@ -64,8 +90,20 @@
         "tracking": "0.14em",
         "leading": 1.4
       },
-      "scale": ["0.6875rem", "0.8125rem", "0.9375rem", "1.0625rem", "1.375rem", "1.875rem", "2.75rem", "4rem"],
-      "weights": [400, 500]
+      "scale": [
+        "0.6875rem",
+        "0.8125rem",
+        "0.9375rem",
+        "1.0625rem",
+        "1.375rem",
+        "1.875rem",
+        "2.75rem",
+        "4rem"
+      ],
+      "weights": [
+        400,
+        500
+      ]
     },
     "space": {
       "unit": "4px",
@@ -97,12 +135,18 @@
     },
     "effects": {
       "blur": "8px",
-      "gradients": ["linear-gradient(180deg, #FFFFFF 0%, #FBFBF9 100%)"],
+      "gradients": [
+        "linear-gradient(180deg, #FFFFFF 0%, #FBFBF9 100%)"
+      ],
       "noise": "none",
       "border": "1px solid #E3E2DD"
     },
     "motion": {
-      "duration": { "fast": "160ms", "base": "320ms", "slow": "560ms" },
+      "duration": {
+        "fast": "160ms",
+        "base": "320ms",
+        "slow": "560ms"
+      },
       "easing": {
         "standard": "cubic-bezier(0.2, 0.7, 0.2, 1)",
         "entrance": "cubic-bezier(0.16, 1, 0.3, 1)"
@@ -180,11 +224,26 @@
       "Letter-spaced uppercase labels must still meet 4.5:1 at 11–12px."
     ],
     "contrastPairs": [
-      ["text", "bg"],
-      ["text", "surface"],
-      ["textMuted", "bg"],
-      ["accentText", "accent"],
-      ["textMuted", "surfaceAlt"]
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "text",
+        "surface"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "textMuted",
+        "surfaceAlt"
+      ]
     ]
   },
   "platformNotes": [
@@ -195,6 +254,8 @@
     "optimize-image-priority"
   ],
   "sources": [
-    { "label": "Authored for dsh-uiux" }
+    {
+      "label": "Authored for dsh-uiux"
+    }
   ]
 }

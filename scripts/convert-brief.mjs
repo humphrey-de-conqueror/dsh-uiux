@@ -216,6 +216,7 @@ function convert(entry) {
     name: entry.name,
     depth: 'brief',
     oneLiner: authored.oneLiner,
+    preferredScheme: dark ? 'dark' : 'light',
     aliases: authored.aliases ?? [],
     mood: authored.mood ?? ['expressive'],
     tags: authored.tags ?? [],

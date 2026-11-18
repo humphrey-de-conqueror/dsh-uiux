@@ -3,11 +3,36 @@
   "name": "Data Dashboard",
   "depth": "full",
   "oneLiner": "Instrument-panel clarity: dense but quiet, tabular numerals, one accent, and status colour that only ever means status.",
-  "aliases": ["admin dashboard", "analytics ui", "数据看板", "ops console"],
-  "mood": ["precise", "neutral", "efficient", "trustworthy"],
-  "tags": ["analytics", "admin", "saas", "data", "dense"],
-  "bestFor": ["analytics and monitoring consoles", "admin and back-office tools", "operations and finance reporting"],
-  "avoidFor": ["brand marketing pages", "storytelling microsites", "playful consumer onboarding"],
+  "preferredScheme": "light",
+  "aliases": [
+    "admin dashboard",
+    "analytics ui",
+    "数据看板",
+    "ops console"
+  ],
+  "mood": [
+    "precise",
+    "neutral",
+    "efficient",
+    "trustworthy"
+  ],
+  "tags": [
+    "analytics",
+    "admin",
+    "saas",
+    "data",
+    "dense"
+  ],
+  "bestFor": [
+    "analytics and monitoring consoles",
+    "admin and back-office tools",
+    "operations and finance reporting"
+  ],
+  "avoidFor": [
+    "brand marketing pages",
+    "storytelling microsites",
+    "playful consumer onboarding"
+  ],
   "tokens": {
     "color": {
       "light": {
@@ -64,16 +89,44 @@
         "tracking": "0em",
         "leading": 1.4
       },
-      "scale": ["0.6875rem", "0.75rem", "0.8125rem", "0.875rem", "1rem", "1.25rem", "1.5rem", "2rem"],
-      "weights": [400, 500, 600],
+      "scale": [
+        "0.6875rem",
+        "0.75rem",
+        "0.8125rem",
+        "0.875rem",
+        "1rem",
+        "1.25rem",
+        "1.5rem",
+        "2rem"
+      ],
+      "weights": [
+        400,
+        500,
+        600
+      ],
       "numeric": "font-variant-numeric: tabular-nums; all metrics, deltas, timestamps, and table cells"
     },
     "space": {
       "unit": "4px",
-      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "20px", "6": "24px", "7": "32px", "8": "48px" },
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "20px",
+        "6": "24px",
+        "7": "32px",
+        "8": "48px"
+      },
       "density": "dense"
     },
-    "radius": { "none": "0", "sm": "4px", "md": "6px", "lg": "8px", "full": "999px" },
+    "radius": {
+      "none": "0",
+      "sm": "4px",
+      "md": "6px",
+      "lg": "8px",
+      "full": "999px"
+    },
     "elevation": {
       "none": "none",
       "1": "0 1px 2px rgba(16, 24, 40, 0.06)",
@@ -88,8 +141,14 @@
       "row-stripe": "transparent — use row hover and dividers instead of zebra stripes"
     },
     "motion": {
-      "duration": { "fast": "100ms", "base": "160ms", "slow": "240ms" },
-      "easing": { "standard": "cubic-bezier(0.4, 0, 0.2, 1)" },
+      "duration": {
+        "fast": "100ms",
+        "base": "160ms",
+        "slow": "240ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.4, 0, 0.2, 1)"
+      },
       "reducedMotion": "no counter roll-ups; show the final value immediately"
     }
   },
@@ -174,8 +233,36 @@
       "Tabular numerals and right alignment are accessibility features for scanning columns, not just polish.",
       "Charts need a text alternative: a summary sentence plus a data table for the same values."
     ],
-    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
+    ]
   },
-  "platformNotes": ["responsive-table", "sortable-table", "dynamic-sort", "size-aware-styling", "state-aware-sticky-headers", "content-first-noise-reduction"],
-  "sources": [{ "label": "Authored for dsh-uiux" }]
+  "platformNotes": [
+    "responsive-table",
+    "sortable-table",
+    "dynamic-sort",
+    "size-aware-styling",
+    "state-aware-sticky-headers",
+    "content-first-noise-reduction"
+  ],
+  "sources": [
+    {
+      "label": "Authored for dsh-uiux"
+    }
+  ]
 }

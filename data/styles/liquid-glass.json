@@ -3,11 +3,37 @@
   "name": "Liquid Glass",
   "depth": "full",
   "oneLiner": "Translucent, layered surfaces with specular edges, saturated backdrops, and spring-weighted motion — depth you can almost touch.",
-  "aliases": ["liquidglass", "liquid glass", "液态玻璃", "璃光玻璃"],
-  "mood": ["fluid", "premium", "luminous", "alive"],
-  "tags": ["consumer", "marketing", "ios-adjacent", "media", "product-showcase"],
-  "bestFor": ["premium consumer apps", "product showcases", "media players", "onboarding flows"],
-  "avoidFor": ["dense data tables", "low-end device targets", "print or email templates"],
+  "preferredScheme": "light",
+  "aliases": [
+    "liquidglass",
+    "liquid glass",
+    "液态玻璃",
+    "璃光玻璃"
+  ],
+  "mood": [
+    "fluid",
+    "premium",
+    "luminous",
+    "alive"
+  ],
+  "tags": [
+    "consumer",
+    "marketing",
+    "ios-adjacent",
+    "media",
+    "product-showcase"
+  ],
+  "bestFor": [
+    "premium consumer apps",
+    "product showcases",
+    "media players",
+    "onboarding flows"
+  ],
+  "avoidFor": [
+    "dense data tables",
+    "low-end device targets",
+    "print or email templates"
+  ],
   "tokens": {
     "color": {
       "light": {
@@ -64,8 +90,21 @@
         "tracking": "0.02em",
         "leading": 1.5
       },
-      "scale": ["0.75rem", "0.875rem", "1rem", "1.125rem", "1.5rem", "2rem", "2.75rem", "3.75rem"],
-      "weights": [400, 500, 600]
+      "scale": [
+        "0.75rem",
+        "0.875rem",
+        "1rem",
+        "1.125rem",
+        "1.5rem",
+        "2rem",
+        "2.75rem",
+        "3.75rem"
+      ],
+      "weights": [
+        400,
+        500,
+        600
+      ]
     },
     "space": {
       "unit": "4px",
@@ -108,7 +147,11 @@
       "border": "1px solid #0F12181A"
     },
     "motion": {
-      "duration": { "fast": "120ms", "base": "220ms", "slow": "380ms" },
+      "duration": {
+        "fast": "120ms",
+        "base": "220ms",
+        "slow": "380ms"
+      },
       "easing": {
         "standard": "cubic-bezier(0.22, 0.61, 0.36, 1)",
         "entrance": "cubic-bezier(0.16, 1, 0.3, 1)",
@@ -188,11 +231,26 @@
       "Provide the reduced-motion variant: opacity-only transitions, no scale or spring, and no parallax."
     ],
     "contrastPairs": [
-      ["text", "bg"],
-      ["text", "surface"],
-      ["textMuted", "bg"],
-      ["accentText", "accent"],
-      ["text", "surfaceAlt"]
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "text",
+        "surface"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
     ]
   },
   "platformNotes": [
@@ -204,6 +262,8 @@
     "light-dismiss-a-dialog"
   ],
   "sources": [
-    { "label": "Authored for dsh-uiux" }
+    {
+      "label": "Authored for dsh-uiux"
+    }
   ]
 }

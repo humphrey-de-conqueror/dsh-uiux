@@ -3,6 +3,7 @@
   "name": "Storytelling",
   "depth": "brief",
   "oneLiner": "Narrative sequencing that walks the visitor through a story across scroll, copy, and interaction.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

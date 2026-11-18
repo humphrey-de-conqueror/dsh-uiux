@@ -3,6 +3,7 @@
   "name": "Dithered",
   "depth": "brief",
   "oneLiner": "Few-color dot patterns that simulate tone and give a digital surface a printed, retro grain.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

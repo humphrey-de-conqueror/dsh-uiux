@@ -3,11 +3,36 @@
   "name": "Japandi",
   "depth": "full",
   "oneLiner": "Japanese restraint meets Scandinavian warmth: paper tones, honest materials, low contrast, and space used as a feature.",
-  "aliases": ["wabi sabi", "japanese scandinavian", "侘寂", "和风北欧"],
-  "mood": ["calm", "natural", "considered", "warm"],
-  "tags": ["interior", "wellness", "craft", "minimal", "natural"],
-  "bestFor": ["home, furniture, and craft brands", "wellness and slow-living products", "studios that want quiet credibility"],
-  "avoidFor": ["fast-moving consumer promotions", "high-density data tools", "loud entertainment brands"],
+  "preferredScheme": "light",
+  "aliases": [
+    "wabi sabi",
+    "japanese scandinavian",
+    "侘寂",
+    "和风北欧"
+  ],
+  "mood": [
+    "calm",
+    "natural",
+    "considered",
+    "warm"
+  ],
+  "tags": [
+    "interior",
+    "wellness",
+    "craft",
+    "minimal",
+    "natural"
+  ],
+  "bestFor": [
+    "home, furniture, and craft brands",
+    "wellness and slow-living products",
+    "studios that want quiet credibility"
+  ],
+  "avoidFor": [
+    "fast-moving consumer promotions",
+    "high-density data tools",
+    "loud entertainment brands"
+  ],
   "tokens": {
     "color": {
       "light": {
@@ -64,15 +89,42 @@
         "tracking": "0.08em",
         "leading": 1.6
       },
-      "scale": ["0.75rem", "0.8125rem", "0.9375rem", "1.0625rem", "1.375rem", "2rem", "3.25rem"],
-      "weights": [400, 500, 600]
+      "scale": [
+        "0.75rem",
+        "0.8125rem",
+        "0.9375rem",
+        "1.0625rem",
+        "1.375rem",
+        "2rem",
+        "3.25rem"
+      ],
+      "weights": [
+        400,
+        500,
+        600
+      ]
     },
     "space": {
       "unit": "4px",
-      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "20px", "5": "32px", "6": "48px", "7": "80px", "8": "120px" },
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "20px",
+        "5": "32px",
+        "6": "48px",
+        "7": "80px",
+        "8": "120px"
+      },
       "density": "spacious"
     },
-    "radius": { "none": "0", "sm": "2px", "md": "4px", "lg": "8px", "full": "999px" },
+    "radius": {
+      "none": "0",
+      "sm": "2px",
+      "md": "4px",
+      "lg": "8px",
+      "full": "999px"
+    },
     "elevation": {
       "none": "none",
       "1": "0 1px 0 #D9D0C3",
@@ -86,8 +138,14 @@
       "material": "no gloss, no metallic finishes; warmth comes from paper and clay tones"
     },
     "motion": {
-      "duration": { "fast": "220ms", "base": "420ms", "slow": "900ms" },
-      "easing": { "standard": "cubic-bezier(0.25, 0.1, 0.25, 1)" },
+      "duration": {
+        "fast": "220ms",
+        "base": "420ms",
+        "slow": "900ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+      },
       "reducedMotion": "fade only; no parallax and no staggered reveals"
     }
   },
@@ -156,8 +214,35 @@
       "Wide letter-spacing helps CJK and Latin labels but hurts long paragraphs; keep it to labels only.",
       "Long 1.85 line-height increases scroll length; ensure anchor and focus jumps remain visible."
     ],
-    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
+    ]
   },
-  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "visually-texture-content", "improve-text-layout-and-legibility", "content-first-noise-reduction"],
-  "sources": [{ "label": "Authored for dsh-uiux" }]
+  "platformNotes": [
+    "component-specific-light-dark-theme",
+    "contrast-color",
+    "visually-texture-content",
+    "improve-text-layout-and-legibility",
+    "content-first-noise-reduction"
+  ],
+  "sources": [
+    {
+      "label": "Authored for dsh-uiux"
+    }
+  ]
 }

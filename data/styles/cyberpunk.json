@@ -3,11 +3,36 @@
   "name": "Cyberpunk",
   "depth": "full",
   "oneLiner": "Night-city interface: near-black steel, neon circuitry, monospaced labels, and glow used as a functional signal.",
-  "aliases": ["neon noir", "techno", "赛博朋克", "cyber punk"],
-  "mood": ["electric", "tense", "nocturnal", "technical"],
-  "tags": ["gaming", "web3", "developer", "dark", "neon"],
-  "bestFor": ["games and interactive fiction", "developer tools with a strong identity", "music and event platforms"],
-  "avoidFor": ["healthcare and finance trust surfaces", "long-form documentation", "print-adjacent or accessible-first public services"],
+  "preferredScheme": "dark",
+  "aliases": [
+    "neon noir",
+    "techno",
+    "赛博朋克",
+    "cyber punk"
+  ],
+  "mood": [
+    "electric",
+    "tense",
+    "nocturnal",
+    "technical"
+  ],
+  "tags": [
+    "gaming",
+    "web3",
+    "developer",
+    "dark",
+    "neon"
+  ],
+  "bestFor": [
+    "games and interactive fiction",
+    "developer tools with a strong identity",
+    "music and event platforms"
+  ],
+  "avoidFor": [
+    "healthcare and finance trust surfaces",
+    "long-form documentation",
+    "print-adjacent or accessible-first public services"
+  ],
   "tokens": {
     "color": {
       "light": {
@@ -64,15 +89,43 @@
         "tracking": "0.06em",
         "leading": 1.45
       },
-      "scale": ["0.6875rem", "0.75rem", "0.875rem", "0.9375rem", "1.25rem", "1.75rem", "2.5rem"],
-      "weights": [400, 500, 600, 700]
+      "scale": [
+        "0.6875rem",
+        "0.75rem",
+        "0.875rem",
+        "0.9375rem",
+        "1.25rem",
+        "1.75rem",
+        "2.5rem"
+      ],
+      "weights": [
+        400,
+        500,
+        600,
+        700
+      ]
     },
     "space": {
       "unit": "4px",
-      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "48px", "8": "72px" },
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "24px",
+        "6": "32px",
+        "7": "48px",
+        "8": "72px"
+      },
       "density": "compact"
     },
-    "radius": { "none": "0", "sm": "2px", "md": "4px", "lg": "6px", "full": "999px" },
+    "radius": {
+      "none": "0",
+      "sm": "2px",
+      "md": "4px",
+      "lg": "6px",
+      "full": "999px"
+    },
     "elevation": {
       "none": "none",
       "1": "0 0 0 1px #1E2A47",
@@ -81,14 +134,23 @@
     },
     "effects": {
       "blur": "8px",
-      "gradients": ["linear-gradient(120deg, rgba(0, 240, 255, 0.14) 0%, rgba(255, 46, 151, 0.14) 100%)"],
+      "gradients": [
+        "linear-gradient(120deg, rgba(0, 240, 255, 0.14) 0%, rgba(255, 46, 151, 0.14) 100%)"
+      ],
       "noise": "4% scanline pattern at 3px vertical pitch, never over body text",
       "border": "1px solid var(--uiux-color-border)",
       "glow": "0 0 12px rgba(0, 240, 255, 0.45) on focus, active, and live status only"
     },
     "motion": {
-      "duration": { "fast": "100ms", "base": "180ms", "slow": "320ms" },
-      "easing": { "standard": "cubic-bezier(0.4, 0, 0.2, 1)", "flicker": "steps(2, end)" },
+      "duration": {
+        "fast": "100ms",
+        "base": "180ms",
+        "slow": "320ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "flicker": "steps(2, end)"
+      },
       "reducedMotion": "no flicker, no scanline animation; glow becomes a solid 1px accent border"
     }
   },
@@ -164,8 +226,35 @@
       "Glow must never replace a focus ring: keep a 2px solid outline and 2px offset.",
       "Scanline overlays and flicker are vestibular triggers; disable both under prefers-reduced-motion."
     ],
-    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
+    ]
   },
-  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "dark-mode", "custom-text-decorations", "complex-shapes"],
-  "sources": [{ "label": "Authored for dsh-uiux" }]
+  "platformNotes": [
+    "component-specific-light-dark-theme",
+    "contrast-color",
+    "dark-mode",
+    "custom-text-decorations",
+    "complex-shapes"
+  ],
+  "sources": [
+    {
+      "label": "Authored for dsh-uiux"
+    }
+  ]
 }

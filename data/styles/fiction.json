@@ -3,6 +3,7 @@
   "name": "Fiction",
   "depth": "brief",
   "oneLiner": "Storybook warmth with chunky outlines, warm surfaces, and expressive display type.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

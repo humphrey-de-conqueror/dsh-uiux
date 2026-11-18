@@ -3,11 +3,36 @@
   "name": "Vaporwave",
   "depth": "full",
   "oneLiner": "A sunset grid horizon, chrome type, and pastel neon: the internet's romantic memory of the 1980s, rendered on purpose.",
-  "aliases": ["synthwave", "retrowave", "蒸汽波", "outrun"],
-  "mood": ["dreamy", "nostalgic", "electric", "ironic"],
-  "tags": ["music", "gaming", "retro", "neon", "gradient"],
-  "bestFor": ["music and event platforms", "indie games", "playful cultural projects"],
-  "avoidFor": ["financial products", "healthcare", "documentation and support centres"],
+  "preferredScheme": "dark",
+  "aliases": [
+    "synthwave",
+    "retrowave",
+    "蒸汽波",
+    "outrun"
+  ],
+  "mood": [
+    "dreamy",
+    "nostalgic",
+    "electric",
+    "ironic"
+  ],
+  "tags": [
+    "music",
+    "gaming",
+    "retro",
+    "neon",
+    "gradient"
+  ],
+  "bestFor": [
+    "music and event platforms",
+    "indie games",
+    "playful cultural projects"
+  ],
+  "avoidFor": [
+    "financial products",
+    "healthcare",
+    "documentation and support centres"
+  ],
   "tokens": {
     "color": {
       "light": {
@@ -64,15 +89,42 @@
         "tracking": "0.04em",
         "leading": 1.4
       },
-      "scale": ["0.75rem", "0.8125rem", "0.9375rem", "1.125rem", "1.5rem", "2.25rem", "4rem"],
-      "weights": [400, 500, 700]
+      "scale": [
+        "0.75rem",
+        "0.8125rem",
+        "0.9375rem",
+        "1.125rem",
+        "1.5rem",
+        "2.25rem",
+        "4rem"
+      ],
+      "weights": [
+        400,
+        500,
+        700
+      ]
     },
     "space": {
       "unit": "4px",
-      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "48px", "8": "72px" },
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "24px",
+        "6": "32px",
+        "7": "48px",
+        "8": "72px"
+      },
       "density": "comfortable"
     },
-    "radius": { "none": "0", "sm": "2px", "md": "6px", "lg": "12px", "full": "999px" },
+    "radius": {
+      "none": "0",
+      "sm": "2px",
+      "md": "6px",
+      "lg": "12px",
+      "full": "999px"
+    },
     "elevation": {
       "none": "none",
       "1": "0 0 0 1px #3A2559",
@@ -90,8 +142,15 @@
       "horizon-grid": "repeating-linear-gradient at 1px / 24px both axes, masked to fade below the fold"
     },
     "motion": {
-      "duration": { "fast": "160ms", "base": "280ms", "slow": "600ms" },
-      "easing": { "standard": "cubic-bezier(0.22, 1, 0.36, 1)", "chrome": "linear" },
+      "duration": {
+        "fast": "160ms",
+        "base": "280ms",
+        "slow": "600ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "chrome": "linear"
+      },
       "reducedMotion": "static horizon; keep the gradient and remove the grid scroll and shimmer"
     }
   },
@@ -159,8 +218,35 @@
       "Pink #FF71CE on near-black is above 4.5:1, but on the mid-gradient purple it fails; keep text on the card surface.",
       "Perspective grid and parallax trigger vestibular issues; disable both under prefers-reduced-motion."
     ],
-    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
+    ]
   },
-  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "custom-text-decorations", "visually-texture-content", "complex-shapes"],
-  "sources": [{ "label": "Authored for dsh-uiux" }]
+  "platformNotes": [
+    "component-specific-light-dark-theme",
+    "contrast-color",
+    "custom-text-decorations",
+    "visually-texture-content",
+    "complex-shapes"
+  ],
+  "sources": [
+    {
+      "label": "Authored for dsh-uiux"
+    }
+  ]
 }

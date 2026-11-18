@@ -3,11 +3,36 @@
   "name": "Editorial",
   "depth": "full",
   "oneLiner": "Magazine craft for the screen: a serif voice, measured columns, and typographic detail that rewards reading.",
-  "aliases": ["magazine", "editorial design", "杂志", "编辑设计"],
-  "mood": ["considered", "literary", "warm", "authoritative"],
-  "tags": ["editorial", "publishing", "reading", "serif", "long-form"],
-  "bestFor": ["publishers and magazines", "long-form product storytelling", "research and report sites"],
-  "avoidFor": ["dense operational dashboards", "arcade or playful marketing", "one-screen utility tools"],
+  "preferredScheme": "light",
+  "aliases": [
+    "magazine",
+    "editorial design",
+    "杂志",
+    "编辑设计"
+  ],
+  "mood": [
+    "considered",
+    "literary",
+    "warm",
+    "authoritative"
+  ],
+  "tags": [
+    "editorial",
+    "publishing",
+    "reading",
+    "serif",
+    "long-form"
+  ],
+  "bestFor": [
+    "publishers and magazines",
+    "long-form product storytelling",
+    "research and report sites"
+  ],
+  "avoidFor": [
+    "dense operational dashboards",
+    "arcade or playful marketing",
+    "one-screen utility tools"
+  ],
   "tokens": {
     "color": {
       "light": {
@@ -64,15 +89,44 @@
         "tracking": "0.02em",
         "leading": 1.5
       },
-      "scale": ["0.75rem", "0.875rem", "1rem", "1.1875rem", "1.5rem", "2rem", "3rem", "4.5rem"],
-      "weights": [400, 500, 600, 700]
+      "scale": [
+        "0.75rem",
+        "0.875rem",
+        "1rem",
+        "1.1875rem",
+        "1.5rem",
+        "2rem",
+        "3rem",
+        "4.5rem"
+      ],
+      "weights": [
+        400,
+        500,
+        600,
+        700
+      ]
     },
     "space": {
       "unit": "4px",
-      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "20px", "5": "32px", "6": "48px", "7": "72px", "8": "104px" },
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "20px",
+        "5": "32px",
+        "6": "48px",
+        "7": "72px",
+        "8": "104px"
+      },
       "density": "reading"
     },
-    "radius": { "none": "0", "sm": "2px", "md": "3px", "lg": "4px", "full": "999px" },
+    "radius": {
+      "none": "0",
+      "sm": "2px",
+      "md": "3px",
+      "lg": "4px",
+      "full": "999px"
+    },
     "elevation": {
       "none": "none",
       "1": "0 1px 0 #D8CDBC",
@@ -86,8 +140,15 @@
       "measure": "62–68 characters for body columns; 78 characters maximum for notes"
     },
     "motion": {
-      "duration": { "fast": "140ms", "base": "220ms", "slow": "380ms" },
-      "easing": { "standard": "cubic-bezier(0.2, 0, 0, 1)", "entrance": "cubic-bezier(0.16, 1, 0.3, 1)" },
+      "duration": {
+        "fast": "140ms",
+        "base": "220ms",
+        "slow": "380ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.2, 0, 0, 1)",
+        "entrance": "cubic-bezier(0.16, 1, 0.3, 1)"
+      },
       "reducedMotion": "opacity-only link underlines; no reflow and no parallax"
     }
   },
@@ -173,7 +234,24 @@
       "Underlines carry links in body copy; color alone fails for the 8% of readers with color-vision deficiency.",
       "Keep the measure under 70 characters so zoomed layouts do not become endless lines."
     ],
-    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
+    ]
   },
   "platformNotes": [
     "improve-text-layout-and-legibility",
@@ -184,5 +262,9 @@
     "content-first-noise-reduction",
     "copy-button"
   ],
-  "sources": [{ "label": "Authored for dsh-uiux" }]
+  "sources": [
+    {
+      "label": "Authored for dsh-uiux"
+    }
+  ]
 }

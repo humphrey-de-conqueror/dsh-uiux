@@ -3,6 +3,7 @@
   "name": "Clean",
   "depth": "brief",
   "oneLiner": "White space, one restrained palette, legible type, and nothing that is not doing work.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

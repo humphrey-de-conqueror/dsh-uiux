@@ -7,7 +7,7 @@ import { test } from 'node:test'
 
 import { loadCatalog } from '../src/catalog.js'
 import { createPreviewState } from '../src/preview-state.js'
-import { DEFAULT_PREVIEW_SLUG, PREVIEW_WIDTHS, galleryIndex, previewPage, styleIndex } from '../src/preview.js'
+import { DEFAULT_PREVIEW_SLUG, PREVIEW_WIDTHS, galleryIndex, previewPage, schemeOf, styleIndex } from '../src/preview.js'
 import { PREVIEW_PREFIX, registerRoutes } from '../src/routes.js'
 
 const catalog = loadCatalog('data/')
@@ -96,7 +96,9 @@ test('preview state keeps at most four slugs and does not leak its array', () =>
 test('style index summarizes the whole catalog', () => {
   const rows = styleIndex(catalog)
   assert.equal(rows.length, 79)
-  assert.deepEqual(Object.keys(rows[0]), ['slug', 'name', 'depth', 'oneLiner'])
+  assert.deepEqual(Object.keys(rows[0]), ['slug', 'name', 'depth', 'oneLiner', 'scheme'])
+  assert.equal(rows.find(row => row.slug === 'cyberpunk').scheme, 'dark')
+  assert.equal(rows.find(row => row.slug === 'editorial').scheme, 'light')
   assert.ok(rows.some(row => row.slug === 'liquid-glass' && row.depth === 'full'))
 })
 
@@ -135,6 +137,7 @@ test('routes keep the documented paths under the preview prefix', () => {
     `${PREVIEW_PREFIX}/page.html`,
     `${PREVIEW_PREFIX}/state.json`,
     `${PREVIEW_PREFIX}/styles.json`,
+    `${PREVIEW_PREFIX}/thumb.svg`,
   ])
 })
 
@@ -208,4 +211,50 @@ test('gallery route returns every card row', () => {
   const payload = JSON.parse(browse.result().body)
   assert.equal(payload.styles.length, 79)
   assert.equal(payload.styles[0].light.bg.startsWith('#'), true)
+})
+
+test('thumbnail route paints one style from its own tokens', async () => {
+  const { previewThumb } = await import('../src/thumb.js')
+  const entry = catalog.find(row => row.slug === 'editorial')
+  const svg = previewThumb(entry)
+  const light = entry.spec.tokens.color.light
+  assert.match(svg, /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg"/u)
+  assert.equal(svg.includes(`fill="${light.bg}"`), true)
+  assert.equal(svg.includes(`fill="${light.accent}"`), true)
+  assert.equal(svg.includes(entry.name), true)
+  assert.equal(svg.includes('<script'), false)
+
+  const dark = previewThumb(entry, { scheme: 'dark' })
+  assert.equal(dark.includes(`fill="${entry.spec.tokens.color.dark.bg}"`), true)
+
+  const cyber = catalog.find(row => row.slug === 'cyberpunk')
+  assert.equal(previewThumb(cyber, { scheme: schemeOf(cyber) }).includes(`fill="${cyber.spec.tokens.color.dark.bg}"`), true)
+})
+
+test('thumbnail route serves SVG and 404s an unknown slug', () => {
+  const { ctx, routes } = fakeHost()
+  registerRoutes(ctx, { catalog, config: {}, preview: createPreviewState() })
+  const thumb = routes.get(`${PREVIEW_PREFIX}/thumb.svg`)
+
+  const ok = response()
+  thumb(request('/dsh-uiux/preview/thumb.svg?slug=liquid-glass'), ok)
+  assert.equal(ok.result().status, 200)
+  assert.equal(ok.result().headers['Content-Type'], 'image/svg+xml; charset=utf-8')
+  assert.match(ok.result().body, /<svg/u)
+
+  const missing = response()
+  thumb(request('/dsh-uiux/preview/thumb.svg?slug=nope'), missing)
+  assert.equal(missing.result().status, 404)
+  assert.match(missing.result().body, /Unknown style: nope/u)
+})
+
+test('gallery rows carry a thumbnail URL', () => {
+  const { ctx, routes } = fakeHost()
+  registerRoutes(ctx, { catalog, config: {}, preview: createPreviewState() })
+  const browse = response()
+  routes.get(`${PREVIEW_PREFIX}/gallery.json`)(request('/dsh-uiux/preview/gallery.json'), browse)
+  const payload = JSON.parse(browse.result().body)
+  for (const row of payload.styles) {
+    assert.equal(row.thumb, `/dsh-uiux/preview/thumb.svg?slug=${row.slug}`)
+  }
 })

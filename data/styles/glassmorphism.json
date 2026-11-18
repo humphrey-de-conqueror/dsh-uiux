@@ -3,11 +3,36 @@
   "name": "Glassmorphism",
   "depth": "full",
   "oneLiner": "Frosted panels floating over saturated color: blur, a 1px light edge, and enough backdrop drama to earn the transparency.",
-  "aliases": ["frosted glass", "acrylic", "玻璃拟态", "glass morphism"],
-  "mood": ["modern", "light", "layered", "vivid"],
-  "tags": ["marketing", "dashboard", "gradient", "translucent", "product"],
-  "bestFor": ["marketing heroes with one big visual", "media players and galleries", "apps with a colourful brand backdrop"],
-  "avoidFor": ["text-heavy documents", "low-contrast brand palettes", "old browsers without backdrop-filter"],
+  "preferredScheme": "light",
+  "aliases": [
+    "frosted glass",
+    "acrylic",
+    "玻璃拟态",
+    "glass morphism"
+  ],
+  "mood": [
+    "modern",
+    "light",
+    "layered",
+    "vivid"
+  ],
+  "tags": [
+    "marketing",
+    "dashboard",
+    "gradient",
+    "translucent",
+    "product"
+  ],
+  "bestFor": [
+    "marketing heroes with one big visual",
+    "media players and galleries",
+    "apps with a colourful brand backdrop"
+  ],
+  "avoidFor": [
+    "text-heavy documents",
+    "low-contrast brand palettes",
+    "old browsers without backdrop-filter"
+  ],
   "tokens": {
     "color": {
       "light": {
@@ -64,15 +89,43 @@
         "tracking": "0.01em",
         "leading": 1.5
       },
-      "scale": ["0.75rem", "0.8125rem", "0.9375rem", "1.125rem", "1.5rem", "2.25rem", "3.5rem"],
-      "weights": [400, 500, 600]
+      "scale": [
+        "0.75rem",
+        "0.8125rem",
+        "0.9375rem",
+        "1.125rem",
+        "1.5rem",
+        "2.25rem",
+        "3.5rem"
+      ],
+      "weights": [
+        400,
+        500,
+        600
+      ]
     },
     "space": {
       "unit": "4px",
-      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "48px", "8": "72px" },
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "24px",
+        "6": "32px",
+        "7": "48px",
+        "8": "72px"
+      },
       "density": "comfortable"
     },
-    "radius": { "none": "0", "sm": "10px", "md": "16px", "lg": "24px", "xl": "32px", "full": "999px" },
+    "radius": {
+      "none": "0",
+      "sm": "10px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px",
+      "full": "999px"
+    },
     "elevation": {
       "none": "none",
       "1": "0 1px 0 rgba(255, 255, 255, 0.6) inset",
@@ -82,14 +135,23 @@
     "effects": {
       "blur": "18px",
       "saturate": "1.4",
-      "gradients": ["linear-gradient(135deg, #6366F1 0%, #8B5CF6 45%, #EC4899 100%)"],
+      "gradients": [
+        "linear-gradient(135deg, #6366F1 0%, #8B5CF6 45%, #EC4899 100%)"
+      ],
       "noise": "none",
       "border": "1px solid var(--uiux-color-border)",
       "specular": "inset 0 1px 0 rgba(255, 255, 255, 0.55) on every glass panel"
     },
     "motion": {
-      "duration": { "fast": "140ms", "base": "240ms", "slow": "400ms" },
-      "easing": { "standard": "cubic-bezier(0.2, 0, 0, 1)", "entrance": "cubic-bezier(0.16, 1, 0.3, 1)" },
+      "duration": {
+        "fast": "140ms",
+        "base": "240ms",
+        "slow": "400ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.2, 0, 0, 1)",
+        "entrance": "cubic-bezier(0.16, 1, 0.3, 1)"
+      },
       "reducedMotion": "drop backdrop-filter animation; keep panels static and fully opaque"
     }
   },
@@ -161,8 +223,35 @@
       "Backdrop-filter can break text rendering in some browsers; provide `@supports not (backdrop-filter: blur(1px))` with an opaque fallback.",
       "Blurred backgrounds are decoration; never blur content that conveys meaning."
     ],
-    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surface"]]
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surface"
+      ]
+    ]
   },
-  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "visually-texture-content", "content-first-noise-reduction", "size-aware-styling"],
-  "sources": [{ "label": "Authored for dsh-uiux" }]
+  "platformNotes": [
+    "component-specific-light-dark-theme",
+    "contrast-color",
+    "visually-texture-content",
+    "content-first-noise-reduction",
+    "size-aware-styling"
+  ],
+  "sources": [
+    {
+      "label": "Authored for dsh-uiux"
+    }
+  ]
 }

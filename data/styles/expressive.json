@@ -3,6 +3,7 @@
   "name": "Expressive",
   "depth": "brief",
   "oneLiner": "Personality-forward color and layout with enough structure underneath to stay usable.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

@@ -3,11 +3,36 @@
   "name": "Claymorphism",
   "depth": "full",
   "oneLiner": "Puffy pastel shapes with inner glow and soft outer shadow, as if every control were pressed from matte clay.",
-  "aliases": ["clay", "clay morphism", "黏土拟态", "puffy ui"],
-  "mood": ["friendly", "playful", "soft", "approachable"],
-  "tags": ["consumer", "education", "kids", "pastel", "3d"],
-  "bestFor": ["education and kids products", "friendly consumer apps", "onboarding and empty states"],
-  "avoidFor": ["enterprise data tools", "legal or medical interfaces", "high-density dashboards"],
+  "preferredScheme": "light",
+  "aliases": [
+    "clay",
+    "clay morphism",
+    "黏土拟态",
+    "puffy ui"
+  ],
+  "mood": [
+    "friendly",
+    "playful",
+    "soft",
+    "approachable"
+  ],
+  "tags": [
+    "consumer",
+    "education",
+    "kids",
+    "pastel",
+    "3d"
+  ],
+  "bestFor": [
+    "education and kids products",
+    "friendly consumer apps",
+    "onboarding and empty states"
+  ],
+  "avoidFor": [
+    "enterprise data tools",
+    "legal or medical interfaces",
+    "high-density dashboards"
+  ],
   "tokens": {
     "color": {
       "light": {
@@ -64,15 +89,44 @@
         "tracking": "0.01em",
         "leading": 1.5
       },
-      "scale": ["0.8125rem", "0.875rem", "1rem", "1.25rem", "1.5rem", "2rem", "2.75rem"],
-      "weights": [500, 600, 700, 800]
+      "scale": [
+        "0.8125rem",
+        "0.875rem",
+        "1rem",
+        "1.25rem",
+        "1.5rem",
+        "2rem",
+        "2.75rem"
+      ],
+      "weights": [
+        500,
+        600,
+        700,
+        800
+      ]
     },
     "space": {
       "unit": "4px",
-      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "48px", "8": "64px" },
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "24px",
+        "6": "32px",
+        "7": "48px",
+        "8": "64px"
+      },
       "density": "roomy"
     },
-    "radius": { "none": "0", "sm": "14px", "md": "20px", "lg": "28px", "xl": "36px", "full": "999px" },
+    "radius": {
+      "none": "0",
+      "sm": "14px",
+      "md": "20px",
+      "lg": "28px",
+      "xl": "36px",
+      "full": "999px"
+    },
     "elevation": {
       "none": "none",
       "1": "0 6px 12px -4px rgba(87, 76, 119, 0.22)",
@@ -82,14 +136,22 @@
     },
     "effects": {
       "blur": "0",
-      "gradients": ["linear-gradient(160deg, #FFFFFF 0%, #F1ECFF 100%)"],
+      "gradients": [
+        "linear-gradient(160deg, #FFFFFF 0%, #F1ECFF 100%)"
+      ],
       "noise": "none",
       "border": "none; the clay edge is an inset highlight plus a darker inner base",
       "inner-glow": "inset 0 3px 0 rgba(255, 255, 255, 0.9) on top edges, inset 0 -4px 0 rgba(87, 76, 119, 0.12) on bottoms"
     },
     "motion": {
-      "duration": { "fast": "120ms", "base": "220ms", "slow": "360ms" },
-      "easing": { "standard": "cubic-bezier(0.34, 1.4, 0.64, 1)" },
+      "duration": {
+        "fast": "120ms",
+        "base": "220ms",
+        "slow": "360ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.34, 1.4, 0.64, 1)"
+      },
       "reducedMotion": "remove the squish scale; keep color and shadow transitions"
     }
   },
@@ -157,8 +219,35 @@
       "Pastel pairs are the main risk: verify text on both the surface and the accent, not just on the page background.",
       "Bouncy easing must be removed under prefers-reduced-motion; scale-based press feedback is the worst offender."
     ],
-    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
+    ]
   },
-  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "complex-shapes", "custom-button-actions", "brand-consistent-forms"],
-  "sources": [{ "label": "Authored for dsh-uiux" }]
+  "platformNotes": [
+    "component-specific-light-dark-theme",
+    "contrast-color",
+    "complex-shapes",
+    "custom-button-actions",
+    "brand-consistent-forms"
+  ],
+  "sources": [
+    {
+      "label": "Authored for dsh-uiux"
+    }
+  ]
 }

@@ -3,11 +3,36 @@
   "name": "Terminal CRT",
   "depth": "full",
   "oneLiner": "An amber phosphor terminal: 80-column discipline, monospace everything, and scanlines only where they do not touch text.",
-  "aliases": ["crt", "phosphor", "amber terminal", "复古终端"],
-  "mood": ["nostalgic", "technical", "focused", "nocturnal"],
-  "tags": ["developer", "cli", "retro", "monospace", "dark"],
-  "bestFor": ["developer tools and status dashboards", "CLI companion docs", "indie games and narrative interfaces"],
-  "avoidFor": ["marketing landing pages", "consumer commerce", "any form-heavy flow with many field types"],
+  "preferredScheme": "dark",
+  "aliases": [
+    "crt",
+    "phosphor",
+    "amber terminal",
+    "复古终端"
+  ],
+  "mood": [
+    "nostalgic",
+    "technical",
+    "focused",
+    "nocturnal"
+  ],
+  "tags": [
+    "developer",
+    "cli",
+    "retro",
+    "monospace",
+    "dark"
+  ],
+  "bestFor": [
+    "developer tools and status dashboards",
+    "CLI companion docs",
+    "indie games and narrative interfaces"
+  ],
+  "avoidFor": [
+    "marketing landing pages",
+    "consumer commerce",
+    "any form-heavy flow with many field types"
+  ],
   "tokens": {
     "color": {
       "light": {
@@ -64,15 +89,42 @@
         "tracking": "0.01em",
         "leading": 1.6
       },
-      "scale": ["0.75rem", "0.8125rem", "0.875rem", "1rem", "1.25rem", "1.5rem", "2rem"],
-      "weights": [400, 500, 600]
+      "scale": [
+        "0.75rem",
+        "0.8125rem",
+        "0.875rem",
+        "1rem",
+        "1.25rem",
+        "1.5rem",
+        "2rem"
+      ],
+      "weights": [
+        400,
+        500,
+        600
+      ]
     },
     "space": {
       "unit": "4px",
-      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "40px", "8": "56px" },
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "24px",
+        "6": "32px",
+        "7": "40px",
+        "8": "56px"
+      },
       "density": "compact"
     },
-    "radius": { "none": "0", "sm": "0", "md": "2px", "lg": "4px", "full": "999px" },
+    "radius": {
+      "none": "0",
+      "sm": "0",
+      "md": "2px",
+      "lg": "4px",
+      "full": "999px"
+    },
     "elevation": {
       "none": "none",
       "1": "0 0 0 1px #3A2E18",
@@ -80,14 +132,23 @@
     },
     "effects": {
       "blur": "0",
-      "gradients": ["radial-gradient(120% 100% at 50% 0%, rgba(255, 180, 84, 0.06) 0%, transparent 70%)"],
+      "gradients": [
+        "radial-gradient(120% 100% at 50% 0%, rgba(255, 180, 84, 0.06) 0%, transparent 70%)"
+      ],
       "noise": "subtle 3px scanline at 4% opacity on the page frame only",
       "border": "1px solid var(--uiux-color-border)",
       "glow": "0 0 6px rgba(255, 180, 84, 0.35) on the active prompt and live output only"
     },
     "motion": {
-      "duration": { "fast": "60ms", "base": "140ms", "slow": "260ms" },
-      "easing": { "standard": "steps(3, end)", "smooth": "cubic-bezier(0.4, 0, 0.2, 1)" },
+      "duration": {
+        "fast": "60ms",
+        "base": "140ms",
+        "slow": "260ms"
+      },
+      "easing": {
+        "standard": "steps(3, end)",
+        "smooth": "cubic-bezier(0.4, 0, 0.2, 1)"
+      },
       "reducedMotion": "no blinking cursor and no typing animation; render output at once"
     }
   },
@@ -150,8 +211,35 @@
       "Monospace at 13–14px needs generous line-height (1.7) for comfortable scanning.",
       "Blinking cursors violate WCAG 2.2.2 if they blink faster than 0.5s; keep at 1.1s or allow disabling."
     ],
-    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
+    ]
   },
-  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "dark-mode", "customize-scrollbar-color-and-thickness", "content-first-noise-reduction"],
-  "sources": [{ "label": "Authored for dsh-uiux" }]
+  "platformNotes": [
+    "component-specific-light-dark-theme",
+    "contrast-color",
+    "dark-mode",
+    "customize-scrollbar-color-and-thickness",
+    "content-first-noise-reduction"
+  ],
+  "sources": [
+    {
+      "label": "Authored for dsh-uiux"
+    }
+  ]
 }

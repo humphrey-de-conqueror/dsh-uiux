@@ -3,6 +3,7 @@
   "name": "Cosmic",
   "depth": "brief",
   "oneLiner": "Deep-space dark theme with neon accents and spatial depth that suggests a world beyond the viewport.",
+  "preferredScheme": "dark",
   "aliases": [],
   "mood": [
     "expressive"

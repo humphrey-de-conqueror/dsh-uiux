@@ -3,11 +3,37 @@
   "name": "Swiss International",
   "depth": "full",
   "oneLiner": "Strict columns, flush-left Helvetica, one signal red, and rules instead of shadows — clarity as a moral position.",
-  "aliases": ["swiss", "international typographic", "瑞士国际主义", "国际主义风格"],
-  "mood": ["precise", "objective", "confident", "austere"],
-  "tags": ["editorial", "poster", "institutional", "grid", "typography-led"],
-  "bestFor": ["cultural institutions", "editorial and publishing", "poster-led marketing", "data journalism"],
-  "avoidFor": ["playful consumer apps", "luxury commerce", "dark ambient products"],
+  "preferredScheme": "light",
+  "aliases": [
+    "swiss",
+    "international typographic",
+    "瑞士国际主义",
+    "国际主义风格"
+  ],
+  "mood": [
+    "precise",
+    "objective",
+    "confident",
+    "austere"
+  ],
+  "tags": [
+    "editorial",
+    "poster",
+    "institutional",
+    "grid",
+    "typography-led"
+  ],
+  "bestFor": [
+    "cultural institutions",
+    "editorial and publishing",
+    "poster-led marketing",
+    "data journalism"
+  ],
+  "avoidFor": [
+    "playful consumer apps",
+    "luxury commerce",
+    "dark ambient products"
+  ],
   "tokens": {
     "color": {
       "light": {
@@ -64,8 +90,21 @@
         "tracking": "0.04em",
         "leading": 1.5
       },
-      "scale": ["0.6875rem", "0.8125rem", "0.9375rem", "1rem", "1.25rem", "1.75rem", "2.5rem", "3.5rem"],
-      "weights": [400, 500, 700]
+      "scale": [
+        "0.6875rem",
+        "0.8125rem",
+        "0.9375rem",
+        "1rem",
+        "1.25rem",
+        "1.75rem",
+        "2.5rem",
+        "3.5rem"
+      ],
+      "weights": [
+        400,
+        500,
+        700
+      ]
     },
     "space": {
       "unit": "8px",
@@ -101,7 +140,11 @@
       "grid": "12-column grid, 8px baseline, 2px gutters rendered as visible rules when the layout is the subject"
     },
     "motion": {
-      "duration": { "fast": "90ms", "base": "160ms", "slow": "240ms" },
+      "duration": {
+        "fast": "90ms",
+        "base": "160ms",
+        "slow": "240ms"
+      },
       "easing": {
         "standard": "linear",
         "entrance": "cubic-bezier(0.2, 0, 0, 1)"
@@ -177,10 +220,22 @@
       "Focus must be a visible 2px outline, not a color change, because the palette is monochrome."
     ],
     "contrastPairs": [
-      ["text", "bg"],
-      ["textMuted", "bg"],
-      ["accentText", "accent"],
-      ["text", "surfaceAlt"]
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
     ]
   },
   "platformNotes": [
@@ -192,6 +247,8 @@
     "size-aware-styling"
   ],
   "sources": [
-    { "label": "Authored for dsh-uiux" }
+    {
+      "label": "Authored for dsh-uiux"
+    }
   ]
 }

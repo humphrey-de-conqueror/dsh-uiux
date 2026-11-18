@@ -3,6 +3,7 @@
   "name": "Colorful",
   "depth": "brief",
   "oneLiner": "Saturated color and high-contrast palettes that make an interface feel alive and current.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

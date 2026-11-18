@@ -3,6 +3,7 @@
   "name": "Pulse",
   "depth": "brief",
   "oneLiner": "Thick borders, geometric shapes, and high-contrast color that read as motion even when static.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

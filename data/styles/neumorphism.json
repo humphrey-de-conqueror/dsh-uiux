@@ -3,6 +3,7 @@
   "name": "Neumorphism",
   "depth": "full",
   "oneLiner": "One monochrome surface pressed and raised out of itself: twin shadows, no borders, and a soft, tactile quietness.",
+  "preferredScheme": "light",
   "aliases": [
     "soft UI",
     "neomorphic",

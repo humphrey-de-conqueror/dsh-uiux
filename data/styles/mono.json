@@ -3,6 +3,7 @@
   "name": "Mono",
   "depth": "brief",
   "oneLiner": "Monospace density with a terminal accent, compact rows, and confident high-contrast type.",
+  "preferredScheme": "dark",
   "aliases": [],
   "mood": [
     "expressive"

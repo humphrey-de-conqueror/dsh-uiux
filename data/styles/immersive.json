@@ -3,6 +3,7 @@
   "name": "Immersive",
   "depth": "brief",
   "oneLiner": "Exhibit-style storytelling on a continuous deep canvas that blends browsing with game-like interaction.",
+  "preferredScheme": "dark",
   "aliases": [],
   "mood": [
     "expressive"

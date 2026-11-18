@@ -3,11 +3,37 @@
   "name": "Bento Grid",
   "depth": "full",
   "oneLiner": "A modular composition of unequal tiles, where layout itself is the argument and every card has one job.",
-  "aliases": ["bento", "bento box", "便当格", "bento layout"],
-  "mood": ["composed", "modern", "systematic", "friendly"],
-  "tags": ["layout", "marketing", "product", "grid", "cards"],
-  "bestFor": ["product landing pages", "feature overviews", "dashboard summaries", "personal or team profiles"],
-  "avoidFor": ["long-form reading", "transactional checkout flows", "legacy enterprise tables"],
+  "preferredScheme": "light",
+  "aliases": [
+    "bento",
+    "bento box",
+    "便当格",
+    "bento layout"
+  ],
+  "mood": [
+    "composed",
+    "modern",
+    "systematic",
+    "friendly"
+  ],
+  "tags": [
+    "layout",
+    "marketing",
+    "product",
+    "grid",
+    "cards"
+  ],
+  "bestFor": [
+    "product landing pages",
+    "feature overviews",
+    "dashboard summaries",
+    "personal or team profiles"
+  ],
+  "avoidFor": [
+    "long-form reading",
+    "transactional checkout flows",
+    "legacy enterprise tables"
+  ],
   "tokens": {
     "color": {
       "light": {
@@ -64,15 +90,44 @@
         "tracking": "0em",
         "leading": 1.4
       },
-      "scale": ["0.75rem", "0.8125rem", "0.9375rem", "1.125rem", "1.5rem", "2rem", "3rem"],
-      "weights": [400, 500, 600, 700]
+      "scale": [
+        "0.75rem",
+        "0.8125rem",
+        "0.9375rem",
+        "1.125rem",
+        "1.5rem",
+        "2rem",
+        "3rem"
+      ],
+      "weights": [
+        400,
+        500,
+        600,
+        700
+      ]
     },
     "space": {
       "unit": "4px",
-      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "48px", "8": "64px" },
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "24px",
+        "6": "32px",
+        "7": "48px",
+        "8": "64px"
+      },
       "density": "tile"
     },
-    "radius": { "none": "0", "sm": "10px", "md": "16px", "lg": "24px", "xl": "32px", "full": "999px" },
+    "radius": {
+      "none": "0",
+      "sm": "10px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px",
+      "full": "999px"
+    },
     "elevation": {
       "none": "none",
       "1": "0 1px 2px rgba(14, 18, 24, 0.06)",
@@ -81,14 +136,23 @@
     },
     "effects": {
       "blur": "12px",
-      "gradients": ["linear-gradient(140deg, #4F46E5 0%, #7C6CFF 100%)"],
+      "gradients": [
+        "linear-gradient(140deg, #4F46E5 0%, #7C6CFF 100%)"
+      ],
       "noise": "none",
       "border": "1px solid var(--uiux-color-border)",
       "grid": "12 columns, 24px gutters, rows in multiples of 8px"
     },
     "motion": {
-      "duration": { "fast": "120ms", "base": "200ms", "slow": "320ms" },
-      "easing": { "standard": "cubic-bezier(0.2, 0, 0, 1)", "spring": "cubic-bezier(0.34, 1.56, 0.64, 1)" },
+      "duration": {
+        "fast": "120ms",
+        "base": "200ms",
+        "slow": "320ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.2, 0, 0, 1)",
+        "spring": "cubic-bezier(0.34, 1.56, 0.64, 1)"
+      },
       "reducedMotion": "cancel transforms; keep the elevation change as a border color shift"
     }
   },
@@ -182,8 +246,35 @@
       "Report changes in stat tiles with `aria-live=\"polite\"` and explicit up/down wording, not color alone.",
       "Tiles that are entirely clickable need a visible focus ring on the tile, not only on the inner link."
     ],
-    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["text", "surfaceAlt"], ["accentText", "accent"]]
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ],
+      [
+        "accentText",
+        "accent"
+      ]
+    ]
   },
-  "platformNotes": ["size-aware-styling", "css-layout", "content-based-styling", "component-specific-light-dark-theme", "card"],
-  "sources": [{ "label": "Authored for dsh-uiux" }]
+  "platformNotes": [
+    "size-aware-styling",
+    "css-layout",
+    "content-based-styling",
+    "component-specific-light-dark-theme",
+    "card"
+  ],
+  "sources": [
+    {
+      "label": "Authored for dsh-uiux"
+    }
+  ]
 }

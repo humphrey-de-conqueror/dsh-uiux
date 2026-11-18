@@ -3,6 +3,7 @@
   "name": "Agentic",
   "depth": "brief",
   "oneLiner": "An AI-first console where the user delegates an outcome and watches work happen, instead of configuring controls.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

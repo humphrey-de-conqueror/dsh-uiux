@@ -3,6 +3,7 @@
   "name": "Doodle",
   "depth": "brief",
   "oneLiner": "Hand-drawn lines, imperfect shapes, and a sketchbook voice for interfaces that want to feel authored.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

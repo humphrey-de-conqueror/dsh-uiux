@@ -3,6 +3,7 @@
   "name": "Bold",
   "depth": "brief",
   "oneLiner": "Heavyweight type and blocky contrast that refuses to whisper, built for a single loud idea per screen.",
+  "preferredScheme": "dark",
   "aliases": [],
   "mood": [
     "expressive"

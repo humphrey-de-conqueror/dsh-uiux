@@ -3,6 +3,7 @@
   "name": "Gradient",
   "depth": "brief",
   "oneLiner": "Smooth color transitions across surfaces that give a flat interface a sense of depth and motion.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

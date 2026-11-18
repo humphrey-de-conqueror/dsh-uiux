@@ -3,6 +3,7 @@
   "name": "Tetris",
   "depth": "brief",
   "oneLiner": "Blocky game energy with a compact, high-contrast layout and bold display type.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

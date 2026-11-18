@@ -3,6 +3,7 @@
   "name": "Shadcn",
   "depth": "brief",
   "oneLiner": "Monochrome, utility-first components with quiet borders and predictable spacing, ready for a real app.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

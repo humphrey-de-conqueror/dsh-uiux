@@ -3,6 +3,7 @@
   "name": "Stitch",
   "depth": "brief",
   "oneLiner": "Clean, high-contrast enterprise UI for data workflows, with drag-and-drop structure made visible.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"

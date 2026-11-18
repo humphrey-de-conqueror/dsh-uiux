@@ -3,6 +3,7 @@
   "name": "Corporate",
   "depth": "brief",
   "oneLiner": "Structured grids and enterprise patterns that read as reliable before the copy says anything.",
+  "preferredScheme": "light",
   "aliases": [],
   "mood": [
     "expressive"
