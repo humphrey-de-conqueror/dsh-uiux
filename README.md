@@ -57,7 +57,9 @@ Both panes are also one click away from the composer's **+** menu as the `uiux-p
 ## Gallery
 
 **Style gallery** shows all 79 styles as cards — both palettes, the type faces, the depth of
-the spec — with a filter box. Clicking a card opens it in the preview tab. The cards are painted
+the spec — with a filter box. Clicking a card opens it in the preview tab and puts a one-line
+style request into the composer: press Enter to ask for it, or use **Ask agent** in the preview
+header to send it straight away. A draft you typed is never overwritten. The cards are painted
 from `/dsh-uiux/preview/gallery.json`, so the gallery needs no build step and no per-style
 iframe.
 

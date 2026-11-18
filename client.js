@@ -66,10 +66,111 @@ window.__ModuleLoader__.load({
     }
 
     /**
+     * Fetch JSON, turning an HTTP failure into a readable message instead of the
+     * `Unexpected end of JSON input` an empty 404 body produces.
+     * @param {string} url - route to read.
+     * @returns {Promise<any>} parsed body.
+     */
+    function getJson(url) {
+      return fetch(url, { cache: 'no-store' }).then(function (response) {
+        if (!response.ok) throw new Error('HTTP ' + response.status + ' from ' + url)
+        return response.text().then(function (text) {
+          if (text === '') throw new Error('empty response from ' + url)
+          return JSON.parse(text)
+        })
+      })
+    }
+
+    /**
+     * The composer facade of one session, or null outside a session.
+     * @param {string | undefined} sessionId - session owning the pane.
+     * @returns {object | null} SessionInput face.
+     */
+    function sessionInput(sessionId) {
+      if (!sessionId || client === null) return null
+      var actx = client.sessions.scope(sessionId)
+      if (actx === undefined || actx === null) return null
+      try {
+        return actx.conversation.input.for(actx)
+      } catch {
+        return null
+      }
+    }
+
+    /**
+     * The request a gallery pick should send to the agent.
+     * @param {object} entry - catalog row.
+     * @returns {string} prompt text.
+     */
+    function requestText(entry) {
+      return 'Use the ' + entry.name + ' style (`' + entry.slug + '`) for this UI. '
+        + 'Call uiux_spec for its tokens, build to them, and review the result against the checklist.'
+    }
+
+    /**
+     * Send a style request into the pane's session right now.
+     * @param {string | undefined} sessionId - session owning the pane.
+     * @param {object} entry - catalog row.
+     * @returns {boolean} whether the send was dispatched.
+     */
+    function sendRequest(sessionId, entry) {
+      if (!sessionId || client === null) return false
+      var actx = client.sessions.scope(sessionId)
+      if (actx === undefined || actx === null) return false
+      var input = sessionInput(sessionId)
+      actx.conversation.send(requestText(entry)).catch(function (cause) {
+        if (input !== null) input.notify('error', 'Could not send the style request: ' + String((cause && cause.message) || cause))
+      })
+      return true
+    }
+
+    /**
+     * Put a style request in the composer without destroying a draft the user typed.
+     * @param {string | undefined} sessionId - session owning the pane.
+     * @param {object} entry - catalog row.
+     * @param {boolean} force - overwrite even a hand-written draft.
+     * @returns {boolean} whether the composer now holds the request.
+     */
+    function primeRequest(sessionId, entry, force) {
+      var input = sessionInput(sessionId)
+      if (input === null) return false
+      var draft = ''
+      try {
+        draft = input.state.getSnapshot().draft
+      } catch {
+        draft = ''
+      }
+      var ours = draft === '' || draft.indexOf('Use the ') === 0
+      if (!ours && force !== true) {
+        input.notify('info', 'The composer already has text — clear it to request the ' + entry.name + ' style.')
+        input.focus()
+        return false
+      }
+      input.setDraft(requestText(entry))
+      input.notify('info', entry.name + ' style request is in the composer — press Enter to send.')
+      input.focus()
+      return true
+    }
+
+    /**
+     * Load the demo page for one style.
+     * @param {string} slug - style slug.
+     * @param {string} theme - light or dark.
+     * @param {string} width - stage width key.
+     * @param {number} nonce - cache-busting reload counter.
+     * @returns {string} page URL.
+     */
+    function pageUrl(slug, theme, width, nonce) {
+      return PAGE_URL + '?slug=' + encodeURIComponent(slug) + '&theme=' + theme
+        + '&width=' + width + '&v=' + nonce
+    }
+
+    /**
      * The preview pane: one style rendered as a page, with controls.
      * @returns {import('react').ReactElement} pane content.
      */
-    function PreviewPanel() {
+    function PreviewPanel(props) {
+      var sessionId = props === undefined ? undefined : props.sessionId
       var stylesState = React.useState([])
       var styles = stylesState[0]
       var setStyles = stylesState[1]
@@ -101,8 +202,7 @@ window.__ModuleLoader__.load({
 
       React.useEffect(function () {
         var cancelled = false
-        fetch(STYLES_URL)
-          .then(function (response) { return response.json() })
+        getJson(STYLES_URL)
           .then(function (payload) {
             if (cancelled) return
             setStyles(payload.styles || [])
@@ -128,8 +228,7 @@ window.__ModuleLoader__.load({
         var cancelled = false
         function tick() {
           if (document.visibilityState === 'hidden') return
-          fetch(STATE_URL)
-            .then(function (response) { return response.json() })
+          getJson(STATE_URL)
             .then(function (payload) {
               if (cancelled) return
               var next = payload.revision
@@ -150,9 +249,7 @@ window.__ModuleLoader__.load({
         }
       }, [])
 
-      var pageUrl = slug === ''
-        ? ''
-        : PAGE_URL + '?slug=' + encodeURIComponent(slug) + '&theme=' + theme + '&width=' + width + '&v=' + nonce
+      var url = slug === '' ? '' : pageUrl(slug, theme, width, nonce)
 
       var options = styles.map(function (entry) {
         return h('option', { key: entry.slug, value: entry.slug }, entry.name + (entry.depth === 'brief' ? ' ·' : ''))
@@ -213,9 +310,26 @@ window.__ModuleLoader__.load({
           onClick: function () { setNonce(function (value) { return value + 1 }) },
           title: 'Reload the preview',
         }, 'Reload'),
-        pageUrl === '' ? null : h('a', {
+        h('button', {
+          key: 'ask',
+          type: 'button',
+          style: controlStyle(false),
+          disabled: slug === '' || sessionId === undefined,
+          title: sessionId === undefined ? 'Open this tab from a chat session to ask the agent' : 'Send this style request to the agent now',
+          onClick: function () {
+            var entry = null
+            for (var index = 0; index < styles.length; index += 1) {
+              if (styles[index].slug === slug) entry = styles[index]
+            }
+            if (entry === null) return
+            if (!sendRequest(sessionId, entry)) {
+              setError('This pane is not bound to a session; open it from a chat.')
+            }
+          },
+        }, 'Ask agent'),
+        url === '' ? null : h('a', {
           key: 'open',
-          href: pageUrl,
+          href: url,
           target: '_blank',
           rel: 'noreferrer',
           style: { fontSize: 12, color: MUTED, marginLeft: 'auto' },
@@ -224,7 +338,7 @@ window.__ModuleLoader__.load({
 
       var body = error !== ''
         ? h('div', { style: { padding: 16, fontSize: 13, color: MUTED } }, 'Preview routes are unavailable: ' + error)
-        : pageUrl === ''
+        : url === ''
           ? h('div', { style: { padding: 16, fontSize: 13, color: MUTED } }, 'Loading styles…')
           : h('div', {
             style: {
@@ -236,8 +350,8 @@ window.__ModuleLoader__.load({
               padding: width === 'auto' ? 0 : '8px 0',
             },
           }, h('iframe', {
-            key: pageUrl,
-            src: pageUrl,
+            key: url,
+            src: url,
             title: 'Style preview',
             style: {
               width: width === 'auto' ? '100%' : (width === 'phone' ? 390 : 768),
@@ -352,7 +466,8 @@ window.__ModuleLoader__.load({
      * The gallery pane: every style as a card, filtered by text.
      * @returns {import('react').ReactElement} pane content.
      */
-    function GalleryPanel() {
+    function GalleryPanel(props) {
+      var sessionId = props === undefined ? undefined : props.sessionId
       var rowsState = React.useState([])
       var rows = rowsState[0]
       var setRows = rowsState[1]
@@ -365,8 +480,7 @@ window.__ModuleLoader__.load({
 
       React.useEffect(function () {
         var cancelled = false
-        fetch(GALLERY_URL)
-          .then(function (response) { return response.json() })
+        getJson(GALLERY_URL)
           .then(function (payload) { if (!cancelled) setRows(payload.styles || []) })
           .catch(function (cause) { if (!cancelled) setError(String((cause && cause.message) || cause)) })
         return function () { cancelled = true }
@@ -382,6 +496,12 @@ window.__ModuleLoader__.load({
       var pick = function (slug) {
         selectStyle(slug)
         if (client !== null) client.sidebarRight.openTab(PREVIEW_KIND)
+        var entry = null
+        for (var index = 0; index < rows.length; index += 1) {
+          if (rows[index].slug === slug) entry = rows[index]
+        }
+        if (entry === null) return
+        primeRequest(sessionId, entry, false)
       }
 
       return h('div', {
@@ -470,13 +590,21 @@ window.__ModuleLoader__.load({
 
       ctx.effect(function () {
         return ctx.slots.inject('sidebar.right.pane.tab', function () {
-          return ctx.slots.register({ name: 'sidebar.right.pane.tab', key: PREVIEW_ID }, PreviewPanel)
+          return ctx.slots.register({
+            name: 'sidebar.right.pane.tab',
+            key: PREVIEW_ID,
+            inject: function (sessionId) { return { sessionId } },
+          }, PreviewPanel)
         })
       }, 'uiux: preview pane body')
 
       ctx.effect(function () {
         return ctx.slots.inject('sidebar.right.pane.tab', function () {
-          return ctx.slots.register({ name: 'sidebar.right.pane.tab', key: GALLERY_ID }, GalleryPanel)
+          return ctx.slots.register({
+            name: 'sidebar.right.pane.tab',
+            key: GALLERY_ID,
+            inject: function (sessionId) { return { sessionId } },
+          }, GalleryPanel)
         })
       }, 'uiux: gallery pane body')
 
@@ -508,7 +636,7 @@ window.__ModuleLoader__.load({
     }
 
     exports.apply = apply
-    exports.inject = ['slots', 'sidebarRightTabs', 'sidebarRight', 'commandUi']
+    exports.inject = ['slots', 'sidebarRightTabs', 'sidebarRight', 'commandUi', 'sessions']
     return module.exports
   },
 })

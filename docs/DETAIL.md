@@ -84,8 +84,16 @@ every `uiux_spec` call records its slugs on the host, the pane polls `state.json
 revision bump adopts the first slug unless you picked a style in the gallery.
 
 The gallery pane paints all 79 styles as native cards — both palettes, the display and body
-faces, the spec depth — with a filter box. Clicking a card pins that style and opens the
-preview pane. No iframes are involved, so 79 styles cost one JSON request.
+faces, the spec depth — with a filter box. Clicking a card pins that style, opens the preview
+pane, and primes the composer with the request (`Use the Editorial style (\`editorial\`) …`)
+through the session's own input facade, so the agent learns the pick from a normal message. A
+hand-written draft is left alone and the user is told to clear it. The preview header's **Ask
+agent** button sends the same request immediately via `ctx.sessions.scope(id).conversation.send`.
+
+Both panes receive their session through the registration's `inject: (sessionId) => ({ sessionId })`:
+`sidebar.right.pane.tab` is a session-scoped slot, so the framework hands the id to the body.
+
+No iframes are involved in the gallery, so 79 styles cost one JSON request.
 
 Content comes from four exact host routes:
 
