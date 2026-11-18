@@ -1,0 +1,169 @@
+{
+  "slug": "aurora",
+  "name": "Aurora",
+  "depth": "full",
+  "oneLiner": "A deep polar sky with slow bands of green and violet light drifting behind calm, low-noise interface chrome.",
+  "aliases": ["northern lights", "极光", "aurora borealis", "gradient aurora"],
+  "mood": ["atmospheric", "serene", "premium", "alive"],
+  "tags": ["ai", "dark", "gradient", "product", "immersive"],
+  "bestFor": ["AI and infrastructure products", "premium onboarding and empty states", "developer platforms with a hero moment"],
+  "avoidFor": ["dense operational dashboards", "print and email templates", "screens that must render on low-end GPUs"],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#F4F7FD",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#E7EEF9",
+        "text": "#0B1220",
+        "textMuted": "#4E5F7C",
+        "border": "#D3DEED",
+        "accent": "#0F766E",
+        "accentText": "#FFFFFF",
+        "success": "#15803D",
+        "warning": "#B45309",
+        "danger": "#BE123C",
+        "focus": "#0F766E"
+      },
+      "dark": {
+        "bg": "#060A16",
+        "surface": "#0C1224",
+        "surfaceAlt": "#121A30",
+        "text": "#EAF0FF",
+        "textMuted": "#9FB0D0",
+        "border": "#1D2740",
+        "accent": "#5EEAD4",
+        "accentText": "#04201C",
+        "success": "#4ADE80",
+        "warning": "#FDE68A",
+        "danger": "#FB7185",
+        "focus": "#5EEAD4"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Instrument Sans",
+        "fallback": "Inter, system-ui, sans-serif",
+        "size": "clamp(2.25rem, 5vw, 4rem)",
+        "weight": 500,
+        "tracking": "-0.03em",
+        "leading": 1.05
+      },
+      "body": {
+        "family": "Inter",
+        "fallback": "system-ui, sans-serif",
+        "size": "1rem",
+        "weight": 400,
+        "tracking": "-0.005em",
+        "leading": 1.6
+      },
+      "mono": {
+        "family": "Geist Mono",
+        "fallback": "ui-monospace",
+        "size": "0.8125rem",
+        "weight": 400,
+        "tracking": "0.01em",
+        "leading": 1.5
+      },
+      "scale": ["0.75rem", "0.875rem", "1rem", "1.25rem", "1.75rem", "2.5rem", "4rem"],
+      "weights": [400, 500, 600]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "48px", "8": "80px" },
+      "density": "airy"
+    },
+    "radius": { "none": "0", "sm": "8px", "md": "12px", "lg": "20px", "xl": "28px", "full": "999px" },
+    "elevation": {
+      "none": "none",
+      "1": "0 1px 0 rgba(234, 240, 255, 0.06) inset",
+      "2": "0 24px 60px -24px rgba(94, 234, 212, 0.18)",
+      "3": "0 40px 120px -40px rgba(139, 92, 246, 0.32)"
+    },
+    "effects": {
+      "blur": "24px",
+      "gradients": [
+        "radial-gradient(60% 45% at 20% 10%, rgba(94, 234, 212, 0.28) 0%, transparent 70%)",
+        "radial-gradient(55% 40% at 80% 0%, rgba(139, 92, 246, 0.26) 0%, transparent 70%)",
+        "radial-gradient(50% 40% at 55% 95%, rgba(56, 189, 248, 0.18) 0%, transparent 70%)"
+      ],
+      "noise": "2% grain over the gradient field only, to prevent banding",
+      "border": "1px solid var(--uiux-color-border)",
+      "aura": "the gradient field is a fixed layer behind content; content surfaces stay opaque"
+    },
+    "motion": {
+      "duration": { "fast": "180ms", "base": "320ms", "slow": "1200ms" },
+      "easing": { "standard": "cubic-bezier(0.22, 1, 0.36, 1)", "drift": "cubic-bezier(0.45, 0, 0.55, 1)" },
+      "reducedMotion": "freeze the aurora field in place; keep opacity transitions under 200ms"
+    }
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 44px; padding: 0 22px; border-radius: 999px; border: 1px solid rgba(94, 234, 212, 0.5); background: rgba(94, 234, 212, 0.12); color: var(--uiux-color-text); font-size: 0.9375rem; font-weight: 500; backdrop-filter: blur(8px)",
+        "hover": "background: rgba(94, 234, 212, 0.2); border-color: var(--uiux-color-accent)",
+        "active": "transform: translateY(1px)",
+        "focus-visible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 3px"
+      },
+      "solid": {
+        "base": "height: 44px; padding: 0 22px; border-radius: 999px; border: 0; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-size: 0.9375rem; font-weight: 600",
+        "hover": "box-shadow: 0 0 32px rgba(94, 234, 212, 0.45)"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "padding: 28px; border-radius: 20px; background: rgba(12, 18, 36, 0.72); border: 1px solid var(--uiux-color-border); backdrop-filter: blur(24px); box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.6)",
+        "hover": "border-color: rgba(94, 234, 212, 0.4)",
+        "top-edge": "background-image: linear-gradient(90deg, transparent, rgba(94, 234, 212, 0.6), transparent); height: 1px; position: absolute; inset: 0 20% auto 20%"
+      }
+    },
+    "field": {
+      "default": {
+        "base": "height: 48px; width: 100%; padding: 0 16px; border-radius: 12px; border: 1px solid var(--uiux-color-border); background: rgba(6, 10, 22, 0.6); color: var(--uiux-color-text); font-size: 1rem",
+        "focus-visible": "border-color: var(--uiux-color-accent); box-shadow: 0 0 0 3px rgba(94, 234, 212, 0.2)",
+        "invalid": "border-color: var(--uiux-color-danger)",
+        "placeholder": "color: var(--uiux-color-textMuted); opacity: 1"
+      }
+    },
+    "eyebrow": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; gap: 8px; height: 26px; padding: 0 12px; border-radius: 999px; border: 1px solid rgba(94, 234, 212, 0.35); background: rgba(94, 234, 212, 0.08); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; color: var(--uiux-color-accent)",
+        "dot": "width: 5px; height: 5px; border-radius: 999px; background: var(--uiux-color-accent); box-shadow: 0 0 10px var(--uiux-color-accent)"
+      }
+    },
+    "stat": {
+      "default": {
+        "base": "font-size: 2.5rem; font-weight: 500; letter-spacing: -0.04em; line-height: 1; background: linear-gradient(180deg, #EAF0FF 0%, #9FB0D0 100%); -webkit-background-clip: text; background-clip: text; color: transparent",
+        "label": "margin-top: 8px; font-size: 0.8125rem; color: var(--uiux-color-textMuted)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Keep the aurora in one fixed background layer with three soft radial gradients and a 2% grain to stop banding.",
+      "Let content surfaces be opaque or lightly translucent; text must sit on a stable backdrop.",
+      "Use one mint accent for interaction; violet and blue stay atmospheric.",
+      "Animate the field extremely slowly (60s+) or not at all."
+    ],
+    "dont": [
+      "Do not put body copy directly over the brightest part of the gradient.",
+      "Do not animate the background faster than 40 seconds per cycle.",
+      "Do not add a second gradient field inside cards.",
+      "Do not use aurora colors as status colors; green here reads as ambience, not success."
+    ],
+    "antiPatterns": [
+      "Full-bleed animated mesh gradient behind a 14px grey paragraph — unreadable and nauseating.",
+      "Every card washed in a different hue so the page reads as a rainbow instead of a sky.",
+      "Neon aurora gradients behind a white light-mode form with no contrast adjustment."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Background gradient luminance varies; put text on the opaque surface token, never directly on the field.",
+      "Slow ambient motion still needs prefer-reduced-motion support — freeze, do not remove.",
+      "The accent must stay at 3:1 against the darkest and lightest parts of the field for focus rings to remain visible."
+    ],
+    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+  },
+  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "dark-mode", "apply-webgl-shaders", "deliver-optimized-decorative-images", "visually-texture-content"],
+  "sources": [{ "label": "Authored for dsh-uiux" }]
+}

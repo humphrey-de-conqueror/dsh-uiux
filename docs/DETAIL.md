@@ -1,0 +1,133 @@
+# UI/UX styles
+
+This plugin gives the agent a vocabulary for visual design direction, and the tokens to
+execute it without inventing values. It ships one skill (`uiux`) and three tools.
+
+## What it adds
+
+| Surface | Name | Purpose |
+| --- | --- | --- |
+| Skill | `uiux` | Routes design work: shortlist a style, fetch its spec, build, check platform behaviour, review. |
+| Tool | `uiux_styles` | Searches the catalog by mood words, domain, tags, or style name and returns a candidate table. |
+| Tool | `uiux_spec` | Renders one or more styles as Markdown, CSS custom properties, a Tailwind v4 `@theme` block, or JSON. |
+| Tool | `uiux_platform_guide` | Wraps Chrome's Modern Web Guidance: search 209 platform guides, then retrieve the ones that matter. |
+
+The skill carries the workflow; the tools carry the data. A model that only sees the tool
+descriptions can still use them, which is why the tools are always registered rather than
+activated by a skill call.
+
+## Style catalog
+
+`data/styles/*.json` is the single source of truth: one file per style, loaded once at
+startup. There is no separate index to drift out of sync.
+
+Two tiers:
+
+- **full** (20 styles) - complete specs: light and dark color roles, type roles and scale,
+  spacing, radius, elevation, effects, motion, 5–6 component recipes with states, do/don't
+  rules, anti-patterns, verified contrast pairs, and Modern Web Guidance ids relevant to
+  the style.
+- **brief** (59 styles) - palette, type, radius, spacing, and motion only. Names come from
+  `bergside/awesome-design-skills`; palettes and positioning are authored here.
+
+Full tier: aurora, bento-grid, claymorphism, cyberpunk, dark-luxury, data-dashboard,
+editorial, glassmorphism, japandi, liquid-glass, material-you, maximalist-pop,
+monochrome-architecture, neo-brutalism, neumorphism, paper-print, premium-minimalism,
+swiss-international, terminal-crt, vaporwave.
+
+`skills/uiux/references/style-index.md` lists every style with its one-liner and is generated
+from the same files by `npm run build:index`.
+
+## Tools in detail
+
+### `uiux_styles`
+
+Parameters: `query`, `tags`, `depth`, `limit`. The query is tokenised (CJK-safe) and scored
+against slug, name, aliases, tags, mood, best-for, and one-liner. Aliases let
+`glassmorphism`, `frosted glass`, `bento`, `新拟态`, and `赛博朋克` reach the right style.
+
+### `uiux_spec`
+
+Parameters: `slugs` (required), `sections`, `format`, `maxBytes`. Sections are
+`overview`, `tokens`, `type`, `components`, `motion`, `rules`, `a11y`, `platform`,
+`sources`.
+
+Output formats:
+
+- `md` - the full spec as readable Markdown, for a model that is about to write code.
+- `css` - `:root` custom properties plus a `[data-theme="dark"]` block and a
+  `prefers-reduced-motion` block. All names are kebab-case (`--uiux-color-surface-alt`).
+- `tailwind` - the same tokens as a Tailwind v4 `@theme` block.
+- `json` - the section data for a generator.
+
+Every format honours a byte budget and, when it truncates, says which sections were dropped
+instead of silently cutting mid-sentence.
+
+### `uiux_platform_guide`
+
+Parameters: `op` (`search`, `retrieve`, `list`), `query`, `ids`. Backed by the
+`modern-web-guidance` npm package, executed as a subprocess with telemetry disabled. Its
+`retrieve` output can exceed a comfortable tool result, so responses are truncated with an
+explicit marker.
+
+## Configuration
+
+Set options in the bundle patch in your `cordis.yml`:
+
+```yaml
+- id: uiux
+  name: dsh-uiux
+  config:
+    platformGuidance: true
+    maxSpecBytes: 24000
+    maxListRows: 40
+```
+
+| Option | Default | Meaning |
+| --- | --- | --- |
+| `platformGuidance` | `true` | Register `uiux_platform_guide`. Set `false` when the dependency is not installed. |
+| `maxSpecBytes` | `24000` | Upper bound for one `uiux_spec` response. |
+| `maxListRows` | `40` | Upper bound for rows returned by `uiux_styles`. |
+| `dataRoot` | packaged `data/` | Absolute path to a directory containing `styles/`, for a custom catalog. |
+
+Unknown options and out-of-range values throw at load, so a typo fails loudly instead of
+being ignored.
+
+## Layout
+
+```
+index.js                  plugin entry: validate config, load catalog, register tools and skill
+src/config.js             option validation and defaults
+src/catalog.js            load and rank styles
+src/render.js             markdown, css, tailwind, json renderers with byte caps
+src/tools.js              the three tool definitions
+src/mwg.js                Modern Web Guidance subprocess adapter with an LRU cache
+src/skill-provider.js     the uiux skill provider
+data/styles/*.json        one file per style
+data/brief-meta.json      authored palettes for brief styles
+data/platform-guide-ids.json  valid guide ids, used by the validator
+skills/uiux/              SKILL.md and reference pages
+scripts/validate.mjs      schema, contrast, and guide-id gate
+scripts/convert-brief.mjs brief tier generator
+scripts/build-index.mjs   reference index generator
+scripts/vendor.mjs        pinned upstream downloader
+```
+
+## Development
+
+```sh
+npm run validate      # schema, WCAG contrast, guide ids, index freshness
+npm test              # unit tests
+npm run build:briefs  # regenerate brief styles and the index
+npm run vendor        # refresh pinned upstream sources
+```
+
+Contrast is enforced mechanically: `scripts/validate.mjs` parses hex (including alpha),
+composites translucent surfaces over the actual backdrop, and fails any declared pair below
+4.5:1 in either color scheme.
+
+## Licenses
+
+MIT for this package. Style names and the review checklist come from MIT upstreams; Chrome
+Modern Web Guidance is Apache-2.0 and used as a dependency, not copied. See
+`THIRD_PARTY_NOTICES.md` and `skills/uiux/references/upstream.md`.

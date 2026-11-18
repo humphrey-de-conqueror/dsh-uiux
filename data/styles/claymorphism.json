@@ -1,0 +1,164 @@
+{
+  "slug": "claymorphism",
+  "name": "Claymorphism",
+  "depth": "full",
+  "oneLiner": "Puffy pastel shapes with inner glow and soft outer shadow, as if every control were pressed from matte clay.",
+  "aliases": ["clay", "clay morphism", "黏土拟态", "puffy ui"],
+  "mood": ["friendly", "playful", "soft", "approachable"],
+  "tags": ["consumer", "education", "kids", "pastel", "3d"],
+  "bestFor": ["education and kids products", "friendly consumer apps", "onboarding and empty states"],
+  "avoidFor": ["enterprise data tools", "legal or medical interfaces", "high-density dashboards"],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#F4F1FE",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EAE4FB",
+        "text": "#241B3D",
+        "textMuted": "#574C77",
+        "border": "#DDD4F5",
+        "accent": "#7C3AED",
+        "accentText": "#FFFFFF",
+        "success": "#1F7A4D",
+        "warning": "#8A4B00",
+        "danger": "#C02418",
+        "focus": "#7C3AED"
+      },
+      "dark": {
+        "bg": "#1A1630",
+        "surface": "#241E42",
+        "surfaceAlt": "#1E1938",
+        "text": "#F3EFFF",
+        "textMuted": "#B7ADDA",
+        "border": "#352C58",
+        "accent": "#C4B5FD",
+        "accentText": "#1A1630",
+        "success": "#6EE7A0",
+        "warning": "#FCD34D",
+        "danger": "#FF9AAE",
+        "focus": "#C4B5FD"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Baloo 2",
+        "fallback": "Nunito, system-ui, sans-serif",
+        "size": "clamp(1.75rem, 3.6vw, 2.75rem)",
+        "weight": 700,
+        "tracking": "-0.01em",
+        "leading": 1.15
+      },
+      "body": {
+        "family": "Nunito",
+        "fallback": "system-ui, sans-serif",
+        "size": "1rem",
+        "weight": 500,
+        "tracking": "0em",
+        "leading": 1.65
+      },
+      "mono": {
+        "family": "Nunito",
+        "fallback": "ui-monospace",
+        "size": "0.875rem",
+        "weight": 600,
+        "tracking": "0.01em",
+        "leading": 1.5
+      },
+      "scale": ["0.8125rem", "0.875rem", "1rem", "1.25rem", "1.5rem", "2rem", "2.75rem"],
+      "weights": [500, 600, 700, 800]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "48px", "8": "64px" },
+      "density": "roomy"
+    },
+    "radius": { "none": "0", "sm": "14px", "md": "20px", "lg": "28px", "xl": "36px", "full": "999px" },
+    "elevation": {
+      "none": "none",
+      "1": "0 6px 12px -4px rgba(87, 76, 119, 0.22)",
+      "2": "0 12px 24px -8px rgba(87, 76, 119, 0.28)",
+      "3": "0 20px 40px -12px rgba(87, 76, 119, 0.32)",
+      "raised": "0 12px 24px -8px rgba(87, 76, 119, 0.28), inset 0 3px 0 rgba(255, 255, 255, 0.9), inset 0 -4px 0 rgba(87, 76, 119, 0.12)"
+    },
+    "effects": {
+      "blur": "0",
+      "gradients": ["linear-gradient(160deg, #FFFFFF 0%, #F1ECFF 100%)"],
+      "noise": "none",
+      "border": "none; the clay edge is an inset highlight plus a darker inner base",
+      "inner-glow": "inset 0 3px 0 rgba(255, 255, 255, 0.9) on top edges, inset 0 -4px 0 rgba(87, 76, 119, 0.12) on bottoms"
+    },
+    "motion": {
+      "duration": { "fast": "120ms", "base": "220ms", "slow": "360ms" },
+      "easing": { "standard": "cubic-bezier(0.34, 1.4, 0.64, 1)" },
+      "reducedMotion": "remove the squish scale; keep color and shadow transitions"
+    }
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 52px; padding: 0 28px; border: 0; border-radius: 999px; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-family: Nunito, system-ui, sans-serif; font-size: 1rem; font-weight: 800; box-shadow: 0 10px 20px -8px rgba(124, 58, 237, 0.6), inset 0 3px 0 rgba(255, 255, 255, 0.45), inset 0 -5px 0 rgba(0, 0, 0, 0.18)",
+        "hover": "transform: translateY(-2px); box-shadow: 0 16px 28px -10px rgba(124, 58, 237, 0.65), inset 0 3px 0 rgba(255, 255, 255, 0.45), inset 0 -5px 0 rgba(0, 0, 0, 0.18)",
+        "active": "transform: translateY(2px); box-shadow: 0 4px 10px -6px rgba(124, 58, 237, 0.5), inset 0 4px 8px rgba(0, 0, 0, 0.2)",
+        "focus-visible": "outline: 3px solid var(--uiux-color-focus); outline-offset: 3px"
+      },
+      "secondary": {
+        "base": "height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: var(--uiux-color-surface); color: var(--uiux-color-text); font-size: 0.9375rem; font-weight: 700; box-shadow: 0 10px 18px -8px rgba(87, 76, 119, 0.3), inset 0 3px 0 rgba(255, 255, 255, 0.95), inset 0 -4px 0 rgba(87, 76, 119, 0.12)",
+        "hover": "background: var(--uiux-color-surfaceAlt)"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "padding: 24px; border-radius: 28px; background: var(--uiux-color-surface); box-shadow: 0 14px 28px -12px rgba(87, 76, 119, 0.3), inset 0 4px 0 rgba(255, 255, 255, 0.9), inset 0 -5px 0 rgba(87, 76, 119, 0.1)",
+        "hover": "transform: translateY(-3px); box-shadow: 0 22px 36px -16px rgba(87, 76, 119, 0.34), inset 0 4px 0 rgba(255, 255, 255, 0.9), inset 0 -5px 0 rgba(87, 76, 119, 0.1)"
+      }
+    },
+    "icon-badge": {
+      "default": {
+        "base": "width: 56px; height: 56px; display: grid; place-items: center; border-radius: 20px; background: linear-gradient(160deg, #FFFFFF 0%, #EDE6FF 100%); box-shadow: 0 8px 16px -6px rgba(87, 76, 119, 0.35), inset 0 2px 0 rgba(255, 255, 255, 0.9)",
+        "accent": "background: linear-gradient(160deg, #A78BFA 0%, #7C3AED 100%); color: #FFFFFF"
+      }
+    },
+    "field": {
+      "default": {
+        "base": "height: 52px; width: 100%; padding: 0 18px; border: 0; border-radius: 18px; background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-text); font-size: 1rem; box-shadow: inset 0 3px 6px rgba(87, 76, 119, 0.18), inset 0 -2px 0 rgba(255, 255, 255, 0.7)",
+        "focus-visible": "box-shadow: inset 0 3px 6px rgba(87, 76, 119, 0.18), 0 0 0 3px rgba(124, 58, 237, 0.35)",
+        "invalid": "box-shadow: inset 0 3px 6px rgba(192, 36, 24, 0.2), 0 0 0 3px rgba(192, 36, 24, 0.3)",
+        "placeholder": "color: var(--uiux-color-textMuted); opacity: 1"
+      }
+    },
+    "pill-tag": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: 999px; background: var(--uiux-color-surface); color: var(--uiux-color-text); font-size: 0.8125rem; font-weight: 700; box-shadow: 0 4px 10px -4px rgba(87, 76, 119, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.9)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Build depth from an inset top highlight, an inset bottom shade, and one soft outer shadow.",
+      "Keep radii at 20–36px and controls pill-shaped; clay has no sharp corners.",
+      "Limit the palette to one pastel field plus one saturated accent.",
+      "Use 700–800 weights in a rounded family so type matches the material."
+    ],
+    "dont": [
+      "Do not pair clay shapes with 1px hairline borders; the outline kills the softness.",
+      "Do not add hard black shadows or neumorphic twin-shadow contrast.",
+      "Do not use clay for dense tables, code editors, or financial data.",
+      "Do not use more than one saturated accent across the page."
+    ],
+    "antiPatterns": [
+      "A giant border-radius on flat grey cards with no inner highlight — reads as generic rounded UI, not clay.",
+      "Pastel text on pastel backgrounds with 2.5:1 contrast.",
+      "Ten different pastel hues so nothing reads as the primary action."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Soft edges hide boundaries; keep a 1.5:1 minimum delta between control and background and always show a 3px focus ring.",
+      "Pastel pairs are the main risk: verify text on both the surface and the accent, not just on the page background.",
+      "Bouncy easing must be removed under prefers-reduced-motion; scale-based press feedback is the worst offender."
+    ],
+    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+  },
+  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "complex-shapes", "custom-button-actions", "brand-consistent-forms"],
+  "sources": [{ "label": "Authored for dsh-uiux" }]
+}

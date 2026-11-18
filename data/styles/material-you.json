@@ -1,0 +1,175 @@
+{
+  "slug": "material-you",
+  "name": "Material You",
+  "depth": "full",
+  "oneLiner": "Tonal, adaptive material design: soft container colors, large pill shapes, and hierarchy carried by surface tone rather than shadow.",
+  "aliases": ["material 3", "m3", "material design 3", "材质设计"],
+  "mood": ["friendly", "systematic", "adaptable", "clean"],
+  "tags": ["android", "product", "dashboard", "tonal", "accessible"],
+  "bestFor": ["cross-platform product apps", "settings and account surfaces", "mobile-first tools"],
+  "avoidFor": ["editorial storytelling", "luxury brands", "heavily custom marketing sites"],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#FEF7FF",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#F3EDF7",
+        "text": "#1D1B20",
+        "textMuted": "#49454F",
+        "border": "#CAC4D0",
+        "accent": "#6750A4",
+        "accentText": "#FFFFFF",
+        "success": "#2E6B4F",
+        "warning": "#7A5200",
+        "danger": "#BA1A1A",
+        "focus": "#6750A4"
+      },
+      "dark": {
+        "bg": "#141218",
+        "surface": "#211F26",
+        "surfaceAlt": "#2B2930",
+        "text": "#E6E0E9",
+        "textMuted": "#CAC4D0",
+        "border": "#49454F",
+        "accent": "#D0BCFF",
+        "accentText": "#381E72",
+        "success": "#9BD5B3",
+        "warning": "#EFC06A",
+        "danger": "#FFB4AB",
+        "focus": "#D0BCFF"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Roboto",
+        "fallback": "Inter, system-ui, sans-serif",
+        "size": "clamp(2rem, 4vw, 3.25rem)",
+        "weight": 400,
+        "tracking": "-0.01em",
+        "leading": 1.12
+      },
+      "body": {
+        "family": "Roboto",
+        "fallback": "Inter, system-ui, sans-serif",
+        "size": "0.875rem",
+        "weight": 400,
+        "tracking": "0.015em",
+        "leading": 1.43
+      },
+      "mono": {
+        "family": "Roboto Mono",
+        "fallback": "ui-monospace",
+        "size": "0.8125rem",
+        "weight": 400,
+        "tracking": "0em",
+        "leading": 1.5
+      },
+      "scale": ["0.6875rem", "0.75rem", "0.8125rem", "0.875rem", "1rem", "1.375rem", "1.75rem", "2rem"],
+      "weights": [400, 500, 700]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "40px", "8": "56px" },
+      "density": "comfortable"
+    },
+    "radius": { "none": "0", "sm": "8px", "md": "12px", "lg": "16px", "xl": "28px", "full": "999px" },
+    "elevation": {
+      "none": "none",
+      "1": "0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)",
+      "2": "0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15)",
+      "3": "0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.3)"
+    },
+    "effects": {
+      "blur": "0",
+      "gradients": ["linear-gradient(90deg, #6750A4 0%, #8F7DD6 100%)"],
+      "noise": "none",
+      "border": "1px solid var(--uiux-color-border)",
+      "tonal-surfaces": "surfaceAlt is the primary container; secondary containers step one tone lighter or darker instead of adding shadows"
+    },
+    "motion": {
+      "duration": { "fast": "100ms", "base": "200ms", "slow": "400ms" },
+      "easing": { "standard": "cubic-bezier(0.2, 0, 0, 1)", "emphasized": "cubic-bezier(0.05, 0.7, 0.1, 1)" },
+      "reducedMotion": "keep state changes as instant tonal swaps; no scale or slide"
+    }
+  },
+  "components": {
+    "button": {
+      "filled": {
+        "base": "height: 40px; padding: 0 24px; border: 0; border-radius: 999px; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-family: Roboto, Inter, sans-serif; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.01em",
+        "hover": "box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)",
+        "active": "transform: scale(0.98)",
+        "focus-visible": "outline: 3px solid var(--uiux-color-focus); outline-offset: 2px"
+      },
+      "tonal": {
+        "base": "height: 40px; padding: 0 24px; border: 0; border-radius: 999px; background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-accent); font-size: 0.875rem; font-weight: 500",
+        "hover": "background: #E8DEF8"
+      },
+      "text": {
+        "base": "height: 40px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: var(--uiux-color-accent); font-size: 0.875rem; font-weight: 500",
+        "hover": "background: rgba(103, 80, 164, 0.08)"
+      }
+    },
+    "card": {
+      "filled": {
+        "base": "padding: 16px; border-radius: 12px; background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-text)",
+        "hover": "background: #EADDFF"
+      },
+      "outlined": {
+        "base": "padding: 16px; border-radius: 12px; background: var(--uiux-color-surface); border: 1px solid var(--uiux-color-border)"
+      }
+    },
+    "navigation-bar": {
+      "default": {
+        "base": "display: flex; align-items: center; justify-content: space-around; height: 80px; background: var(--uiux-color-surfaceAlt); border-radius: 16px 16px 0 0",
+        "item": "display: grid; justify-items: center; gap: 4px; padding: 12px 0; width: 64px; border-radius: 16px; color: var(--uiux-color-textMuted); font-size: 0.75rem; font-weight: 500",
+        "item-active": "color: var(--uiux-color-text); background: #E8DEF8"
+      }
+    },
+    "text-field": {
+      "filled": {
+        "base": "height: 56px; width: 100%; padding: 0 16px; border: 0; border-bottom: 1px solid var(--uiux-color-textMuted); border-radius: 4px 4px 0 0; background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-text); font-size: 1rem",
+        "focus-visible": "border-bottom: 2px solid var(--uiux-color-accent); outline: none",
+        "invalid": "border-bottom: 2px solid var(--uiux-color-danger)"
+      },
+      "outlined": {
+        "base": "height: 56px; width: 100%; padding: 0 16px; border: 1px solid var(--uiux-color-border); border-radius: 4px; background: transparent; color: var(--uiux-color-text); font-size: 1rem",
+        "focus-visible": "border: 2px solid var(--uiux-color-accent); outline: none"
+      }
+    },
+    "chip": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border: 1px solid var(--uiux-color-border); border-radius: 8px; background: transparent; color: var(--uiux-color-text); font-size: 0.875rem; font-weight: 500",
+        "selected": "background: #E8DEF8; border-color: #E8DEF8; color: #1D192B"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Carry hierarchy with tonal containers: surface, surfaceAlt, and one step further, before reaching for shadows.",
+      "Use the 40px pill button for actions and 32px chips for filters and selections.",
+      "Round large containers to 28px and smaller ones to 12–16px; keep the ladder consistent.",
+      "Reserve elevation for components that are genuinely above the page: menus, sheets, dialogs."
+    ],
+    "dont": [
+      "Do not combine heavy shadows and strong borders on the same component.",
+      "Do not use a pure black text token; Material text roles are near-black on tonal surfaces.",
+      "Do not mix a second primary hue; the accent is single and tonal variants derive from it.",
+      "Do not shrink touch targets below 48px."
+    ],
+    "antiPatterns": [
+      "M3 pill buttons on a bootstrap-grey page — the tone ladder is missing, so it just looks rounded.",
+      "Ten tones of purple with no differentiation between hover, selected, and disabled.",
+      "Elevation shadows on every card and list row."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Tonal surfaces keep contrast stable; every text-on-container pair here is verified at 4.5:1 or better.",
+      "State layers (8% / 12% overlay) must not be the only signal for selected state — pair with an icon or weight change.",
+      "Minimum touch target is 48×48px even when the visible control is 40px tall."
+    ],
+    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+  },
+  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "dark-mode", "design-token-reactivity", "switch", "tabs", "dialog"],
+  "sources": [{ "label": "Authored for dsh-uiux", "url": "https://m3.material.io/" }]
+}

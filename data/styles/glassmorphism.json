@@ -1,0 +1,168 @@
+{
+  "slug": "glassmorphism",
+  "name": "Glassmorphism",
+  "depth": "full",
+  "oneLiner": "Frosted panels floating over saturated color: blur, a 1px light edge, and enough backdrop drama to earn the transparency.",
+  "aliases": ["frosted glass", "acrylic", "玻璃拟态", "glass morphism"],
+  "mood": ["modern", "light", "layered", "vivid"],
+  "tags": ["marketing", "dashboard", "gradient", "translucent", "product"],
+  "bestFor": ["marketing heroes with one big visual", "media players and galleries", "apps with a colourful brand backdrop"],
+  "avoidFor": ["text-heavy documents", "low-contrast brand palettes", "old browsers without backdrop-filter"],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#EEF2FF",
+        "surface": "#FFFFFFB3",
+        "surfaceAlt": "#FFFFFF80",
+        "text": "#141A2E",
+        "textMuted": "#4B5568",
+        "border": "#FFFFFFCC",
+        "accent": "#5B5BD6",
+        "accentText": "#FFFFFF",
+        "success": "#0F7A4A",
+        "warning": "#8A5A00",
+        "danger": "#B42318",
+        "focus": "#5B5BD6"
+      },
+      "dark": {
+        "bg": "#0C1020",
+        "surface": "#FFFFFF14",
+        "surfaceAlt": "#FFFFFF0A",
+        "text": "#F4F7FF",
+        "textMuted": "#B4BFD6",
+        "border": "#FFFFFF2E",
+        "accent": "#A5B4FC",
+        "accentText": "#0C1020",
+        "success": "#4ADE80",
+        "warning": "#FDE68A",
+        "danger": "#FB7185",
+        "focus": "#A5B4FC"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Inter Tight",
+        "fallback": "Inter, system-ui, sans-serif",
+        "size": "clamp(2rem, 4.4vw, 3.5rem)",
+        "weight": 600,
+        "tracking": "-0.03em",
+        "leading": 1.05
+      },
+      "body": {
+        "family": "Inter",
+        "fallback": "system-ui, sans-serif",
+        "size": "0.9375rem",
+        "weight": 400,
+        "tracking": "0em",
+        "leading": 1.6
+      },
+      "mono": {
+        "family": "IBM Plex Mono",
+        "fallback": "ui-monospace",
+        "size": "0.8125rem",
+        "weight": 400,
+        "tracking": "0.01em",
+        "leading": 1.5
+      },
+      "scale": ["0.75rem", "0.8125rem", "0.9375rem", "1.125rem", "1.5rem", "2.25rem", "3.5rem"],
+      "weights": [400, 500, 600]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "48px", "8": "72px" },
+      "density": "comfortable"
+    },
+    "radius": { "none": "0", "sm": "10px", "md": "16px", "lg": "24px", "xl": "32px", "full": "999px" },
+    "elevation": {
+      "none": "none",
+      "1": "0 1px 0 rgba(255, 255, 255, 0.6) inset",
+      "2": "0 20px 48px -20px rgba(20, 26, 46, 0.28)",
+      "3": "0 40px 80px -32px rgba(20, 26, 46, 0.36)"
+    },
+    "effects": {
+      "blur": "18px",
+      "saturate": "1.4",
+      "gradients": ["linear-gradient(135deg, #6366F1 0%, #8B5CF6 45%, #EC4899 100%)"],
+      "noise": "none",
+      "border": "1px solid var(--uiux-color-border)",
+      "specular": "inset 0 1px 0 rgba(255, 255, 255, 0.55) on every glass panel"
+    },
+    "motion": {
+      "duration": { "fast": "140ms", "base": "240ms", "slow": "400ms" },
+      "easing": { "standard": "cubic-bezier(0.2, 0, 0, 1)", "entrance": "cubic-bezier(0.16, 1, 0.3, 1)" },
+      "reducedMotion": "drop backdrop-filter animation; keep panels static and fully opaque"
+    }
+  },
+  "components": {
+    "glass-panel": {
+      "default": {
+        "base": "position: relative; padding: 24px; border-radius: 24px; background: var(--uiux-color-surface); border: 1px solid var(--uiux-color-border); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 20px 48px -20px rgba(20, 26, 46, 0.28)",
+        "hover": "background: rgba(255, 255, 255, 0.78)",
+        "focus-visible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 3px"
+      },
+      "flat": {
+        "base": "padding: 16px; border-radius: 16px; background: var(--uiux-color-surfaceAlt); border: 1px solid var(--uiux-color-border); backdrop-filter: blur(12px)"
+      }
+    },
+    "button": {
+      "primary": {
+        "base": "height: 44px; padding: 0 22px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.6); background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-size: 0.9375rem; font-weight: 500; box-shadow: 0 8px 24px -8px rgba(91, 91, 214, 0.6)",
+        "hover": "transform: translateY(-1px); box-shadow: 0 14px 32px -10px rgba(91, 91, 214, 0.7)",
+        "active": "transform: translateY(0)",
+        "focus-visible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 3px"
+      },
+      "glass": {
+        "base": "height: 44px; padding: 0 20px; border-radius: 999px; border: 1px solid var(--uiux-color-border); background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-text); font-size: 0.875rem; font-weight: 500; backdrop-filter: blur(12px)",
+        "hover": "background: rgba(255, 255, 255, 0.72)"
+      }
+    },
+    "nav-bar": {
+      "default": {
+        "base": "position: sticky; top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 56px; padding: 0 20px; margin: 16px auto; max-width: 1080px; border-radius: 999px; background: var(--uiux-color-surface); border: 1px solid var(--uiux-color-border); backdrop-filter: blur(18px) saturate(140%)",
+        "scrolled": "background: rgba(255, 255, 255, 0.86); box-shadow: 0 12px 32px -16px rgba(20, 26, 46, 0.3)"
+      }
+    },
+    "metric": {
+      "default": {
+        "base": "font-family: 'Inter Tight', Inter, system-ui, sans-serif; font-size: 2.25rem; font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: var(--uiux-color-text)",
+        "label": "margin-top: 6px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--uiux-color-textMuted)"
+      }
+    },
+    "field": {
+      "default": {
+        "base": "height: 44px; width: 100%; padding: 0 14px; border-radius: 12px; border: 1px solid var(--uiux-color-border); background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-text); font-size: 0.9375rem; backdrop-filter: blur(10px)",
+        "focus-visible": "border-color: var(--uiux-color-accent); box-shadow: 0 0 0 3px rgba(91, 91, 214, 0.18)",
+        "invalid": "border-color: var(--uiux-color-danger)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Always pair transparency with a real colourful backdrop; glass on flat white is just grey.",
+      "Add a 1px translucent light border and an inset specular highlight so edges read as material.",
+      "Limit to two stacked layers of glass; three or more turns to mud.",
+      "Keep text on the more opaque panel and check contrast against the darkest backdrop area."
+    ],
+    "dont": [
+      "Do not stack glass panels over each other unless the back panel is flat color.",
+      "Do not use blur above 24px; radii above that read as fog and cost performance.",
+      "Do not blur content the user needs to read behind the panel.",
+      "Do not forget the fallback: solid surface color when backdrop-filter is unsupported."
+    ],
+    "antiPatterns": [
+      "Glass card on a white background with an 8% white fill and no border — invisible.",
+      "Five nested frosted layers in a modal-as-dashboard.",
+      "Backdrop-filter on 40 list rows, tanking scroll on mid-range phones."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Translucency makes effective contrast depend on what scrolls behind; test the worst case and raise fill opacity until text passes 4.5:1.",
+      "Backdrop-filter can break text rendering in some browsers; provide `@supports not (backdrop-filter: blur(1px))` with an opaque fallback.",
+      "Blurred backgrounds are decoration; never blur content that conveys meaning."
+    ],
+    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surface"]]
+  },
+  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "visually-texture-content", "content-first-noise-reduction", "size-aware-styling"],
+  "sources": [{ "label": "Authored for dsh-uiux" }]
+}

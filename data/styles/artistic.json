@@ -1,0 +1,166 @@
+{
+  "slug": "artistic",
+  "name": "Artistic",
+  "depth": "brief",
+  "oneLiner": "High-contrast poster energy: expressive type, unexpected color pairs, and composition treated as an argument.",
+  "aliases": [],
+  "mood": [
+    "expressive"
+  ],
+  "tags": [
+    "expressive",
+    "editorial",
+    "portfolio",
+    "poster"
+  ],
+  "bestFor": [
+    "portfolio sites",
+    "cultural campaigns"
+  ],
+  "avoidFor": [],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#F4F1EA",
+        "surface": "#FBF8F2",
+        "surfaceAlt": "#EBE8E1",
+        "text": "#14110F",
+        "textMuted": "#6E6B67",
+        "border": "#CCC9C3",
+        "accent": "#DB4D36",
+        "accentText": "#0C0C0E",
+        "success": "#15803D",
+        "warning": "#B45309",
+        "danger": "#B91C1C",
+        "focus": "#DB4D36"
+      },
+      "dark": {
+        "bg": "#080809",
+        "surface": "#181819",
+        "surfaceAlt": "#1D1D1D",
+        "text": "#F4F1EA",
+        "textMuted": "#7E7D7A",
+        "border": "#323232",
+        "accent": "#DB4D36",
+        "accentText": "#0C0C0E",
+        "success": "#15803D",
+        "warning": "#B45309",
+        "danger": "#B91C1C",
+        "focus": "#DB4D36"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Fraunces",
+        "size": "clamp(2.25rem, 5vw, 4rem)",
+        "weight": 700,
+        "leading": 1.05,
+        "tracking": "-0.01em"
+      },
+      "body": {
+        "family": "Inter",
+        "size": "1rem",
+        "weight": 400,
+        "leading": 1.55,
+        "tracking": "0em"
+      },
+      "mono": {
+        "family": "JetBrains Mono",
+        "size": "0.8125rem",
+        "weight": 400,
+        "leading": 1.5,
+        "tracking": "0.01em"
+      },
+      "scale": [
+        "0.75rem",
+        "0.875rem",
+        "1rem",
+        "1.125rem",
+        "1.5rem",
+        "2rem",
+        "2.75rem"
+      ],
+      "weights": [
+        400,
+        500,
+        700
+      ]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "24px",
+        "6": "32px",
+        "7": "48px",
+        "8": "64px"
+      },
+      "density": "standard"
+    },
+    "radius": {
+      "none": "0",
+      "sm": "4px",
+      "md": "8px",
+      "lg": "14px",
+      "full": "999px"
+    },
+    "elevation": {
+      "1": "0 1px 2px rgba(0, 0, 0, 0.08)",
+      "2": "0 8px 24px rgba(0, 0, 0, 0.12)"
+    },
+    "effects": {
+      "blur": "0",
+      "gradients": [],
+      "noise": "none"
+    },
+    "motion": {
+      "duration": {
+        "fast": "120ms",
+        "base": "200ms",
+        "slow": "320ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.4, 0, 0.2, 1)"
+      }
+    }
+  },
+  "a11y": {
+    "notes": [
+      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
+      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+    ],
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
+    ]
+  },
+  "platformNotes": [],
+  "sources": [
+    {
+      "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
+      "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+    }
+  ],
+  "origin": {
+    "upstream": "awesome-design-skills",
+    "slug": "artistic",
+    "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  }
+}

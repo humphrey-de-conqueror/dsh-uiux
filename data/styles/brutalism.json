@@ -1,0 +1,166 @@
+{
+  "slug": "brutalism",
+  "name": "Brutalism",
+  "depth": "brief",
+  "oneLiner": "Unadorned slab layout with raw type, visible structure, and a deliberate refusal of decoration.",
+  "aliases": [],
+  "mood": [
+    "expressive"
+  ],
+  "tags": [
+    "raw",
+    "editorial",
+    "experimental",
+    "anti-design"
+  ],
+  "bestFor": [
+    "art and culture sites",
+    "experimental editorial"
+  ],
+  "avoidFor": [],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#E8E6E1",
+        "surface": "#F2F0EB",
+        "surfaceAlt": "#DFDDD8",
+        "text": "#0A0A0A",
+        "textMuted": "#636260",
+        "border": "#C0BEBA",
+        "accent": "#0057FF",
+        "accentText": "#FFFFFF",
+        "success": "#15803D",
+        "warning": "#B45309",
+        "danger": "#B91C1C",
+        "focus": "#0057FF"
+      },
+      "dark": {
+        "bg": "#070708",
+        "surface": "#161617",
+        "surfaceAlt": "#1B1B1C",
+        "text": "#E8E6E1",
+        "textMuted": "#83827F",
+        "border": "#302F2F",
+        "accent": "#0057FF",
+        "accentText": "#FFFFFF",
+        "success": "#15803D",
+        "warning": "#B45309",
+        "danger": "#B91C1C",
+        "focus": "#0057FF"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Silkscreen",
+        "size": "clamp(2.25rem, 5vw, 4rem)",
+        "weight": 700,
+        "leading": 1.05,
+        "tracking": "-0.01em"
+      },
+      "body": {
+        "family": "Inter",
+        "size": "1rem",
+        "weight": 400,
+        "leading": 1.55,
+        "tracking": "0em"
+      },
+      "mono": {
+        "family": "JetBrains Mono",
+        "size": "0.8125rem",
+        "weight": 400,
+        "leading": 1.5,
+        "tracking": "0.01em"
+      },
+      "scale": [
+        "0.75rem",
+        "0.875rem",
+        "1rem",
+        "1.125rem",
+        "1.5rem",
+        "2rem",
+        "2.75rem"
+      ],
+      "weights": [
+        400,
+        500,
+        700
+      ]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "24px",
+        "6": "32px",
+        "7": "48px",
+        "8": "64px"
+      },
+      "density": "compact"
+    },
+    "radius": {
+      "none": "0",
+      "sm": "0",
+      "md": "2px",
+      "lg": "4px",
+      "full": "999px"
+    },
+    "elevation": {
+      "1": "0 1px 2px rgba(0, 0, 0, 0.08)",
+      "2": "0 8px 24px rgba(0, 0, 0, 0.12)"
+    },
+    "effects": {
+      "blur": "0",
+      "gradients": [],
+      "noise": "none"
+    },
+    "motion": {
+      "duration": {
+        "fast": "120ms",
+        "base": "200ms",
+        "slow": "320ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.4, 0, 0.2, 1)"
+      }
+    }
+  },
+  "a11y": {
+    "notes": [
+      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
+      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+    ],
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
+    ]
+  },
+  "platformNotes": [],
+  "sources": [
+    {
+      "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
+      "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+    }
+  ],
+  "origin": {
+    "upstream": "awesome-design-skills",
+    "slug": "brutalism",
+    "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  }
+}

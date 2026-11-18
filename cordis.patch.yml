@@ -1,0 +1,17 @@
+# Bundle patch for dsh-uiux.
+#
+# Installing the bundle appends this package to `dsh.profile.bundles`; the row
+# below is composed on top of every shipped layer, so no manual edit is needed.
+#
+# Disable without uninstalling (profile `cordis.patch.yml`):
+#   - id: uiux
+#     disabled: true
+#
+# Configure (replaces the whole config object):
+#   - id: uiux
+#     name: dsh-uiux
+#     config:
+#       platformGuidance: false
+- insert:
+    - id: uiux
+      name: dsh-uiux

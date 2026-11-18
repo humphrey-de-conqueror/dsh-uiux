@@ -1,0 +1,258 @@
+{
+  "slug": "neumorphism",
+  "name": "Neumorphism",
+  "depth": "full",
+  "oneLiner": "One monochrome surface pressed and raised out of itself: twin shadows, no borders, and a soft, tactile quietness.",
+  "aliases": [
+    "soft UI",
+    "neomorphic",
+    "新拟态"
+  ],
+  "mood": [
+    "soft",
+    "tactile",
+    "calm",
+    "retro-future"
+  ],
+  "tags": [
+    "dashboard",
+    "health",
+    "soft",
+    "shadow",
+    "monochrome"
+  ],
+  "bestFor": [
+    "calm utility apps",
+    "smart-home and audio controllers",
+    "single-purpose consumer dashboards"
+  ],
+  "avoidFor": [
+    "data-dense tables",
+    "high-contrast accessibility-critical surfaces",
+    "brands needing photographic imagery"
+  ],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#E4E9F2",
+        "surface": "#E9EEF6",
+        "surfaceAlt": "#DDE3EE",
+        "text": "#242C3D",
+        "textMuted": "#5A6478",
+        "border": "#CBD3E1",
+        "accent": "#3F63D6",
+        "accentText": "#FFFFFF",
+        "success": "#1B7A4F",
+        "warning": "#8A5300",
+        "danger": "#B42318",
+        "focus": "#3F63D6"
+      },
+      "dark": {
+        "bg": "#1E2430",
+        "surface": "#242B39",
+        "surfaceAlt": "#1A202B",
+        "text": "#EAEFF8",
+        "textMuted": "#A4B0C4",
+        "border": "#323B4C",
+        "accent": "#8FA8FF",
+        "accentText": "#141926",
+        "success": "#63D8A0",
+        "warning": "#E8C06A",
+        "danger": "#F08A8A",
+        "focus": "#8FA8FF"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Nunito",
+        "fallback": "Inter, system-ui, sans-serif",
+        "size": "clamp(1.75rem, 3.4vw, 2.75rem)",
+        "weight": 700,
+        "tracking": "-0.02em",
+        "leading": 1.12
+      },
+      "body": {
+        "family": "Nunito",
+        "fallback": "Inter, system-ui, sans-serif",
+        "size": "1rem",
+        "weight": 400,
+        "tracking": "0em",
+        "leading": 1.6
+      },
+      "mono": {
+        "family": "JetBrains Mono",
+        "fallback": "ui-monospace",
+        "size": "0.8125rem",
+        "weight": 500,
+        "tracking": "0em",
+        "leading": 1.4
+      },
+      "scale": [
+        "0.8125rem",
+        "0.875rem",
+        "1rem",
+        "1.125rem",
+        "1.5rem",
+        "1.875rem",
+        "2.75rem"
+      ],
+      "weights": [
+        400,
+        600,
+        700
+      ]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "24px",
+        "6": "32px",
+        "7": "48px",
+        "8": "64px"
+      },
+      "density": "comfortable"
+    },
+    "radius": {
+      "none": "0",
+      "sm": "8px",
+      "md": "14px",
+      "lg": "20px",
+      "xl": "28px",
+      "full": "999px"
+    },
+    "elevation": {
+      "1": "0 1px 0 rgba(255, 255, 255, 0.7) inset",
+      "2": "6px 6px 14px #C8D0DE, -6px -6px 14px #FFFFFF",
+      "3": "10px 10px 24px #C0C9D9, -10px -10px 24px #FFFFFF",
+      "none": "none",
+      "raised": "6px 6px 14px #C8D0DE, -6px -6px 14px #FFFFFF",
+      "raised-sm": "3px 3px 8px #C8D0DE, -3px -3px 8px #FFFFFF",
+      "pressed": "inset 3px 3px 8px #C8D0DE, inset -3px -3px 8px #FFFFFF"
+    },
+    "effects": {
+      "blur": "0",
+      "gradients": [
+        "linear-gradient(145deg, #EDF1F8 0%, #E1E7F1 100%)"
+      ],
+      "noise": "none",
+      "border": "border: none — depth comes from shadows, not outlines",
+      "light-source": "assume light from the top-left; every raised element uses a dark shadow bottom-right and a light one top-left"
+    },
+    "motion": {
+      "duration": {
+        "fast": "120ms",
+        "base": "200ms",
+        "slow": "320ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.4, 0, 0.2, 1)"
+      },
+      "reducedMotion": "no press animation; keep the pressed shadow as static state"
+    }
+  },
+  "components": {
+    "button": {
+      "raised": {
+        "base": "height: 48px; padding: 0 24px; border: 0; border-radius: 14px; background: var(--uiux-color-bg); color: var(--uiux-color-text); font-family: Nunito, Inter, sans-serif; font-size: 0.9375rem; font-weight: 700; box-shadow: 6px 6px 14px #C8D0DE, -6px -6px 14px #FFFFFF",
+        "hover": "box-shadow: 4px 4px 10px #C8D0DE, -4px -4px 10px #FFFFFF",
+        "active": "box-shadow: inset 3px 3px 8px #C8D0DE, inset -3px -3px 8px #FFFFFF; color: var(--uiux-color-accent)",
+        "focus-visible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 3px"
+      },
+      "chip": {
+        "base": "height: 36px; padding: 0 16px; border: 0; border-radius: 999px; background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-text); font-size: 0.8125rem; font-weight: 600; box-shadow: inset 2px 2px 6px #C8D0DE, inset -2px -2px 6px #FFFFFF",
+        "active": "background: var(--uiux-color-accent); color: var(--uiux-color-accentText); box-shadow: 2px 2px 6px #C8D0DE"
+      }
+    },
+    "panel": {
+      "default": {
+        "base": "padding: 24px; border-radius: 20px; background: var(--uiux-color-bg); box-shadow: 6px 6px 14px #C8D0DE, -6px -6px 14px #FFFFFF"
+      },
+      "inset": {
+        "base": "padding: 20px; border-radius: 20px; background: var(--uiux-color-bg); box-shadow: inset 4px 4px 10px #C8D0DE, inset -4px -4px 10px #FFFFFF"
+      }
+    },
+    "field": {
+      "default": {
+        "base": "height: 48px; width: 100%; padding: 0 16px; border: 0; border-radius: 14px; background: var(--uiux-color-bg); color: var(--uiux-color-text); font-size: 0.9375rem; box-shadow: inset 3px 3px 8px #C8D0DE, inset -3px -3px 8px #FFFFFF",
+        "focus-visible": "box-shadow: inset 3px 3px 8px #C8D0DE, inset -3px -3px 8px #FFFFFF, 0 0 0 2px var(--uiux-color-focus)",
+        "invalid": "box-shadow: inset 3px 3px 8px #C8D0DE, inset -3px -3px 8px #FFFFFF, 0 0 0 2px var(--uiux-color-danger)",
+        "placeholder": "color: var(--uiux-color-textMuted); opacity: 1"
+      }
+    },
+    "switch": {
+      "default": {
+        "track": "width: 52px; height: 30px; border-radius: 999px; background: var(--uiux-color-surfaceAlt); box-shadow: inset 2px 2px 6px #C8D0DE, inset -2px -2px 6px #FFFFFF",
+        "track-on": "background: var(--uiux-color-accent); box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.25)",
+        "thumb": "width: 24px; height: 24px; border-radius: 999px; background: var(--uiux-color-bg); box-shadow: 2px 2px 6px #C8D0DE, -2px -2px 6px #FFFFFF"
+      }
+    },
+    "slider": {
+      "default": {
+        "track": "height: 10px; border-radius: 999px; background: var(--uiux-color-bg); box-shadow: inset 2px 2px 5px #C8D0DE, inset -2px -2px 5px #FFFFFF",
+        "fill": "height: 10px; border-radius: 999px; background: var(--uiux-color-accent)",
+        "thumb": "width: 26px; height: 26px; border-radius: 999px; background: var(--uiux-color-bg); box-shadow: 3px 3px 8px #C8D0DE, -3px -3px 8px #FFFFFF"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Use a single surface hue and derive raised/pressed depth purely from a dark and a light shadow.",
+      "Keep the light source consistent: dark shadow bottom-right, light shadow top-left, always.",
+      "Increase shadow spread with elevation; keep blur radius roughly 2.5× the offset.",
+      "Use inset shadows for anything the user types into or toggles."
+    ],
+    "dont": [
+      "Do not add borders, gradients, or colored shadows on top of the twin-shadow system.",
+      "Do not build this on pure grey; the surface needs a slight blue or warm tint to read as material.",
+      "Do not use neumorphism for dense data tables or small 12px text.",
+      "Do not mix a second accent color into shadows; keep depth achromatic."
+    ],
+    "antiPatterns": [
+      "White cards with a 0 0 20px grey shadow labelled neumorphism — that is just a soft shadow.",
+      "Inconsistent light sources, so some buttons look pressed while others look raised.",
+      "Low-contrast grey text on grey panels where every control looks disabled."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Twin shadows give weak affordance; add a 2px focus ring and a pressed state that changes color, not only shadow.",
+      "Neumorphic controls fail 3:1 non-text contrast by default — keep a 1.5:1 minimum surface-to-control delta or add an outline.",
+      "Never rely on the inset shadow alone to mark a selected state; pair it with a text or icon change."
+    ],
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
+    ]
+  },
+  "platformNotes": [
+    "component-specific-light-dark-theme",
+    "contrast-color",
+    "dark-mode",
+    "custom-button-actions",
+    "switch",
+    "size-aware-styling"
+  ],
+  "sources": [
+    {
+      "label": "Authored for dsh-uiux"
+    }
+  ]
+}

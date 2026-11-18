@@ -1,0 +1,165 @@
+{
+  "slug": "corporate",
+  "name": "Corporate",
+  "depth": "brief",
+  "oneLiner": "Structured grids and enterprise patterns that read as reliable before the copy says anything.",
+  "aliases": [],
+  "mood": [
+    "expressive"
+  ],
+  "tags": [
+    "enterprise",
+    "structured",
+    "trustworthy"
+  ],
+  "bestFor": [
+    "B2B sites",
+    "investor material"
+  ],
+  "avoidFor": [],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#F8FAFC",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EFF1F4",
+        "text": "#0F172A",
+        "textMuted": "#6C727E",
+        "border": "#CED1D6",
+        "accent": "#1D4ED8",
+        "accentText": "#FFFFFF",
+        "success": "#15803D",
+        "warning": "#B45309",
+        "danger": "#B91C1C",
+        "focus": "#1D4ED8"
+      },
+      "dark": {
+        "bg": "#07080D",
+        "surface": "#18191E",
+        "surfaceAlt": "#1D1E23",
+        "text": "#F8FAFC",
+        "textMuted": "#808185",
+        "border": "#323438",
+        "accent": "#3863DD",
+        "accentText": "#FFFFFF",
+        "success": "#15803D",
+        "warning": "#B45309",
+        "danger": "#B91C1C",
+        "focus": "#3863DD"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Inter",
+        "size": "clamp(2.25rem, 5vw, 4rem)",
+        "weight": 700,
+        "leading": 1.05,
+        "tracking": "-0.01em"
+      },
+      "body": {
+        "family": "Inter",
+        "size": "1rem",
+        "weight": 400,
+        "leading": 1.55,
+        "tracking": "0em"
+      },
+      "mono": {
+        "family": "JetBrains Mono",
+        "size": "0.8125rem",
+        "weight": 400,
+        "leading": 1.5,
+        "tracking": "0.01em"
+      },
+      "scale": [
+        "0.75rem",
+        "0.875rem",
+        "1rem",
+        "1.125rem",
+        "1.5rem",
+        "2rem",
+        "2.75rem"
+      ],
+      "weights": [
+        400,
+        500,
+        700
+      ]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "24px",
+        "6": "32px",
+        "7": "48px",
+        "8": "64px"
+      },
+      "density": "standard"
+    },
+    "radius": {
+      "none": "0",
+      "sm": "6px",
+      "md": "10px",
+      "lg": "16px",
+      "full": "999px"
+    },
+    "elevation": {
+      "1": "0 1px 2px rgba(0, 0, 0, 0.08)",
+      "2": "0 8px 24px rgba(0, 0, 0, 0.12)"
+    },
+    "effects": {
+      "blur": "0",
+      "gradients": [],
+      "noise": "none"
+    },
+    "motion": {
+      "duration": {
+        "fast": "120ms",
+        "base": "200ms",
+        "slow": "320ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.4, 0, 0.2, 1)"
+      }
+    }
+  },
+  "a11y": {
+    "notes": [
+      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
+      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+    ],
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
+    ]
+  },
+  "platformNotes": [],
+  "sources": [
+    {
+      "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
+      "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+    }
+  ],
+  "origin": {
+    "upstream": "awesome-design-skills",
+    "slug": "corporate",
+    "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  }
+}

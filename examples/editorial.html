@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Quiet Machine — Editorial</title>
+<style>
+/* dsh-uiux · Editorial (editorial) — generated tokens. */
+/* Naming: --uiux-<group>-<role>. Override per element subtree if needed. */
+:root {
+  --uiux-color-bg: #FBF7F0;
+  --uiux-color-surface: #FFFFFF;
+  --uiux-color-surface-alt: #F2EAE0;
+  --uiux-color-text: #17130E;
+  --uiux-color-text-muted: #5A5145;
+  --uiux-color-border: #D8CDBC;
+  --uiux-color-accent: #9A2B1F;
+  --uiux-color-accent-text: #FFFFFF;
+  --uiux-color-success: #1F6B4A;
+  --uiux-color-warning: #7A4E00;
+  --uiux-color-danger: #A32A32;
+  --uiux-color-focus: #17130E;
+  --uiux-radius-none: 0;
+  --uiux-radius-sm: 2px;
+  --uiux-radius-md: 3px;
+  --uiux-radius-lg: 4px;
+  --uiux-radius-full: 999px;
+  --uiux-space-1: 4px;
+  --uiux-space-2: 8px;
+  --uiux-space-3: 12px;
+  --uiux-space-4: 20px;
+  --uiux-space-5: 32px;
+  --uiux-space-6: 48px;
+  --uiux-space-7: 72px;
+  --uiux-space-8: 104px;
+  --uiux-shadow-1: 0 1px 0 #D8CDBC;
+  --uiux-shadow-2: 0 12px 32px -12px rgba(23, 19, 14, 0.18);
+  --uiux-shadow-none: none;
+  --uiux-effect-blur: 0;
+  --uiux-effect-noise: optional 2% paper grain on the page background only;
+  --uiux-effect-border: 1px solid var(--uiux-color-border);
+  --uiux-effect-measure: 62–68 characters for body columns; 78 characters maximum for notes;
+  --uiux-font-display: Fraunces, "Georgia, serif";
+  --uiux-text-display: clamp(2.5rem, 5.5vw, 4.5rem);
+  --uiux-font-body: "Source Serif 4", "Georgia, serif";
+  --uiux-text-body: 1.1875rem;
+  --uiux-font-mono: "IBM Plex Mono", ui-monospace;
+  --uiux-text-mono: 0.8125rem;
+  --uiux-duration-fast: 140ms;
+  --uiux-duration-base: 220ms;
+  --uiux-duration-slow: 380ms;
+  --uiux-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --uiux-ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"],
+.dark {
+  --uiux-color-bg: #141110;
+  --uiux-color-surface: #1B1715;
+  --uiux-color-surface-alt: #241F1C;
+  --uiux-color-text: #F4EDE3;
+  --uiux-color-text-muted: #B4A99B;
+  --uiux-color-border: #3A322C;
+  --uiux-color-accent: #E8735F;
+  --uiux-color-accent-text: #1A0D0A;
+  --uiux-color-success: #6FD3A6;
+  --uiux-color-warning: #E0B15C;
+  --uiux-color-danger: #F08A8A;
+  --uiux-color-focus: #E8735F;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    /* opacity-only link underlines; no reflow and no parallax */
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: var(--uiux-space-8, 32px) var(--uiux-space-6, 24px);
+  background: var(--uiux-color-bg);
+  color: var(--uiux-color-text);
+  font-family: "Source Serif 4";
+  font-size: 1.1875rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+.shell { max-width: 1040px; margin: 0 auto; }
+.eyebrow {
+  margin: 0 0 var(--uiux-space-2, 8px);
+  color: var(--uiux-color-text-muted);
+  font-family: Fraunces;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+h1 {
+  margin: 0 0 var(--uiux-space-3, 12px);
+  font-family: Fraunces;
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.lede { margin: 0; max-width: 60ch; color: var(--uiux-color-text-muted); }
+.actions { display: flex; gap: var(--uiux-space-3, 12px); margin: var(--uiux-space-6, 24px) 0; }
+.primary, .quiet {
+  border-radius: var(--uiux-radius-md);
+  border: 1px solid var(--uiux-color-accent);
+  background: var(--uiux-color-accent);
+  color: var(--uiux-color-accent-text);
+  font: inherit;
+  font-weight: 600;
+  padding: 10px 18px;
+  cursor: pointer;
+}
+.quiet { background: transparent; color: var(--uiux-color-text); border-color: var(--uiux-color-border); }
+.grid { display: grid; gap: var(--uiux-space-4, 16px); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.card {
+  border: 1px solid var(--uiux-color-border);
+  border-radius: var(--uiux-radius-lg);
+  background: var(--uiux-color-surface);
+  padding: var(--uiux-space-5, 20px);
+  box-shadow: var(--uiux-shadow-sm, none);
+}
+.card h2 { margin: 0 0 var(--uiux-space-2, 8px); font-family: Fraunces; font-size: 18px; }
+.card p { margin: 0; color: var(--uiux-color-text-muted); }
+.metric { font-family: "IBM Plex Mono"; font-size: 34px; font-variant-numeric: tabular-nums; }
+label { display: block; margin: var(--uiux-space-6, 24px) 0 var(--uiux-space-2, 8px); font-size: 12px; color: var(--uiux-color-text-muted); }
+input {
+  width: 100%; max-width: 360px;
+  border: 1px solid var(--uiux-color-border);
+  border-radius: var(--uiux-radius-md);
+  background: var(--uiux-color-surface);
+  color: var(--uiux-color-text);
+  font: inherit;
+  padding: 10px 12px;
+}
+:focus-visible { outline: 2px solid var(--uiux-color-focus); outline-offset: 2px; }
+footer { margin-top: var(--uiux-space-8, 32px); color: var(--uiux-color-text-muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <p class="eyebrow">Editorial · full tier</p>
+  <h1>The Quiet Machine</h1>
+  <p class="lede">Notes on interfaces that respect reading.</p>
+  <div class="actions">
+    <button class="primary">Continue</button>
+    <button class="quiet">Review changes</button>
+  </div>
+  <div class="grid">
+    <section class="card">
+      <h2>Light</h2>
+      <p class="metric">42%</p>
+      <p>Daylight duration, held steady across the week.</p>
+    </section>
+    <section class="card">
+      <h2>Sessions</h2>
+      <p class="metric">1,204</p>
+      <p>Active control surfaces, no drops in the last hour.</p>
+    </section>
+    <section class="card">
+      <h2>Drift</h2>
+      <p class="metric">0.3s</p>
+      <p>Median response time to a device state change.</p>
+    </section>
+  </div>
+  <label for="name">Device name</label>
+  <input id="name" value="Living room" autocomplete="off">
+  <footer>Generated from <code>uiux_spec</code> output for <code>editorial</code>. Tokens are unmodified; only the demo layout is local.</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,200 @@
+{
+  "slug": "premium-minimalism",
+  "name": "Premium Minimalism",
+  "depth": "full",
+  "oneLiner": "Warm near-white paper, one serif voice, hairline rules, and vast quiet space — luxury communicated by restraint instead of decoration.",
+  "aliases": ["premium-minimal", "quiet luxury", "高级灰", "极简高级"],
+  "mood": ["calm", "refined", "expensive", "assured"],
+  "tags": ["luxury", "editorial", "commerce", "portfolio", "wellness"],
+  "bestFor": ["luxury commerce", "studio and portfolio sites", "wellness brands", "high-ticket services"],
+  "avoidFor": ["data-dense dashboards", "playful consumer apps", "kid-facing products"],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#FBFBF9",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#F4F4F1",
+        "text": "#141311",
+        "textMuted": "#6B6862",
+        "border": "#E3E2DD",
+        "accent": "#141311",
+        "accentText": "#FBFBF9",
+        "success": "#1F6B45",
+        "warning": "#7A5200",
+        "danger": "#A11B2E",
+        "focus": "#141311"
+      },
+      "dark": {
+        "bg": "#0C0C0B",
+        "surface": "#141413",
+        "surfaceAlt": "#1C1C1A",
+        "text": "#F5F4F0",
+        "textMuted": "#A8A5A0",
+        "border": "#2A2A27",
+        "accent": "#F5F4F0",
+        "accentText": "#0C0C0B",
+        "success": "#5FD39A",
+        "warning": "#E8BE72",
+        "danger": "#F08A96",
+        "focus": "#F5F4F0"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Instrument Serif",
+        "fallback": "Georgia, serif",
+        "size": "clamp(3rem, 7vw, 6rem)",
+        "weight": 400,
+        "tracking": "-0.02em",
+        "leading": 0.98
+      },
+      "body": {
+        "family": "Inter",
+        "fallback": "system-ui",
+        "size": "1.0625rem",
+        "weight": 400,
+        "tracking": "0em",
+        "leading": 1.65
+      },
+      "mono": {
+        "family": "IBM Plex Mono",
+        "fallback": "ui-monospace",
+        "size": "0.75rem",
+        "weight": 500,
+        "tracking": "0.14em",
+        "leading": 1.4
+      },
+      "scale": ["0.6875rem", "0.8125rem", "0.9375rem", "1.0625rem", "1.375rem", "1.875rem", "2.75rem", "4rem"],
+      "weights": [400, 500]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "20px",
+        "5": "32px",
+        "6": "48px",
+        "7": "72px",
+        "8": "104px",
+        "9": "152px",
+        "10": "216px"
+      },
+      "density": "generous"
+    },
+    "radius": {
+      "none": "0",
+      "sm": "2px",
+      "md": "4px",
+      "lg": "8px",
+      "full": "999px"
+    },
+    "elevation": {
+      "1": "0 1px 0 #1413110F",
+      "2": "0 24px 64px #14131114",
+      "3": "0 40px 120px #1413111F"
+    },
+    "effects": {
+      "blur": "8px",
+      "gradients": ["linear-gradient(180deg, #FFFFFF 0%, #FBFBF9 100%)"],
+      "noise": "none",
+      "border": "1px solid #E3E2DD"
+    },
+    "motion": {
+      "duration": { "fast": "160ms", "base": "320ms", "slow": "560ms" },
+      "easing": {
+        "standard": "cubic-bezier(0.2, 0.7, 0.2, 1)",
+        "entrance": "cubic-bezier(0.16, 1, 0.3, 1)"
+      },
+      "reducedMotion": "cross-fade only; no translate or scale, and no image zoom on hover"
+    }
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 52px; padding: 0 28px; border-radius: 2px; background: var(--uiux-color-accent); color: var(--uiux-color-accent-text); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: opacity 160ms cubic-bezier(0.2,0.7,0.2,1)",
+        "hover": "opacity: 0.82",
+        "focus-visible": "outline: 1px solid var(--uiux-color-focus); outline-offset: 4px"
+      },
+      "text": {
+        "base": "padding: 0; background: transparent; color: var(--uiux-color-text); font-size: 0.8125rem; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid var(--uiux-color-border); border-radius: 0",
+        "hover": "border-bottom-color: var(--uiux-color-text)"
+      }
+    },
+    "card": {
+      "hairline": {
+        "base": "padding: 40px; border-radius: 0; background: var(--uiux-color-surface); border: 1px solid var(--uiux-color-border); box-shadow: none",
+        "hover": "border-color: var(--uiux-color-text)"
+      }
+    },
+    "input": {
+      "default": {
+        "base": "height: 48px; padding: 0; border-radius: 0; background: transparent; border: 0; border-bottom: 1px solid var(--uiux-color-border); color: var(--uiux-color-text); font-size: 1rem",
+        "focus-visible": "border-bottom-color: var(--uiux-color-text); outline: none",
+        "invalid": "border-bottom-color: var(--uiux-color-danger)"
+      }
+    },
+    "nav": {
+      "bar": {
+        "base": "height: 76px; padding: 0 48px; background: var(--uiux-color-bg); border-bottom: 1px solid var(--uiux-color-border); font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase",
+        "scrolled": "background: color-mix(in oklab, var(--uiux-color-bg) 92%, transparent); backdrop-filter: blur(8px)"
+      }
+    },
+    "table": {
+      "default": {
+        "base": "width: 100%; border-collapse: collapse; font-size: 0.9375rem",
+        "header": "text-align: left; padding: 0 0 12px; border-bottom: 1px solid var(--uiux-color-border); font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--uiux-color-text-muted)",
+        "row": "border-bottom: 1px solid var(--uiux-color-border); height: 56px"
+      }
+    },
+    "badge": {
+      "default": {
+        "base": "height: 22px; padding: 0 8px; border-radius: 2px; border: 1px solid var(--uiux-color-border); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--uiux-color-text-muted)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Let one serif display voice carry the page; keep everything else in one neutral sans.",
+      "Use space as the primary hierarchy tool: at least 96px between major sections.",
+      "Draw structure with 1px hairline rules, not shadows or filled blocks.",
+      "Limit the palette to paper, ink, one muted neutral, and a single status color per message."
+    ],
+    "dont": [
+      "Do not add gradients, glows, or glossy buttons; they read as mid-market.",
+      "Do not use more than two type sizes inside one card.",
+      "Do not center-align body copy; keep a strong left edge.",
+      "Do not use pure #FFFFFF paper for the page background — the warmth is the signal."
+    ],
+    "antiPatterns": [
+      "Serif headline over a gradient hero with a glowing CTA — premium styling without premium restraint.",
+      "Six competing font sizes and three accent colors on one screen.",
+      "Cards with 24px radius and heavy shadows inside an otherwise flat layout."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Warm near-white backgrounds compress perceived contrast; hold body text at 7:1 or better, not the 4.5:1 minimum.",
+      "Hairline borders are decorative: never rely on a 1px rule alone to delimit an interactive target.",
+      "Letter-spaced uppercase labels must still meet 4.5:1 at 11–12px."
+    ],
+    "contrastPairs": [
+      ["text", "bg"],
+      ["text", "surface"],
+      ["textMuted", "bg"],
+      ["accentText", "accent"],
+      ["textMuted", "surfaceAlt"]
+    ]
+  },
+  "platformNotes": [
+    "improve-text-layout-and-legibility",
+    "visually-stable-font-fallbacks",
+    "component-specific-light-dark-theme",
+    "fluid-scaling",
+    "optimize-image-priority"
+  ],
+  "sources": [
+    { "label": "Authored for dsh-uiux" }
+  ]
+}

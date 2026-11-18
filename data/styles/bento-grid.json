@@ -1,0 +1,189 @@
+{
+  "slug": "bento-grid",
+  "name": "Bento Grid",
+  "depth": "full",
+  "oneLiner": "A modular composition of unequal tiles, where layout itself is the argument and every card has one job.",
+  "aliases": ["bento", "bento box", "便当格", "bento layout"],
+  "mood": ["composed", "modern", "systematic", "friendly"],
+  "tags": ["layout", "marketing", "product", "grid", "cards"],
+  "bestFor": ["product landing pages", "feature overviews", "dashboard summaries", "personal or team profiles"],
+  "avoidFor": ["long-form reading", "transactional checkout flows", "legacy enterprise tables"],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#F4F5F7",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EAECF0",
+        "text": "#0E1218",
+        "textMuted": "#566070",
+        "border": "#DDE1E7",
+        "accent": "#4F46E5",
+        "accentText": "#FFFFFF",
+        "success": "#0F7A4A",
+        "warning": "#8A5A00",
+        "danger": "#B42318",
+        "focus": "#4F46E5"
+      },
+      "dark": {
+        "bg": "#0B0D11",
+        "surface": "#14171D",
+        "surfaceAlt": "#1B1F27",
+        "text": "#F2F5FA",
+        "textMuted": "#A6B0C0",
+        "border": "#262B35",
+        "accent": "#8C86FF",
+        "accentText": "#0B0D11",
+        "success": "#4ADE9A",
+        "warning": "#F0C04A",
+        "danger": "#FF7A8A",
+        "focus": "#8C86FF"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Inter Tight",
+        "fallback": "Inter, system-ui, sans-serif",
+        "size": "clamp(2rem, 3.4vw, 3rem)",
+        "weight": 600,
+        "tracking": "-0.03em",
+        "leading": 1.05
+      },
+      "body": {
+        "family": "Inter",
+        "fallback": "system-ui, sans-serif",
+        "size": "0.9375rem",
+        "weight": 400,
+        "tracking": "-0.005em",
+        "leading": 1.55
+      },
+      "mono": {
+        "family": "JetBrains Mono",
+        "fallback": "ui-monospace",
+        "size": "0.8125rem",
+        "weight": 500,
+        "tracking": "0em",
+        "leading": 1.4
+      },
+      "scale": ["0.75rem", "0.8125rem", "0.9375rem", "1.125rem", "1.5rem", "2rem", "3rem"],
+      "weights": [400, 500, 600, 700]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "48px", "8": "64px" },
+      "density": "tile"
+    },
+    "radius": { "none": "0", "sm": "10px", "md": "16px", "lg": "24px", "xl": "32px", "full": "999px" },
+    "elevation": {
+      "none": "none",
+      "1": "0 1px 2px rgba(14, 18, 24, 0.06)",
+      "2": "0 8px 24px -8px rgba(14, 18, 24, 0.12)",
+      "3": "0 24px 48px -24px rgba(14, 18, 24, 0.24)"
+    },
+    "effects": {
+      "blur": "12px",
+      "gradients": ["linear-gradient(140deg, #4F46E5 0%, #7C6CFF 100%)"],
+      "noise": "none",
+      "border": "1px solid var(--uiux-color-border)",
+      "grid": "12 columns, 24px gutters, rows in multiples of 8px"
+    },
+    "motion": {
+      "duration": { "fast": "120ms", "base": "200ms", "slow": "320ms" },
+      "easing": { "standard": "cubic-bezier(0.2, 0, 0, 1)", "spring": "cubic-bezier(0.34, 1.56, 0.64, 1)" },
+      "reducedMotion": "cancel transforms; keep the elevation change as a border color shift"
+    }
+  },
+  "components": {
+    "grid": {
+      "default": {
+        "base": "display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; max-width: 1200px",
+        "tablet": "grid-template-columns: repeat(6, minmax(0, 1fr))",
+        "mobile": "grid-template-columns: 1fr"
+      }
+    },
+    "tile": {
+      "default": {
+        "base": "position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; padding: 24px; background: var(--uiux-color-surface); border: 1px solid var(--uiux-color-border); border-radius: var(--uiux-radius-lg); min-height: 160px",
+        "hover": "border-color: #C6CBD4; box-shadow: 0 8px 24px -8px rgba(14, 18, 24, 0.12); transform: translateY(-2px)",
+        "focus-visible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 2px"
+      },
+      "wide": {
+        "base": "grid-column: span 8; min-height: 280px",
+        "mobile": "grid-column: span 1"
+      },
+      "tall": {
+        "base": "grid-row: span 2; min-height: 336px"
+      },
+      "accent": {
+        "base": "background: linear-gradient(140deg, #4F46E5 0%, #7C6CFF 100%); color: #FFFFFF; border-color: transparent"
+      }
+    },
+    "tile-header": {
+      "default": {
+        "base": "display: flex; align-items: center; justify-content: space-between; gap: 12px",
+        "label": "font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--uiux-color-textMuted)",
+        "icon": "width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-text)"
+      }
+    },
+    "stat": {
+      "default": {
+        "base": "font-family: 'Inter Tight', Inter, system-ui, sans-serif; font-size: 2.75rem; line-height: 1; letter-spacing: -0.04em; font-weight: 600",
+        "delta": "display: inline-flex; align-items: center; gap: 4px; font-size: 0.8125rem; font-weight: 500; color: var(--uiux-color-success)",
+        "caption": "font-size: 0.8125rem; color: var(--uiux-color-textMuted); line-height: 1.4; max-width: 34ch"
+      }
+    },
+    "tile-link": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; gap: 6px; font-size: 0.875rem; font-weight: 500; color: var(--uiux-color-accent); text-decoration: none",
+        "hover": "gap: 10px",
+        "focus-visible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 3px; border-radius: 6px"
+      }
+    },
+    "badge": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 500; background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-text)",
+        "accent": "background: #EEF0FF; color: #3730A3"
+      }
+    },
+    "button": {
+      "primary": {
+        "base": "height: 44px; padding: 0 20px; border-radius: 999px; border: 0; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-size: 0.9375rem; font-weight: 500",
+        "hover": "background: #4338CA",
+        "active": "transform: scale(0.98)",
+        "focus-visible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 2px"
+      },
+      "quiet": {
+        "base": "height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--uiux-color-border); background: transparent; color: var(--uiux-color-text); font-size: 0.875rem; font-weight: 500",
+        "hover": "background: var(--uiux-color-surfaceAlt)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Build on a real 12-column grid; let tiles span 4, 6, 8, or 12 columns and one or two rows.",
+      "Give every tile exactly one message: a stat, a feature, a quote, or a single action.",
+      "Vary tile size deliberately so the composition has a spine, not a uniform checkerboard.",
+      "Keep tile padding constant (24px) and align all tile content to the same inner rhythm."
+    ],
+    "dont": [
+      "Do not make all tiles the same size; that is a card grid, not a bento.",
+      "Do not put more than one primary action inside a tile.",
+      "Do not mix more than one accent gradient across the page.",
+      "Do not use 1px hairline borders and heavy shadows on the same tile."
+    ],
+    "antiPatterns": [
+      "Nine identical square cards in a perfect 3×3 — no hierarchy, no bento.",
+      "Tiles with five text blocks and two buttons that read as tiny pages.",
+      "Grid gaps that differ between rows, breaking the visual rhythm of the modules."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Read order follows DOM order; absolutely positioned tiles break keyboard and screen-reader order — do not use them.",
+      "Report changes in stat tiles with `aria-live=\"polite\"` and explicit up/down wording, not color alone.",
+      "Tiles that are entirely clickable need a visible focus ring on the tile, not only on the inner link."
+    ],
+    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["text", "surfaceAlt"], ["accentText", "accent"]]
+  },
+  "platformNotes": ["size-aware-styling", "css-layout", "content-based-styling", "component-specific-light-dark-theme", "card"],
+  "sources": [{ "label": "Authored for dsh-uiux" }]
+}

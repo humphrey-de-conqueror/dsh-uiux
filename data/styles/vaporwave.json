@@ -1,0 +1,166 @@
+{
+  "slug": "vaporwave",
+  "name": "Vaporwave",
+  "depth": "full",
+  "oneLiner": "A sunset grid horizon, chrome type, and pastel neon: the internet's romantic memory of the 1980s, rendered on purpose.",
+  "aliases": ["synthwave", "retrowave", "蒸汽波", "outrun"],
+  "mood": ["dreamy", "nostalgic", "electric", "ironic"],
+  "tags": ["music", "gaming", "retro", "neon", "gradient"],
+  "bestFor": ["music and event platforms", "indie games", "playful cultural projects"],
+  "avoidFor": ["financial products", "healthcare", "documentation and support centres"],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#FDF3FB",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#F6E4F3",
+        "text": "#241030",
+        "textMuted": "#5E4468",
+        "border": "#EBD3E7",
+        "accent": "#C2187E",
+        "accentText": "#FFFFFF",
+        "success": "#0E7490",
+        "warning": "#9A5B00",
+        "danger": "#C0243A",
+        "focus": "#C2187E"
+      },
+      "dark": {
+        "bg": "#120A20",
+        "surface": "#1D1233",
+        "surfaceAlt": "#261741",
+        "text": "#F3E9FF",
+        "textMuted": "#BDAAE0",
+        "border": "#3A2559",
+        "accent": "#FF71CE",
+        "accentText": "#2A0A22",
+        "success": "#6FE7D8",
+        "warning": "#FFD166",
+        "danger": "#FF6B8A",
+        "focus": "#FF71CE"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Michroma",
+        "fallback": "Eurostile, system-ui, sans-serif",
+        "size": "clamp(2rem, 5vw, 4rem)",
+        "weight": 400,
+        "tracking": "0.12em",
+        "leading": 1.1
+      },
+      "body": {
+        "family": "Inter",
+        "fallback": "system-ui, sans-serif",
+        "size": "0.9375rem",
+        "weight": 400,
+        "tracking": "0.01em",
+        "leading": 1.65
+      },
+      "mono": {
+        "family": "VT323",
+        "fallback": "ui-monospace",
+        "size": "1rem",
+        "weight": 400,
+        "tracking": "0.04em",
+        "leading": 1.4
+      },
+      "scale": ["0.75rem", "0.8125rem", "0.9375rem", "1.125rem", "1.5rem", "2.25rem", "4rem"],
+      "weights": [400, 500, 700]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "48px", "8": "72px" },
+      "density": "comfortable"
+    },
+    "radius": { "none": "0", "sm": "2px", "md": "6px", "lg": "12px", "full": "999px" },
+    "elevation": {
+      "none": "none",
+      "1": "0 0 0 1px #3A2559",
+      "2": "0 0 24px rgba(255, 113, 206, 0.35)",
+      "3": "0 0 48px rgba(1, 205, 254, 0.3)"
+    },
+    "effects": {
+      "blur": "6px",
+      "gradients": [
+        "linear-gradient(180deg, #2A1046 0%, #6B1E63 55%, #FF71CE 100%)",
+        "linear-gradient(90deg, #FF71CE 0%, #B967FF 50%, #01CDFE 100%)"
+      ],
+      "noise": "4% grain over the horizon gradient to stop banding",
+      "border": "1px solid var(--uiux-color-border)",
+      "horizon-grid": "repeating-linear-gradient at 1px / 24px both axes, masked to fade below the fold"
+    },
+    "motion": {
+      "duration": { "fast": "160ms", "base": "280ms", "slow": "600ms" },
+      "easing": { "standard": "cubic-bezier(0.22, 1, 0.36, 1)", "chrome": "linear" },
+      "reducedMotion": "static horizon; keep the gradient and remove the grid scroll and shimmer"
+    }
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 46px; padding: 0 26px; border: 1px solid #FF71CE; border-radius: 999px; background: rgba(255, 113, 206, 0.12); color: var(--uiux-color-text); font-family: Michroma, Eurostile, sans-serif; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; backdrop-filter: blur(6px)",
+        "hover": "background: rgba(255, 113, 206, 0.28); box-shadow: 0 0 24px rgba(255, 113, 206, 0.45)",
+        "active": "transform: translateY(1px)",
+        "focus-visible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 3px"
+      },
+      "chrome": {
+        "base": "height: 46px; padding: 0 26px; border: 0; border-radius: 999px; background: linear-gradient(180deg, #FFFFFF 0%, #C9C9E8 45%, #7A7AA8 55%, #F0F0FF 100%); color: #1A0E2E; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "padding: 24px; border-radius: 12px; background: rgba(29, 18, 51, 0.82); border: 1px solid var(--uiux-color-border); backdrop-filter: blur(6px)",
+        "hover": "border-color: rgba(255, 113, 206, 0.55); box-shadow: 0 0 32px rgba(255, 113, 206, 0.25)"
+      }
+    },
+    "horizon": {
+      "default": {
+        "base": "position: relative; min-height: 320px; background: linear-gradient(180deg, #2A1046 0%, #6B1E63 55%, #FF71CE 100%); overflow: hidden",
+        "sun": "position: absolute; left: 50%; bottom: 34%; width: 160px; height: 160px; border-radius: 999px; background: linear-gradient(180deg, #FFD166 0%, #FF71CE 100%); filter: blur(0.5px); transform: translateX(-50%)",
+        "grid": "position: absolute; inset: auto 0 0; height: 45%; background-image: repeating-linear-gradient(90deg, rgba(1, 205, 254, 0.55) 0 1px, transparent 1px 40px), repeating-linear-gradient(0deg, rgba(1, 205, 254, 0.55) 0 1px, transparent 1px 32px); transform: perspective(320px) rotateX(62deg); transform-origin: bottom"
+      }
+    },
+    "glow-heading": {
+      "default": {
+        "base": "font-family: Michroma, Eurostile, sans-serif; font-size: clamp(2rem, 5vw, 4rem); letter-spacing: 0.12em; text-transform: uppercase; color: #F3E9FF; text-shadow: 0 0 12px rgba(255, 113, 206, 0.7), 0 0 32px rgba(1, 205, 254, 0.45)",
+        "chrome": "background: linear-gradient(180deg, #FFFFFF 0%, #C9C9E8 45%, #7A7AA8 55%, #F0F0FF 100%); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none"
+      }
+    },
+    "field": {
+      "default": {
+        "base": "height: 46px; width: 100%; padding: 0 14px; border: 1px solid var(--uiux-color-border); border-radius: 6px; background: rgba(18, 10, 32, 0.7); color: var(--uiux-color-text); font-size: 0.9375rem",
+        "focus-visible": "border-color: var(--uiux-color-accent); box-shadow: 0 0 0 3px rgba(255, 113, 206, 0.25)",
+        "invalid": "border-color: var(--uiux-color-danger)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Anchor the page with one horizon scene: sun disc, grid floor, gradient sky — then keep content surfaces calm.",
+      "Use chrome or glow on headlines only, never on body copy.",
+      "Keep the neon pair (pink and cyan) to two hues and one gradient.",
+      "Set body copy in a clean sans; the retro faces are for display and small labels."
+    ],
+    "dont": [
+      "Do not apply chrome text effects to paragraphs or form labels.",
+      "Do not animate the grid continuously at full contrast; mask it and slow it down.",
+      "Do not use VT323 for body copy below 16px.",
+      "Do not stack three neon hues plus a chrome gradient in one view."
+    ],
+    "antiPatterns": [
+      "Full-page grid animation behind a checkout form.",
+      "Chrome gradient applied to every heading and button, so nothing has hierarchy.",
+      "Vaporwave colors used with corporate photography and stock people — the register collapses."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Glow and chrome reduce effective contrast; never put body text in either treatment.",
+      "Pink #FF71CE on near-black is above 4.5:1, but on the mid-gradient purple it fails; keep text on the card surface.",
+      "Perspective grid and parallax trigger vestibular issues; disable both under prefers-reduced-motion."
+    ],
+    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+  },
+  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "custom-text-decorations", "visually-texture-content", "complex-shapes"],
+  "sources": [{ "label": "Authored for dsh-uiux" }]
+}

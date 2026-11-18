@@ -1,0 +1,253 @@
+{
+  "slug": "paper-print",
+  "name": "Paper Print",
+  "depth": "full",
+  "oneLiner": "Two-spot-colour print on uncoated stock: halftone texture, visible ink registration, and editorial confidence.",
+  "aliases": [
+    "risograph",
+    "riso",
+    "print editorial",
+    "印刷风"
+  ],
+  "mood": [
+    "tactile",
+    "crafted",
+    "warm",
+    "independent"
+  ],
+  "tags": [
+    "publishing",
+    "culture",
+    "print",
+    "texture",
+    "editorial"
+  ],
+  "bestFor": [
+    "independent magazines and studios",
+    "cultural programmes and zine sites",
+    "artisan product brands"
+  ],
+  "avoidFor": [
+    "fintech and healthcare",
+    "dense enterprise tooling",
+    "brands requiring photographic realism"
+  ],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#F5EFE3",
+        "surface": "#FBF7EE",
+        "surfaceAlt": "#EBE2D1",
+        "text": "#1E1B16",
+        "textMuted": "#5A5248",
+        "border": "#C9BEA8",
+        "accent": "#C8421C",
+        "accentText": "#FFF8F0",
+        "success": "#2F5D3A",
+        "warning": "#7A4E00",
+        "danger": "#A32B1E",
+        "focus": "#2B50AA"
+      },
+      "dark": {
+        "bg": "#17140F",
+        "surface": "#201C16",
+        "surfaceAlt": "#2A251D",
+        "text": "#F4EDDF",
+        "textMuted": "#B8AC98",
+        "border": "#3E3829",
+        "accent": "#FF7A4D",
+        "accentText": "#1A0D07",
+        "success": "#9CC9A8",
+        "warning": "#E6C27A",
+        "danger": "#F0A199",
+        "focus": "#8FB0FF"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Bricolage Grotesque",
+        "fallback": "Archivo, Helvetica, sans-serif",
+        "size": "clamp(2.5rem, 6.5vw, 5.5rem)",
+        "weight": 700,
+        "tracking": "-0.03em",
+        "leading": 0.92
+      },
+      "body": {
+        "family": "Lora",
+        "fallback": "Georgia, serif",
+        "size": "1.0625rem",
+        "weight": 400,
+        "tracking": "0em",
+        "leading": 1.65
+      },
+      "mono": {
+        "family": "Space Mono",
+        "fallback": "ui-monospace",
+        "size": "0.75rem",
+        "weight": 700,
+        "tracking": "0.08em",
+        "leading": 1.5
+      },
+      "scale": [
+        "0.6875rem",
+        "0.75rem",
+        "0.875rem",
+        "1.0625rem",
+        "1.375rem",
+        "2.25rem",
+        "5.5rem"
+      ],
+      "weights": [
+        400,
+        500,
+        700,
+        800
+      ]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "20px",
+        "5": "32px",
+        "6": "48px",
+        "7": "72px",
+        "8": "104px"
+      },
+      "density": "editorial"
+    },
+    "radius": {
+      "none": "0",
+      "sm": "0",
+      "md": "2px",
+      "lg": "4px",
+      "full": "999px"
+    },
+    "elevation": {
+      "1": "2px 2px 0 #C9BEA8",
+      "2": "6px 6px 0 #1E1B16",
+      "3": "0 20px 40px -24px rgba(30, 27, 22, 0.35)",
+      "none": "none"
+    },
+    "effects": {
+      "blur": "0",
+      "gradients": [
+        "linear-gradient(135deg, #F5EFE3 0%, #EDE0CA 100%)"
+      ],
+      "noise": "6% halftone dot grid at 4px pitch over accent blocks; 3% grain over the page",
+      "border": "1px solid var(--uiux-color-border)",
+      "misregistration": "accent shapes offset 2px from their ink key line, as in a mis-registered two-colour print"
+    },
+    "motion": {
+      "duration": {
+        "fast": "160ms",
+        "base": "280ms",
+        "slow": "460ms"
+      },
+      "easing": {
+        "standard": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+      },
+      "reducedMotion": "no page-turn or offset reveal; static ink treatment"
+    }
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 48px; padding: 0 24px; border: 1px solid var(--uiux-color-text); border-radius: 0; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-family: 'Space Mono', ui-monospace, monospace; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; box-shadow: 3px 3px 0 var(--uiux-color-text)",
+        "hover": "transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--uiux-color-text)",
+        "active": "transform: translate(2px, 2px); box-shadow: 0 0 0 var(--uiux-color-text)",
+        "focus-visible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 3px"
+      },
+      "ghost": {
+        "base": "height: 48px; padding: 0 24px; border: 1px solid var(--uiux-color-text); border-radius: 0; background: transparent; color: var(--uiux-color-text); font-family: 'Space Mono', ui-monospace, monospace; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase",
+        "hover": "background: var(--uiux-color-surfaceAlt)"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "padding: 28px; border: 1px solid var(--uiux-color-text); border-radius: 0; background: var(--uiux-color-surface)",
+        "offset-plate": "position: absolute; inset: 8px -8px -8px 8px; background: var(--uiux-color-accent); opacity: 0.14; z-index: -1",
+        "hover": "box-shadow: 6px 6px 0 var(--uiux-color-accent)"
+      }
+    },
+    "poster-heading": {
+      "default": {
+        "base": "font-family: 'Bricolage Grotesque', Archivo, Helvetica, sans-serif; font-size: clamp(2.5rem, 6.5vw, 5.5rem); font-weight: 700; line-height: 0.92; letter-spacing: -0.03em; text-transform: uppercase; text-wrap: balance",
+        "kicker": "display: block; margin-bottom: 12px; font-family: 'Space Mono', ui-monospace, monospace; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--uiux-color-accent)"
+      }
+    },
+    "rule": {
+      "default": {
+        "base": "border: 0; border-top: 1px solid var(--uiux-color-text); margin: 40px 0",
+        "thick": "border-top-width: 3px",
+        "label": "display: inline-block; margin-top: -0.7em; padding-right: 12px; background: var(--uiux-color-bg); font-family: 'Space Mono', ui-monospace, monospace; font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase"
+      }
+    },
+    "field": {
+      "default": {
+        "base": "height: 46px; width: 100%; padding: 0 4px; border: 0; border-bottom: 1px solid var(--uiux-color-text); border-radius: 0; background: transparent; color: var(--uiux-color-text); font-family: Lora, Georgia, serif; font-size: 1rem",
+        "focus-visible": "border-bottom: 2px solid var(--uiux-color-accent); box-shadow: none; outline: none",
+        "invalid": "border-bottom: 2px solid var(--uiux-color-danger)",
+        "label": "display: block; margin-bottom: 6px; font-family: 'Space Mono', ui-monospace, monospace; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--uiux-color-textMuted)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Print in two inks: one dark key and one warm accent, over an uncoated cream stock.",
+      "Let the halftone and grain be visible — texture is the material, not a filter.",
+      "Set headlines uppercase and tight, body copy in a warm serif with a real measure.",
+      "Offset accent planes by a few pixels to simulate imperfect registration."
+    ],
+    "dont": [
+      "Do not add a third spot colour; two inks is the whole constraint.",
+      "Do not use glossy gradients, glass, or neon — this is matte paper.",
+      "Do not apply halftone behind text; it destroys legibility.",
+      "Do not use pure white or pure black; both read as screen, not stock."
+    ],
+    "antiPatterns": [
+      "Cream background plus a grain texture over a standard SaaS card grid — paper as wallpaper only.",
+      "Four spot colours and full-bleed photos, losing the print constraint that makes the style.",
+      "Halftone dots at 2px pitch, which turns into grey mush on standard displays."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Warm cream reduces text contrast slightly; every pair here is verified at 4.5:1 or better.",
+      "Halftone and grain overlays are decorative; mark them `aria-hidden` and keep them off text layers.",
+      "Uppercase mono labels need extra letter-spacing and should never be below 11px."
+    ],
+    "contrastPairs": [
+      [
+        "text",
+        "bg"
+      ],
+      [
+        "textMuted",
+        "bg"
+      ],
+      [
+        "accentText",
+        "accent"
+      ],
+      [
+        "text",
+        "surfaceAlt"
+      ]
+    ]
+  },
+  "platformNotes": [
+    "visually-texture-content",
+    "component-specific-light-dark-theme",
+    "contrast-color",
+    "custom-text-decorations",
+    "brand-consistent-forms"
+  ],
+  "sources": [
+    {
+      "label": "Authored for dsh-uiux"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "slug": "japandi",
+  "name": "Japandi",
+  "depth": "full",
+  "oneLiner": "Japanese restraint meets Scandinavian warmth: paper tones, honest materials, low contrast, and space used as a feature.",
+  "aliases": ["wabi sabi", "japanese scandinavian", "侘寂", "和风北欧"],
+  "mood": ["calm", "natural", "considered", "warm"],
+  "tags": ["interior", "wellness", "craft", "minimal", "natural"],
+  "bestFor": ["home, furniture, and craft brands", "wellness and slow-living products", "studios that want quiet credibility"],
+  "avoidFor": ["fast-moving consumer promotions", "high-density data tools", "loud entertainment brands"],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#F6F2EC",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EDE7DE",
+        "text": "#2E2A25",
+        "textMuted": "#6A6157",
+        "border": "#D9D0C3",
+        "accent": "#5F7358",
+        "accentText": "#FFFFFF",
+        "success": "#46603F",
+        "warning": "#7A5A22",
+        "danger": "#8E3B33",
+        "focus": "#5F7358"
+      },
+      "dark": {
+        "bg": "#1C1A17",
+        "surface": "#24211D",
+        "surfaceAlt": "#2C2823",
+        "text": "#EDE7DE",
+        "textMuted": "#B3A99C",
+        "border": "#3B3630",
+        "accent": "#A8B9A0",
+        "accentText": "#1C1A17",
+        "success": "#A8C4A0",
+        "warning": "#DCC08A",
+        "danger": "#E0A198",
+        "focus": "#A8B9A0"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Shippori Mincho",
+        "fallback": "Georgia, serif",
+        "size": "clamp(2rem, 4vw, 3.25rem)",
+        "weight": 500,
+        "tracking": "0.01em",
+        "leading": 1.25
+      },
+      "body": {
+        "family": "Zen Kaku Gothic New",
+        "fallback": "Inter, system-ui, sans-serif",
+        "size": "0.9375rem",
+        "weight": 400,
+        "tracking": "0.02em",
+        "leading": 1.85
+      },
+      "mono": {
+        "family": "IBM Plex Mono",
+        "fallback": "ui-monospace",
+        "size": "0.75rem",
+        "weight": 400,
+        "tracking": "0.08em",
+        "leading": 1.6
+      },
+      "scale": ["0.75rem", "0.8125rem", "0.9375rem", "1.0625rem", "1.375rem", "2rem", "3.25rem"],
+      "weights": [400, 500, 600]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "20px", "5": "32px", "6": "48px", "7": "80px", "8": "120px" },
+      "density": "spacious"
+    },
+    "radius": { "none": "0", "sm": "2px", "md": "4px", "lg": "8px", "full": "999px" },
+    "elevation": {
+      "none": "none",
+      "1": "0 1px 0 #D9D0C3",
+      "2": "0 18px 40px -28px rgba(46, 42, 37, 0.3)"
+    },
+    "effects": {
+      "blur": "0",
+      "gradients": [],
+      "noise": "3% paper fibre texture on the page background only",
+      "border": "1px solid var(--uiux-color-border)",
+      "material": "no gloss, no metallic finishes; warmth comes from paper and clay tones"
+    },
+    "motion": {
+      "duration": { "fast": "220ms", "base": "420ms", "slow": "900ms" },
+      "easing": { "standard": "cubic-bezier(0.25, 0.1, 0.25, 1)" },
+      "reducedMotion": "fade only; no parallax and no staggered reveals"
+    }
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 48px; padding: 0 28px; border: 0; border-radius: 2px; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-family: 'Zen Kaku Gothic New', Inter, sans-serif; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.06em",
+        "hover": "background: #516249",
+        "focus-visible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 4px"
+      },
+      "link": {
+        "base": "height: 40px; padding: 0; border: 0; background: transparent; color: var(--uiux-color-text); font-size: 0.875rem; letter-spacing: 0.04em; border-bottom: 1px solid var(--uiux-color-border); border-radius: 0",
+        "hover": "border-bottom-color: var(--uiux-color-accent); color: var(--uiux-color-accent)"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "padding: 32px; border-radius: 4px; background: var(--uiux-color-surface); border: 1px solid var(--uiux-color-border)",
+        "media": "aspect-ratio: 4 / 5; object-fit: cover; filter: saturate(0.9)",
+        "hover": "border-color: var(--uiux-color-accent)"
+      }
+    },
+    "section-label": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; gap: 12px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.6875rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--uiux-color-textMuted)",
+        "rule": "width: 32px; height: 1px; background: var(--uiux-color-border)"
+      }
+    },
+    "field": {
+      "default": {
+        "base": "height: 48px; width: 100%; padding: 0 14px; border: 1px solid var(--uiux-color-border); border-radius: 2px; background: var(--uiux-color-surface); color: var(--uiux-color-text); font-size: 0.9375rem; letter-spacing: 0.02em",
+        "focus-visible": "border-color: var(--uiux-color-accent); box-shadow: 0 0 0 2px rgba(95, 115, 88, 0.25)",
+        "invalid": "border-color: var(--uiux-color-danger)",
+        "label": "display: block; margin-bottom: 8px; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--uiux-color-textMuted)"
+      }
+    },
+    "quote": {
+      "default": {
+        "base": "padding-left: 24px; border-left: 1px solid var(--uiux-color-border); font-family: 'Shippori Mincho', Georgia, serif; font-size: 1.375rem; line-height: 1.6; color: var(--uiux-color-text)",
+        "attribution": "display: block; margin-top: 12px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--uiux-color-textMuted)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Leave 80–120px between sections; emptiness is the composition, not wasted space.",
+      "Keep corners at 0–8px and shadows nearly absent; use a 1px rule to separate content instead.",
+      "Use one display mincho/serif and one humanist sans with wide line-height (1.8+).",
+      "Choose muted, earthy accents — sage, clay, walnut — never pure black or vivid hue."
+    ],
+    "dont": [
+      "Do not use pure black text or pure white background; both break the paper feel.",
+      "Do not add glossy effects, glass, or neon.",
+      "Do not tighten line-height to fit more content; drop content instead.",
+      "Do not use more than two accent tones on one page."
+    ],
+    "antiPatterns": [
+      "Beige minimalism with four competing accent colors and a 1200-character paragraph.",
+      "Japandi styling on a card layout with 12px type and heavy shadows.",
+      "Overuse of the 'zen' cliché: cherry blossoms, brush strokes, and fake calligraphy behind real content."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Warm low-contrast palettes tempt 3:1 body text; every pair here is verified at 4.5:1 minimum.",
+      "Wide letter-spacing helps CJK and Latin labels but hurts long paragraphs; keep it to labels only.",
+      "Long 1.85 line-height increases scroll length; ensure anchor and focus jumps remain visible."
+    ],
+    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+  },
+  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "visually-texture-content", "improve-text-layout-and-legibility", "content-first-noise-reduction"],
+  "sources": [{ "label": "Authored for dsh-uiux" }]
+}

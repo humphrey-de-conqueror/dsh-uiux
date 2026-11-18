@@ -1,0 +1,166 @@
+{
+  "slug": "monochrome-architecture",
+  "name": "Monochrome Architecture",
+  "depth": "full",
+  "oneLiner": "Structure as style: hairline grids, oversized neutral type, and not a single hue outside the grey spectrum.",
+  "aliases": ["architectural", "brutalist monochrome", "建筑风", "grey grid"],
+  "mood": ["precise", "austere", "professional", "spatial"],
+  "tags": ["architecture", "studio", "portfolio", "monochrome", "grid"],
+  "bestFor": ["architecture and design studios", "technical portfolio sites", "case-study and spec documents"],
+  "avoidFor": ["consumer social products", "children's products", "promotions that need colour urgency"],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#F2F2F2",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#E8E8E8",
+        "text": "#0A0A0A",
+        "textMuted": "#5C5C5C",
+        "border": "#C9C9C9",
+        "accent": "#0A0A0A",
+        "accentText": "#FFFFFF",
+        "success": "#3D5A4A",
+        "warning": "#6B5326",
+        "danger": "#7A2A26",
+        "focus": "#0A0A0A"
+      },
+      "dark": {
+        "bg": "#0E0E0E",
+        "surface": "#161616",
+        "surfaceAlt": "#1F1F1F",
+        "text": "#F5F5F5",
+        "textMuted": "#A8A8A8",
+        "border": "#333333",
+        "accent": "#F5F5F5",
+        "accentText": "#0E0E0E",
+        "success": "#9CC0AA",
+        "warning": "#D6BC8A",
+        "danger": "#E0A6A1",
+        "focus": "#F5F5F5"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Helvetica Now Display",
+        "fallback": "Helvetica Neue, Arial, sans-serif",
+        "size": "clamp(2.5rem, 7vw, 6rem)",
+        "weight": 500,
+        "tracking": "-0.04em",
+        "leading": 0.92
+      },
+      "body": {
+        "family": "Helvetica Now Text",
+        "fallback": "Helvetica Neue, Arial, sans-serif",
+        "size": "0.9375rem",
+        "weight": 400,
+        "tracking": "0.005em",
+        "leading": 1.55
+      },
+      "mono": {
+        "family": "IBM Plex Mono",
+        "fallback": "ui-monospace",
+        "size": "0.6875rem",
+        "weight": 400,
+        "tracking": "0.14em",
+        "leading": 1.5
+      },
+      "scale": ["0.6875rem", "0.75rem", "0.875rem", "0.9375rem", "1.5rem", "2.5rem", "6rem"],
+      "weights": [400, 500, 700]
+    },
+    "space": {
+      "unit": "8px",
+      "scale": { "1": "8px", "2": "16px", "3": "24px", "4": "32px", "5": "48px", "6": "64px", "7": "96px", "8": "144px" },
+      "density": "architectural"
+    },
+    "radius": { "none": "0", "sm": "0", "md": "0", "lg": "0", "full": "0" },
+    "elevation": {
+      "none": "none",
+      "1": "0 1px 0 #C9C9C9",
+      "2": "0 0 0 1px #C9C9C9"
+    },
+    "effects": {
+      "blur": "0",
+      "gradients": [],
+      "noise": "none",
+      "border": "1px solid var(--uiux-color-border)",
+      "grid": "visible 1px column guides at 8 or 12 columns, toggled on hover in non-content areas",
+      "corner-marks": "optional 8px L-shaped crop marks at container corners instead of borders"
+    },
+    "motion": {
+      "duration": { "fast": "150ms", "base": "300ms", "slow": "500ms" },
+      "easing": { "standard": "cubic-bezier(0.4, 0, 0.2, 1)" },
+      "reducedMotion": "opacity changes only; no width or position animation"
+    }
+  },
+  "components": {
+    "button": {
+      "default": {
+        "base": "height: 48px; padding: 0 24px; border: 1px solid var(--uiux-color-text); border-radius: 0; background: transparent; color: var(--uiux-color-text); font-family: 'Helvetica Now Text', 'Helvetica Neue', Arial, sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase",
+        "hover": "background: var(--uiux-color-text); color: var(--uiux-color-bg)",
+        "active": "background: var(--uiux-color-text); opacity: 0.85",
+        "focus-visible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 3px"
+      },
+      "solid": {
+        "base": "height: 48px; padding: 0 24px; border: 0; border-radius: 0; background: var(--uiux-color-text); color: var(--uiux-color-bg); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase",
+        "hover": "opacity: 0.85"
+      }
+    },
+    "grid-cell": {
+      "default": {
+        "base": "padding: 32px; border-top: 1px solid var(--uiux-color-border); border-left: 1px solid var(--uiux-color-border); background: transparent",
+        "last": "border-right: 1px solid var(--uiux-color-border)",
+        "index": "font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.6875rem; letter-spacing: 0.14em; color: var(--uiux-color-textMuted); margin-bottom: 24px; display: block"
+      }
+    },
+    "index-link": {
+      "default": {
+        "base": "display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--uiux-color-border); color: var(--uiux-color-text); text-decoration: none; font-size: 1.5rem; letter-spacing: -0.02em",
+        "hover": "padding-left: 8px; border-bottom-color: var(--uiux-color-text)",
+        "meta": "font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.6875rem; letter-spacing: 0.14em; color: var(--uiux-color-textMuted)"
+      }
+    },
+    "field": {
+      "default": {
+        "base": "height: 48px; width: 100%; padding: 0 12px; border: 1px solid var(--uiux-color-border); border-radius: 0; background: var(--uiux-color-surface); color: var(--uiux-color-text); font-size: 0.9375rem",
+        "focus-visible": "border-color: var(--uiux-color-text); outline: 1px solid var(--uiux-color-text); outline-offset: 0",
+        "invalid": "border-color: var(--uiux-color-danger)"
+      }
+    },
+    "figure": {
+      "default": {
+        "base": "margin: 0; background: var(--uiux-color-surfaceAlt)",
+        "image": "width: 100%; height: auto; display: block; filter: grayscale(1) contrast(1.05)",
+        "caption": "display: flex; justify-content: space-between; gap: 16px; padding-top: 12px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.6875rem; letter-spacing: 0.1em; color: var(--uiux-color-textMuted)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Draw the grid: use hairline rules and visible column structure as the primary ornament.",
+      "Set headline scale dramatically large and body scale small; the gap is the hierarchy.",
+      "Use uppercase mono for labels, indices, and metadata at 11–12px with wide tracking.",
+      "Stay inside a grey ramp and let one solid black or white block carry emphasis."
+    ],
+    "dont": [
+      "Do not introduce any hue, not even for links, unless the product requires it for status.",
+      "Do not round corners or add drop shadows.",
+      "Do not center-align body copy or use decorative dividers other than 1px rules.",
+      "Do not use more than three type sizes in one view."
+    ],
+    "antiPatterns": [
+      "Greyscale plus a blue primary button — the monochrome claim collapses at the first CTA.",
+      "Grid lines drawn over content instead of between content.",
+      "Six different weights of grey text with no role distinction."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Hairline 1px borders at 1.5:1 are structural decoration; interactive boundaries still need 3:1 against their background.",
+      "Muted grey metadata at 11px is the likeliest failure; keep it at 4.5:1 and never below 11px.",
+      "Grayscale imagery must keep alt text descriptive, since colour cannot carry meaning."
+    ],
+    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+  },
+  "platformNotes": ["css-layout", "size-aware-styling", "precise-text-alignment", "equal-width-text-lines", "responsive-table", "content-first-noise-reduction"],
+  "sources": [{ "label": "Authored for dsh-uiux" }]
+}

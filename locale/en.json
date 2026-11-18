@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "UI/UX styles",
+    "description": "Named visual design directions with implementation-ready tokens and component recipes, a Chrome Modern Web Guidance lookup, and a review rubric, delivered as a uiux skill plus three tools.",
+    "detail": "docs/DETAIL.md"
+  }
+}

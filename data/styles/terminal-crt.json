@@ -1,0 +1,157 @@
+{
+  "slug": "terminal-crt",
+  "name": "Terminal CRT",
+  "depth": "full",
+  "oneLiner": "An amber phosphor terminal: 80-column discipline, monospace everything, and scanlines only where they do not touch text.",
+  "aliases": ["crt", "phosphor", "amber terminal", "复古终端"],
+  "mood": ["nostalgic", "technical", "focused", "nocturnal"],
+  "tags": ["developer", "cli", "retro", "monospace", "dark"],
+  "bestFor": ["developer tools and status dashboards", "CLI companion docs", "indie games and narrative interfaces"],
+  "avoidFor": ["marketing landing pages", "consumer commerce", "any form-heavy flow with many field types"],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#FBF6EA",
+        "surface": "#FFFDF6",
+        "surfaceAlt": "#F1E7D2",
+        "text": "#2A2113",
+        "textMuted": "#5F5342",
+        "border": "#D8C8A8",
+        "accent": "#8A5A00",
+        "accentText": "#FFFFFF",
+        "success": "#2F6B3A",
+        "warning": "#8A5A00",
+        "danger": "#A32B1E",
+        "focus": "#8A5A00"
+      },
+      "dark": {
+        "bg": "#0A0906",
+        "surface": "#100E08",
+        "surfaceAlt": "#17140C",
+        "text": "#FFC978",
+        "textMuted": "#C79A50",
+        "border": "#3A2E18",
+        "accent": "#FFB454",
+        "accentText": "#0A0906",
+        "success": "#9BD86A",
+        "warning": "#FFD166",
+        "danger": "#FF7A5C",
+        "focus": "#FFB454"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "IBM Plex Mono",
+        "fallback": "ui-monospace, monospace",
+        "size": "clamp(1.25rem, 2.6vw, 2rem)",
+        "weight": 600,
+        "tracking": "0em",
+        "leading": 1.2
+      },
+      "body": {
+        "family": "IBM Plex Mono",
+        "fallback": "ui-monospace, monospace",
+        "size": "0.875rem",
+        "weight": 400,
+        "tracking": "0em",
+        "leading": 1.7
+      },
+      "mono": {
+        "family": "IBM Plex Mono",
+        "fallback": "ui-monospace, monospace",
+        "size": "0.8125rem",
+        "weight": 400,
+        "tracking": "0.01em",
+        "leading": 1.6
+      },
+      "scale": ["0.75rem", "0.8125rem", "0.875rem", "1rem", "1.25rem", "1.5rem", "2rem"],
+      "weights": [400, 500, 600]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "40px", "8": "56px" },
+      "density": "compact"
+    },
+    "radius": { "none": "0", "sm": "0", "md": "2px", "lg": "4px", "full": "999px" },
+    "elevation": {
+      "none": "none",
+      "1": "0 0 0 1px #3A2E18",
+      "2": "0 0 12px rgba(255, 180, 84, 0.18)"
+    },
+    "effects": {
+      "blur": "0",
+      "gradients": ["radial-gradient(120% 100% at 50% 0%, rgba(255, 180, 84, 0.06) 0%, transparent 70%)"],
+      "noise": "subtle 3px scanline at 4% opacity on the page frame only",
+      "border": "1px solid var(--uiux-color-border)",
+      "glow": "0 0 6px rgba(255, 180, 84, 0.35) on the active prompt and live output only"
+    },
+    "motion": {
+      "duration": { "fast": "60ms", "base": "140ms", "slow": "260ms" },
+      "easing": { "standard": "steps(3, end)", "smooth": "cubic-bezier(0.4, 0, 0.2, 1)" },
+      "reducedMotion": "no blinking cursor and no typing animation; render output at once"
+    }
+  },
+  "components": {
+    "prompt": {
+      "default": {
+        "base": "display: flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.875rem; line-height: 1.6; color: var(--uiux-color-text)",
+        "sigil": "color: var(--uiux-color-accent); user-select: none",
+        "cursor": "display: inline-block; width: 8px; height: 16px; background: var(--uiux-color-accent); animation: uiux-blink 1.1s steps(2, end) infinite"
+      }
+    },
+    "output": {
+      "default": {
+        "base": "margin: 0; padding: 12px 16px; background: var(--uiux-color-surface); border-left: 2px solid var(--uiux-color-border); color: var(--uiux-color-textMuted); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.8125rem; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere",
+        "success": "border-left-color: var(--uiux-color-success); color: var(--uiux-color-text)",
+        "error": "border-left-color: var(--uiux-color-danger); color: var(--uiux-color-danger)"
+      }
+    },
+    "panel": {
+      "default": {
+        "base": "padding: 16px; background: var(--uiux-color-surface); border: 1px solid var(--uiux-color-border); border-radius: 0",
+        "header": "display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; margin-bottom: 12px; border-bottom: 1px dashed var(--uiux-color-border); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--uiux-color-textMuted)"
+      }
+    },
+    "key": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; height: 20px; padding: 0 6px; border: 1px solid var(--uiux-color-border); border-radius: 2px; background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-accent); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.75rem; line-height: 1"
+      }
+    },
+    "input": {
+      "default": {
+        "base": "height: 36px; width: 100%; padding: 0 10px; border: 1px solid var(--uiux-color-border); border-radius: 0; background: var(--uiux-color-bg); color: var(--uiux-color-text); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.8125rem",
+        "focus-visible": "border-color: var(--uiux-color-accent); box-shadow: 0 0 6px rgba(255, 180, 84, 0.35); outline: none",
+        "invalid": "border-color: var(--uiux-color-danger)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Set everything in one monospace family; differentiate with weight, color, and position only.",
+      "Keep the content column between 64 and 80 characters so it still reads as a terminal.",
+      "Use a single phosphor hue for text and reserve green/red for run status.",
+      "Draw frames with 1px borders and dashed dividers rather than cards with shadows."
+    ],
+    "dont": [
+      "Do not mix a sans-serif body into the terminal voice.",
+      "Do not put scanlines, glow, or CRT curvature behind body text.",
+      "Do not animate typing for content that users need to scan repeatedly.",
+      "Do not use more than two accent hues; this is a monochrome phosphor display."
+    ],
+    "antiPatterns": [
+      "Green-on-black with 40px glow around every line, making text bloom and blur.",
+      "A terminal frame wrapped around a standard card dashboard with rounded corners.",
+      "Blinking cursor animation running on five elements at once."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Amber on near-black exceeds 12:1, but glow blurs edges; keep glow off body copy.",
+      "Monospace at 13–14px needs generous line-height (1.7) for comfortable scanning.",
+      "Blinking cursors violate WCAG 2.2.2 if they blink faster than 0.5s; keep at 1.1s or allow disabling."
+    ],
+    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+  },
+  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "dark-mode", "customize-scrollbar-color-and-thickness", "content-first-noise-reduction"],
+  "sources": [{ "label": "Authored for dsh-uiux" }]
+}

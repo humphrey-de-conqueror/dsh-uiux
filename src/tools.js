@@ -1,0 +1,103 @@
+/**
+ * Model-facing tools of the uiux bundle.
+ *
+ * Three tools, deliberately small: browse styles, read one style's spec, and
+ * consult Google's Modern Web Guidance for the platform capabilities the spec
+ * references.
+ */
+
+import { defineTool } from '@deepseek-ai/dsh-tools'
+import { createHandlers } from './handlers.js'
+import { available } from './mwg.js'
+import { SECTION_NAMES } from './render.js'
+
+/** Text-only tool output. */
+const asText = Object.freeze({
+  schema: { type: 'string' },
+  /**
+   * @param {unknown} _args - validated arguments, unused.
+   * @param {unknown} value - tool result text.
+   * @returns {{ type: 'text', text: string }[]} one text block.
+   */
+  render: (_args, value) => [{ type: 'text', text: String(value) }],
+})
+
+/** Formats accepted by `uiux_spec`. */
+const FORMATS = /** @type {const} */ (['md', 'css', 'tailwind', 'json'])
+
+/**
+ * Register the tools on the plugin context.
+ * @param {import('@deepseek-ai/cordis').Context} ctx - plugin context carrying the tool registry.
+ * @param {{ catalog: import('./catalog.js').CatalogEntry[], config: import('./config.js').UiuxConfig }} options - loaded catalog and resolved config.
+ */
+export function registerTools(ctx, options) {
+  const { catalog, config } = options
+  const handlers = createHandlers(options)
+
+  ctx.tools.register(defineTool({
+    name: 'uiux_styles',
+    description:
+      'Browse and search the installed visual style library. Use it when a task needs a visual direction: '
+      + 'a landing page, dashboard, app shell, marketing site, or a restyle. Returns candidate styles with a '
+      + 'one-line summary, mood, and where each fits. Pick two or three candidates for an open brief, then read '
+      + 'the chosen style with `uiux_spec`. Query with product, audience, and feeling words ("fintech dashboard '
+      + 'calm premium"); do not pass a style name unless the user named one.',
+    parameters: {
+      query: { type: 'string', description: 'Product, audience, and mood words; empty lists the catalog' },
+      tags: { type: 'array', items: { type: 'string' }, description: 'Exact tag filter, e.g. ["dashboard"]' },
+      depth: { type: 'string', enum: ['full', 'brief'], description: 'Only styles of this depth' },
+      limit: { type: 'integer', description: 'Maximum rows to return' },
+    },
+    output: asText,
+    execute: handlers.styles,
+  }))
+
+  ctx.tools.register(defineTool({
+    name: 'uiux_spec',
+    description:
+      'Read the implementation-ready spec of one or more styles: color tokens for light and dark, typography, '
+      + 'spacing, radius, elevation, effects, motion, per-component recipes, rules, accessibility notes, and the '
+      + 'platform guides that matter. Use `format: "md"` to apply the style while building, `"css"` or '
+      + '"tailwind"` to emit tokens as a stylesheet, and `"json"` for programmatic use. Request only the '
+      + '`sections` you need when the full spec would crowd the context.',
+    parameters: {
+      slugs: {
+        type: 'array', required: true, items: { type: 'string' },
+        description: 'Style slugs or aliases from `uiux_styles`',
+      },
+      sections: {
+        type: 'array', items: { type: 'string', enum: [...SECTION_NAMES] },
+        description: 'Subset of sections; defaults to all',
+      },
+      format: { type: 'string', enum: [...FORMATS], description: 'Output format; defaults to "md"' },
+      maxBytes: { type: 'integer', description: 'Byte budget for the whole result, split across styles' },
+    },
+    output: asText,
+    execute: handlers.spec,
+  }))
+
+  if (!config.platformGuidance) return
+  if (!available()) {
+    ctx.logger?.warn('dsh-uiux: platform guidance is disabled because `modern-web-guidance` is not installed')
+    return
+  }
+
+  ctx.tools.register(defineTool({
+    name: 'uiux_platform_guide',
+    description:
+      "Google Chrome's Modern Web Guidance, queried offline: curated guidance on modern web platform capabilities "
+      + '(dialogs, anchors, container queries, view transitions, scroll-driven animation, forms, accessibility, '
+      + 'performance). Search before implementing an interaction the platform may already support natively, then '
+      + 'retrieve the guide and apply it instead of a polyfill or extra dependency.',
+    parameters: {
+      op: {
+        type: 'string', required: true, enum: ['search', 'retrieve', 'list'],
+        description: 'search a capability, retrieve guide bodies by id, or list every guide',
+      },
+      query: { type: 'string', description: 'For `search`: two to five English words for one capability' },
+      ids: { type: 'array', items: { type: 'string' }, description: 'For `retrieve`: guide ids from a search' },
+    },
+    output: asText,
+    execute: handlers.platformGuide,
+  }))
+}

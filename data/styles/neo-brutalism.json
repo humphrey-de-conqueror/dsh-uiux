@@ -1,0 +1,165 @@
+{
+  "slug": "neo-brutalism",
+  "name": "Neo-brutalism",
+  "depth": "full",
+  "oneLiner": "Loud, unapologetic blocks: thick black rules, hard offset shadows, flat saturated fills, and type that shouts the truth.",
+  "aliases": ["neubrutalism", "new brutalism", "neo brutalism", "新粗野主义"],
+  "mood": ["bold", "irreverent", "direct", "playful"],
+  "tags": ["web3", "community", "portfolio", "creative", "high-contrast"],
+  "bestFor": ["creator and community platforms", "cultural events and agencies", "portfolios that must be remembered"],
+  "avoidFor": ["financial dashboards", "health and wellness brands", "dense data products", "regulated enterprise UIs"],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#FFF9E6",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#FFE9A8",
+        "text": "#101010",
+        "textMuted": "#4A4A4A",
+        "border": "#101010",
+        "accent": "#FFD400",
+        "accentText": "#101010",
+        "success": "#1B7F3B",
+        "warning": "#8A4B00",
+        "danger": "#C02418",
+        "focus": "#101010"
+      },
+      "dark": {
+        "bg": "#14130F",
+        "surface": "#1D1B15",
+        "surfaceAlt": "#26231A",
+        "text": "#F7F1DC",
+        "textMuted": "#B8AF93",
+        "border": "#F7F1DC",
+        "accent": "#FFD400",
+        "accentText": "#14130F",
+        "success": "#6EE7A0",
+        "warning": "#FFC857",
+        "danger": "#FF8A7A",
+        "focus": "#FFD400"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Archivo",
+        "fallback": "Helvetica Neue, Arial, sans-serif",
+        "size": "clamp(2.25rem, 6vw, 4.5rem)",
+        "weight": 800,
+        "tracking": "-0.03em",
+        "leading": 0.95
+      },
+      "body": {
+        "family": "Space Grotesk",
+        "fallback": "Inter, system-ui, sans-serif",
+        "size": "1rem",
+        "weight": 500,
+        "tracking": "0em",
+        "leading": 1.5
+      },
+      "mono": {
+        "family": "JetBrains Mono",
+        "fallback": "ui-monospace",
+        "size": "0.8125rem",
+        "weight": 500,
+        "tracking": "0em",
+        "leading": 1.4
+      },
+      "scale": ["0.75rem", "0.875rem", "1rem", "1.25rem", "1.75rem", "2.5rem", "4rem"],
+      "weights": [500, 600, 700, 800]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "32px", "7": "48px", "8": "64px" },
+      "density": "chunky"
+    },
+    "radius": { "none": "0", "sm": "0", "md": "2px", "lg": "4px", "full": "999px" },
+    "elevation": {
+      "none": "none",
+      "1": "4px 4px 0 0 #101010",
+      "2": "6px 6px 0 0 #101010",
+      "3": "10px 10px 0 0 #101010"
+    },
+    "effects": {
+      "blur": "0",
+      "gradients": [],
+      "noise": "none",
+      "border": "2px solid var(--uiux-color-border)",
+      "sticker": "rotate(-2deg) on featured labels and badges only"
+    },
+    "motion": {
+      "duration": { "fast": "80ms", "base": "140ms", "slow": "240ms" },
+      "easing": { "standard": "cubic-bezier(0.2, 0, 0, 1)", "pop": "cubic-bezier(0.34, 1.56, 0.64, 1)" },
+      "reducedMotion": "replace the press-down translation with a 2px shadow reduction"
+    }
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 48px; padding: 0 24px; border: 2px solid var(--uiux-color-border); border-radius: 2px; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-family: 'Space Grotesk', Inter, system-ui, sans-serif; font-size: 1rem; font-weight: 700; box-shadow: 4px 4px 0 0 #101010",
+        "hover": "transform: translate(-2px, -2px); box-shadow: 6px 6px 0 0 #101010",
+        "active": "transform: translate(2px, 2px); box-shadow: 0 0 0 0 #101010",
+        "focus-visible": "outline: 3px solid var(--uiux-color-focus); outline-offset: 3px"
+      },
+      "secondary": {
+        "base": "height: 48px; padding: 0 24px; border: 2px solid var(--uiux-color-border); border-radius: 2px; background: var(--uiux-color-surface); color: var(--uiux-color-text); font-weight: 700; box-shadow: 4px 4px 0 0 #101010",
+        "hover": "background: var(--uiux-color-surfaceAlt)"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "background: var(--uiux-color-surface); border: 2px solid var(--uiux-color-border); border-radius: 3px; padding: 24px; box-shadow: 6px 6px 0 0 #101010",
+        "hover": "transform: translate(-2px, -2px); box-shadow: 8px 8px 0 0 #101010",
+        "focus-visible": "outline: 3px solid var(--uiux-color-focus); outline-offset: 3px"
+      }
+    },
+    "input": {
+      "default": {
+        "base": "height: 48px; width: 100%; padding: 0 14px; border: 2px solid var(--uiux-color-border); border-radius: 2px; background: var(--uiux-color-surface); color: var(--uiux-color-text); font-size: 1rem; font-weight: 500",
+        "focus-visible": "outline: 3px solid var(--uiux-color-focus); outline-offset: 3px",
+        "invalid": "border-color: var(--uiux-color-danger); box-shadow: 4px 4px 0 0 var(--uiux-color-danger)",
+        "placeholder": "color: var(--uiux-color-textMuted); opacity: 1"
+      }
+    },
+    "badge": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border: 2px solid var(--uiux-color-border); border-radius: 2px; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; transform: rotate(-2deg)"
+      }
+    },
+    "nav-item": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; height: 40px; padding: 0 12px; font-weight: 700; color: var(--uiux-color-text); text-decoration: none; border-bottom: 2px solid transparent",
+        "hover": "border-bottom-color: var(--uiux-color-border)",
+        "active": "background: var(--uiux-color-accent); border: 2px solid var(--uiux-color-border)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Use a 2px black border and a hard offset box-shadow on every interactive surface; they are the signature.",
+      "Keep the palette to paper, ink, one saturated accent, and one alarm color.",
+      "Set headlines in an 800-weight grotesque, tight tracking, and near-1 line-height.",
+      "Let the press interaction move the element by the same distance as its shadow."
+    ],
+    "dont": [
+      "Do not add blur, gradient fills, or soft shadows — hard edges are the whole point.",
+      "Do not use more than one accent color per view.",
+      "Do not round corners beyond 4px.",
+      "Do not use this style for forms where users could misread a playful error as a joke."
+    ],
+    "antiPatterns": [
+      "Neo-brutalist chrome around a generic blue SaaS form — the two languages fight.",
+      "Sticker rotation applied to every element until the page looks scattered rather than loud.",
+      "Neon text on black with 2px borders: loudness without structure, unreadable at length."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Hard shadows give no affordance by themselves: pair every shadow with a border and a visible focus ring.",
+      "Yellow accents need dark text; white on #FFD400 fails contrast everywhere.",
+      "The 2px borders also serve as button outlines, which keeps 3:1 non-text contrast for controls."
+    ],
+    "contrastPairs": [["text", "bg"], ["textMuted", "bg"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+  },
+  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "complex-shapes", "custom-button-actions", "brand-consistent-forms"],
+  "sources": [{ "label": "Authored for dsh-uiux" }]
+}

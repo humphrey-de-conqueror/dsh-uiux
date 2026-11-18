@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aperture — Liquid Glass</title>
+<style>
+/* dsh-uiux · Liquid Glass (liquid-glass) — generated tokens. */
+/* Naming: --uiux-<group>-<role>. Override per element subtree if needed. */
+:root {
+  --uiux-color-bg: #EEF1F7;
+  --uiux-color-surface: #FFFFFFA8;
+  --uiux-color-surface-alt: #FFFFFF66;
+  --uiux-color-text: #0F1218;
+  --uiux-color-text-muted: #49525F;
+  --uiux-color-border: #0F12181A;
+  --uiux-color-accent: #1856FF;
+  --uiux-color-accent-text: #FFFFFF;
+  --uiux-color-success: #0B7A46;
+  --uiux-color-warning: #7A5200;
+  --uiux-color-danger: #A8112A;
+  --uiux-color-focus: #1856FF;
+  --uiux-radius-none: 0;
+  --uiux-radius-sm: 10px;
+  --uiux-radius-md: 16px;
+  --uiux-radius-lg: 24px;
+  --uiux-radius-xl: 32px;
+  --uiux-radius-full: 999px;
+  --uiux-space-1: 4px;
+  --uiux-space-2: 8px;
+  --uiux-space-3: 12px;
+  --uiux-space-4: 16px;
+  --uiux-space-5: 24px;
+  --uiux-space-6: 32px;
+  --uiux-space-7: 48px;
+  --uiux-space-8: 64px;
+  --uiux-space-9: 96px;
+  --uiux-space-10: 128px;
+  --uiux-shadow-1: 0 1px 2px #090C140F;
+  --uiux-shadow-2: 0 12px 32px #090C141A;
+  --uiux-shadow-3: 0 32px 80px #090C1429;
+  --uiux-shadow-inset: inset 0 1px 0 #FFFFFFA6;
+  --uiux-effect-blur: 18px;
+  --uiux-effect-backdrop: saturate(160%) blur(18px);
+  --uiux-effect-noise: single-layer fractal grain at 4% opacity;
+  --uiux-effect-border: 1px solid #0F12181A;
+  --uiux-font-display: "Plus Jakarta Sans", system-ui;
+  --uiux-text-display: clamp(2.5rem, 6vw, 4.5rem);
+  --uiux-font-body: Inter, system-ui;
+  --uiux-text-body: 1rem;
+  --uiux-font-mono: "JetBrains Mono", ui-monospace;
+  --uiux-text-mono: 0.8125rem;
+  --uiux-duration-fast: 120ms;
+  --uiux-duration-base: 220ms;
+  --uiux-duration-slow: 380ms;
+  --uiux-ease-standard: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --uiux-ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --uiux-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+[data-theme="dark"],
+.dark {
+  --uiux-color-bg: #070A12;
+  --uiux-color-surface: #141A28A6;
+  --uiux-color-surface-alt: #1E26388C;
+  --uiux-color-text: #F2F5FA;
+  --uiux-color-text-muted: #A6B0C2;
+  --uiux-color-border: #FFFFFF24;
+  --uiux-color-accent: #7FA6FF;
+  --uiux-color-accent-text: #06090F;
+  --uiux-color-success: #4ADE9A;
+  --uiux-color-warning: #F0C04A;
+  --uiux-color-danger: #FF7A8A;
+  --uiux-color-focus: #9CBBFF;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    /* keep opacity and color transitions, drop transforms and springs, cap every duration at 60ms */
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: var(--uiux-space-8, 32px) var(--uiux-space-6, 24px);
+  background: var(--uiux-color-bg);
+  color: var(--uiux-color-text);
+  font-family: Inter;
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+.shell { max-width: 1040px; margin: 0 auto; }
+.eyebrow {
+  margin: 0 0 var(--uiux-space-2, 8px);
+  color: var(--uiux-color-text-muted);
+  font-family: "Plus Jakarta Sans";
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+h1 {
+  margin: 0 0 var(--uiux-space-3, 12px);
+  font-family: "Plus Jakarta Sans";
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.lede { margin: 0; max-width: 60ch; color: var(--uiux-color-text-muted); }
+.actions { display: flex; gap: var(--uiux-space-3, 12px); margin: var(--uiux-space-6, 24px) 0; }
+.primary, .quiet {
+  border-radius: var(--uiux-radius-md);
+  border: 1px solid var(--uiux-color-accent);
+  background: var(--uiux-color-accent);
+  color: var(--uiux-color-accent-text);
+  font: inherit;
+  font-weight: 600;
+  padding: 10px 18px;
+  cursor: pointer;
+}
+.quiet { background: transparent; color: var(--uiux-color-text); border-color: var(--uiux-color-border); }
+.grid { display: grid; gap: var(--uiux-space-4, 16px); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.card {
+  border: 1px solid var(--uiux-color-border);
+  border-radius: var(--uiux-radius-lg);
+  background: var(--uiux-color-surface);
+  padding: var(--uiux-space-5, 20px);
+  box-shadow: var(--uiux-shadow-sm, none);
+}
+.card h2 { margin: 0 0 var(--uiux-space-2, 8px); font-family: "Plus Jakarta Sans"; font-size: 18px; }
+.card p { margin: 0; color: var(--uiux-color-text-muted); }
+.metric { font-family: "JetBrains Mono"; font-size: 34px; font-variant-numeric: tabular-nums; }
+label { display: block; margin: var(--uiux-space-6, 24px) 0 var(--uiux-space-2, 8px); font-size: 12px; color: var(--uiux-color-text-muted); }
+input {
+  width: 100%; max-width: 360px;
+  border: 1px solid var(--uiux-color-border);
+  border-radius: var(--uiux-radius-md);
+  background: var(--uiux-color-surface);
+  color: var(--uiux-color-text);
+  font: inherit;
+  padding: 10px 12px;
+}
+:focus-visible { outline: 2px solid var(--uiux-color-focus); outline-offset: 2px; }
+footer { margin-top: var(--uiux-space-8, 32px); color: var(--uiux-color-text-muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <p class="eyebrow">Liquid Glass · full tier</p>
+  <h1>Aperture</h1>
+  <p class="lede">A calm control surface for ambient home devices.</p>
+  <div class="actions">
+    <button class="primary">Continue</button>
+    <button class="quiet">Review changes</button>
+  </div>
+  <div class="grid">
+    <section class="card">
+      <h2>Light</h2>
+      <p class="metric">42%</p>
+      <p>Daylight duration, held steady across the week.</p>
+    </section>
+    <section class="card">
+      <h2>Sessions</h2>
+      <p class="metric">1,204</p>
+      <p>Active control surfaces, no drops in the last hour.</p>
+    </section>
+    <section class="card">
+      <h2>Drift</h2>
+      <p class="metric">0.3s</p>
+      <p>Median response time to a device state change.</p>
+    </section>
+  </div>
+  <label for="name">Device name</label>
+  <input id="name" value="Living room" autocomplete="off">
+  <footer>Generated from <code>uiux_spec</code> output for <code>liquid-glass</code>. Tokens are unmodified; only the demo layout is local.</footer>
+</div>
+</body>
+</html>

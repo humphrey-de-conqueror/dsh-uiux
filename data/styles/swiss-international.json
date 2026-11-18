@@ -1,0 +1,197 @@
+{
+  "slug": "swiss-international",
+  "name": "Swiss International",
+  "depth": "full",
+  "oneLiner": "Strict columns, flush-left Helvetica, one signal red, and rules instead of shadows — clarity as a moral position.",
+  "aliases": ["swiss", "international typographic", "瑞士国际主义", "国际主义风格"],
+  "mood": ["precise", "objective", "confident", "austere"],
+  "tags": ["editorial", "poster", "institutional", "grid", "typography-led"],
+  "bestFor": ["cultural institutions", "editorial and publishing", "poster-led marketing", "data journalism"],
+  "avoidFor": ["playful consumer apps", "luxury commerce", "dark ambient products"],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#FFFFFF",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#F2F2F2",
+        "text": "#0A0A0A",
+        "textMuted": "#565656",
+        "border": "#0A0A0A",
+        "accent": "#D40511",
+        "accentText": "#FFFFFF",
+        "success": "#116149",
+        "warning": "#6E4B00",
+        "danger": "#B3121D",
+        "focus": "#0A0A0A"
+      },
+      "dark": {
+        "bg": "#0A0A0A",
+        "surface": "#0A0A0A",
+        "surfaceAlt": "#191919",
+        "text": "#F7F7F7",
+        "textMuted": "#A3A3A3",
+        "border": "#F7F7F7",
+        "accent": "#FF3B30",
+        "accentText": "#0A0A0A",
+        "success": "#4FD4A2",
+        "warning": "#E7B45C",
+        "danger": "#FF6F6F",
+        "focus": "#F7F7F7"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Helvetica Neue",
+        "fallback": "Arial, sans-serif",
+        "size": "clamp(2.75rem, 6.5vw, 5.5rem)",
+        "weight": 700,
+        "tracking": "-0.025em",
+        "leading": 0.95
+      },
+      "body": {
+        "family": "Helvetica Neue",
+        "fallback": "Arial, sans-serif",
+        "size": "1rem",
+        "weight": 400,
+        "tracking": "0em",
+        "leading": 1.45
+      },
+      "mono": {
+        "family": "IBM Plex Mono",
+        "fallback": "ui-monospace",
+        "size": "0.75rem",
+        "weight": 400,
+        "tracking": "0.04em",
+        "leading": 1.5
+      },
+      "scale": ["0.6875rem", "0.8125rem", "0.9375rem", "1rem", "1.25rem", "1.75rem", "2.5rem", "3.5rem"],
+      "weights": [400, 500, 700]
+    },
+    "space": {
+      "unit": "8px",
+      "scale": {
+        "1": "8px",
+        "2": "16px",
+        "3": "24px",
+        "4": "32px",
+        "5": "48px",
+        "6": "64px",
+        "7": "96px",
+        "8": "128px",
+        "9": "160px"
+      },
+      "density": "compact-grid"
+    },
+    "radius": {
+      "none": "0",
+      "sm": "0",
+      "md": "0",
+      "lg": "0",
+      "full": "999px"
+    },
+    "elevation": {
+      "none": "none",
+      "1": "0 0 0 1px #0A0A0A"
+    },
+    "effects": {
+      "blur": "0",
+      "gradients": [],
+      "noise": "none",
+      "border": "1px solid #0A0A0A",
+      "grid": "12-column grid, 8px baseline, 2px gutters rendered as visible rules when the layout is the subject"
+    },
+    "motion": {
+      "duration": { "fast": "90ms", "base": "160ms", "slow": "240ms" },
+      "easing": {
+        "standard": "linear",
+        "entrance": "cubic-bezier(0.2, 0, 0, 1)"
+      },
+      "reducedMotion": "instant state change with a 1px underline appearing on focus; motion is optional in this style"
+    }
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 44px; padding: 0 20px; border-radius: 0; background: var(--uiux-color-accent); color: var(--uiux-color-accent-text); font-size: 0.875rem; font-weight: 500; letter-spacing: 0; border: 0",
+        "hover": "background: #B0030D",
+        "focus-visible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 2px"
+      },
+      "outline": {
+        "base": "height: 44px; padding: 0 20px; border-radius: 0; background: transparent; color: var(--uiux-color-text); border: 1px solid var(--uiux-color-border); font-size: 0.875rem; font-weight: 500",
+        "hover": "background: var(--uiux-color-text); color: var(--uiux-color-bg)"
+      }
+    },
+    "card": {
+      "rule": {
+        "base": "padding: 24px; border-radius: 0; background: var(--uiux-color-surface); border: 0; border-top: 2px solid var(--uiux-color-border); box-shadow: none"
+      }
+    },
+    "input": {
+      "default": {
+        "base": "height: 44px; padding: 0; border-radius: 0; background: transparent; border: 0; border-bottom: 1px solid var(--uiux-color-border); color: var(--uiux-color-text); font-size: 1rem",
+        "focus-visible": "border-bottom-width: 2px; outline: none",
+        "invalid": "border-bottom-color: var(--uiux-color-danger)"
+      }
+    },
+    "nav": {
+      "bar": {
+        "base": "height: 64px; padding: 0 32px; background: var(--uiux-color-bg); border-bottom: 2px solid var(--uiux-color-border); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.01em"
+      }
+    },
+    "table": {
+      "default": {
+        "base": "width: 100%; border-collapse: collapse; font-size: 0.875rem; font-variant-numeric: tabular-nums",
+        "header": "text-align: left; padding: 8px 0; border-bottom: 2px solid var(--uiux-color-border); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase",
+        "row": "border-bottom: 1px solid var(--uiux-color-border); height: 44px"
+      }
+    },
+    "badge": {
+      "default": {
+        "base": "height: 20px; padding: 0 6px; border-radius: 0; background: var(--uiux-color-surfaceAlt); font-size: 0.625rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Build on a visible 12-column grid; let the alignment itself be the decoration.",
+      "Set one enormous flush-left headline and keep the rest small and dense.",
+      "Use rules, counters, and negative space to separate content.",
+      "Use exactly one accent color, and only for the single most important action or datum on screen."
+    ],
+    "dont": [
+      "Do not round corners or add drop shadows; elevation is a mismatch.",
+      "Do not center anything except a deliberate poster composition.",
+      "Do not introduce a second accent hue; status colors stay functional and rare.",
+      "Do not letter-space lowercase body text."
+    ],
+    "antiPatterns": [
+      "Grid layout with rounded cards and soft shadows — the style's whole argument disappears.",
+      "Red used on five elements so nothing reads as primary.",
+      "Centered hero with a serif headline and pastel gradient background."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Black rules on white are strong; keep secondary text at 7:1 so the hierarchy survives the density.",
+      "Never encode the single accent's meaning by color alone; pair it with weight or a rule.",
+      "Focus must be a visible 2px outline, not a color change, because the palette is monochrome."
+    ],
+    "contrastPairs": [
+      ["text", "bg"],
+      ["textMuted", "bg"],
+      ["accentText", "accent"],
+      ["text", "surfaceAlt"]
+    ]
+  },
+  "platformNotes": [
+    "improve-text-layout-and-legibility",
+    "precise-text-alignment",
+    "equal-width-text-lines",
+    "visually-stable-mixed-fonts",
+    "responsive-table",
+    "size-aware-styling"
+  ],
+  "sources": [
+    { "label": "Authored for dsh-uiux" }
+  ]
+}

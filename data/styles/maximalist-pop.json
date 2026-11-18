@@ -1,0 +1,167 @@
+{
+  "slug": "maximalist-pop",
+  "name": "Maximalist Pop",
+  "depth": "full",
+  "oneLiner": "Too much, on purpose: saturated color fields, oversized type, overlapping shapes, and a rhythm that never gets bored.",
+  "aliases": ["maximalism", "pop maximalism", "波普极繁", "colour max"],
+  "mood": ["energetic", "loud", "joyful", "confident"],
+  "tags": ["consumer", "culture", "events", "bold", "colorful"],
+  "bestFor": ["cultural events and festivals", "consumer brands with attitude", "campaign microsites"],
+  "avoidFor": ["dashboards", "clinical or financial products", "long-form reading surfaces"],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#FFE9F0",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#FFD3E2",
+        "text": "#1B0A2A",
+        "textMuted": "#5A3A6E",
+        "border": "#1B0A2A",
+        "accent": "#E8105C",
+        "accentText": "#FFFFFF",
+        "success": "#0B6B4F",
+        "warning": "#7A4300",
+        "danger": "#A51D14",
+        "focus": "#1B0A2A"
+      },
+      "dark": {
+        "bg": "#170612",
+        "surface": "#25101E",
+        "surfaceAlt": "#32202B",
+        "text": "#FFF1F7",
+        "textMuted": "#D2AFC2",
+        "border": "#FF9AC1",
+        "accent": "#FF5C97",
+        "accentText": "#2A0716",
+        "success": "#7BE8B0",
+        "warning": "#FFC65C",
+        "danger": "#FF8A7A",
+        "focus": "#FF5C97"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Bricolage Grotesque",
+        "fallback": "Archivo, Helvetica, sans-serif",
+        "size": "clamp(3rem, 9vw, 7rem)",
+        "weight": 800,
+        "tracking": "-0.04em",
+        "leading": 0.86
+      },
+      "body": {
+        "family": "Space Grotesk",
+        "fallback": "Inter, system-ui, sans-serif",
+        "size": "1.0625rem",
+        "weight": 500,
+        "tracking": "0em",
+        "leading": 1.55
+      },
+      "mono": {
+        "family": "Space Mono",
+        "fallback": "ui-monospace",
+        "size": "0.8125rem",
+        "weight": 700,
+        "tracking": "0.06em",
+        "leading": 1.4
+      },
+      "scale": ["0.8125rem", "0.875rem", "1.0625rem", "1.375rem", "2rem", "3.5rem", "7rem"],
+      "weights": [500, 700, 800]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "24px", "6": "40px", "7": "64px", "8": "96px" },
+      "density": "dense"
+    },
+    "radius": { "none": "0", "sm": "8px", "md": "16px", "lg": "32px", "full": "999px" },
+    "elevation": {
+      "none": "none",
+      "1": "4px 4px 0 #1B0A2A",
+      "2": "8px 8px 0 #1B0A2A",
+      "3": "0 24px 48px -20px rgba(27, 10, 42, 0.4)"
+    },
+    "effects": {
+      "blur": "0",
+      "gradients": [
+        "linear-gradient(135deg, #FFE9F0 0%, #FFC6DC 40%, #D6C6FF 100%)",
+        "radial-gradient(circle at 30% 20%, #C6F91F 0%, transparent 45%)"
+      ],
+      "noise": "5% halftone dots over flat color blocks only",
+      "border": "2px solid var(--uiux-color-border)",
+      "shapes": "one or two oversized circles or arcs bleeding off-canvas per section"
+    },
+    "motion": {
+      "duration": { "fast": "120ms", "base": "240ms", "slow": "480ms" },
+      "easing": { "standard": "cubic-bezier(0.34, 1.56, 0.64, 1)" },
+      "reducedMotion": "no marquee, no float; keep color and layout"
+    }
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 52px; padding: 0 28px; border: 2px solid var(--uiux-color-border); border-radius: 999px; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-family: 'Space Grotesk', Inter, sans-serif; font-size: 1rem; font-weight: 700; box-shadow: 4px 4px 0 #1B0A2A",
+        "hover": "transform: translate(-2px, -2px); box-shadow: 8px 8px 0 #1B0A2A",
+        "active": "transform: translate(2px, 2px); box-shadow: 0 0 0 #1B0A2A",
+        "focus-visible": "outline: 3px solid var(--uiux-color-focus); outline-offset: 4px"
+      },
+      "lime": {
+        "base": "height: 52px; padding: 0 28px; border: 2px solid var(--uiux-color-border); border-radius: 999px; background: #C6F91F; color: #1B0A2A; font-size: 1rem; font-weight: 700; box-shadow: 4px 4px 0 #1B0A2A",
+        "hover": "background: #D7FF4A"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "position: relative; padding: 28px; border-radius: 24px; background: var(--uiux-color-surface); border: 2px solid var(--uiux-color-border); box-shadow: 8px 8px 0 #1B0A2A; overflow: hidden",
+        "hover": "transform: rotate(-1deg) translateY(-4px)"
+      },
+      "color-block": {
+        "base": "padding: 32px; border-radius: 32px; background: #D6C6FF; border: 2px solid var(--uiux-color-border)"
+      }
+    },
+    "sticker": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 999px; background: #C6F91F; color: #1B0A2A; border: 2px solid var(--uiux-color-border); font-family: 'Space Mono', ui-monospace, monospace; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; transform: rotate(-3deg)"
+      }
+    },
+    "marquee": {
+      "default": {
+        "base": "display: flex; gap: 32px; padding: 14px 0; overflow: hidden; border-top: 2px solid var(--uiux-color-border); border-bottom: 2px solid var(--uiux-color-border); font-family: 'Space Mono', ui-monospace, monospace; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap",
+        "track": "animation: uiux-marquee 24s linear infinite"
+      }
+    },
+    "headline": {
+      "default": {
+        "base": "font-family: 'Bricolage Grotesque', Archivo, Helvetica, sans-serif; font-size: clamp(3rem, 9vw, 7rem); font-weight: 800; line-height: 0.86; letter-spacing: -0.04em; text-wrap: balance",
+        "em": "font-style: normal; color: var(--uiux-color-accent); -webkit-text-stroke: 2px #1B0A2A"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Commit to three saturated colors plus ink; repeat them in blocks, shapes, and type.",
+      "Break the grid with one oversized shape or type block per section.",
+      "Set headlines bigger than feels comfortable, then let body copy stay calm at 16–17px.",
+      "Use a thick ink outline and hard offset shadow to keep elements from dissolving into color."
+    ],
+    "dont": [
+      "Do not let color fields sit directly behind body text without a solid plate.",
+      "Do not use more than two rotated elements per viewport; rotation is seasoning.",
+      "Do not layer halftone over photography and gradients and shadows simultaneously.",
+      "Do not animate more than one looping element at a time."
+    ],
+    "antiPatterns": [
+      "Bright colors with pale 14px text on top — maximalism that is unreadable is just noise.",
+      "Every card rotated and shadowed, so the page has no anchor and the eye cannot land.",
+      "Pop palette on a conventional enterprise layout with no editorial decisions."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Saturated pink and lime backgrounds need ink text; white on lime fails at 1.9:1.",
+      "Marquees must pause on hover and focus and stop entirely under prefers-reduced-motion.",
+      "Rotated cards should keep their hit area axis-aligned; transform the visual, not the interaction box."
+    ],
+    "contrastPairs": [["text", "bg"], ["textMuted", "surface"], ["accentText", "accent"], ["text", "surfaceAlt"]]
+  },
+  "platformNotes": ["component-specific-light-dark-theme", "contrast-color", "complex-shapes", "visually-texture-content", "custom-text-decorations"],
+  "sources": [{ "label": "Authored for dsh-uiux" }]
+}

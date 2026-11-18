@@ -1,0 +1,209 @@
+{
+  "slug": "liquid-glass",
+  "name": "Liquid Glass",
+  "depth": "full",
+  "oneLiner": "Translucent, layered surfaces with specular edges, saturated backdrops, and spring-weighted motion — depth you can almost touch.",
+  "aliases": ["liquidglass", "liquid glass", "液态玻璃", "璃光玻璃"],
+  "mood": ["fluid", "premium", "luminous", "alive"],
+  "tags": ["consumer", "marketing", "ios-adjacent", "media", "product-showcase"],
+  "bestFor": ["premium consumer apps", "product showcases", "media players", "onboarding flows"],
+  "avoidFor": ["dense data tables", "low-end device targets", "print or email templates"],
+  "tokens": {
+    "color": {
+      "light": {
+        "bg": "#EEF1F7",
+        "surface": "#FFFFFFA8",
+        "surfaceAlt": "#FFFFFF66",
+        "text": "#0F1218",
+        "textMuted": "#49525F",
+        "border": "#0F12181A",
+        "accent": "#1856FF",
+        "accentText": "#FFFFFF",
+        "success": "#0B7A46",
+        "warning": "#7A5200",
+        "danger": "#A8112A",
+        "focus": "#1856FF"
+      },
+      "dark": {
+        "bg": "#070A12",
+        "surface": "#141A28A6",
+        "surfaceAlt": "#1E26388C",
+        "text": "#F2F5FA",
+        "textMuted": "#A6B0C2",
+        "border": "#FFFFFF24",
+        "accent": "#7FA6FF",
+        "accentText": "#06090F",
+        "success": "#4ADE9A",
+        "warning": "#F0C04A",
+        "danger": "#FF7A8A",
+        "focus": "#9CBBFF"
+      }
+    },
+    "type": {
+      "display": {
+        "family": "Plus Jakarta Sans",
+        "fallback": "system-ui",
+        "size": "clamp(2.5rem, 6vw, 4.5rem)",
+        "weight": 600,
+        "tracking": "-0.03em",
+        "leading": 1.02
+      },
+      "body": {
+        "family": "Inter",
+        "fallback": "system-ui",
+        "size": "1rem",
+        "weight": 400,
+        "tracking": "0em",
+        "leading": 1.6
+      },
+      "mono": {
+        "family": "JetBrains Mono",
+        "fallback": "ui-monospace",
+        "size": "0.8125rem",
+        "weight": 500,
+        "tracking": "0.02em",
+        "leading": 1.5
+      },
+      "scale": ["0.75rem", "0.875rem", "1rem", "1.125rem", "1.5rem", "2rem", "2.75rem", "3.75rem"],
+      "weights": [400, 500, 600]
+    },
+    "space": {
+      "unit": "4px",
+      "scale": {
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "24px",
+        "6": "32px",
+        "7": "48px",
+        "8": "64px",
+        "9": "96px",
+        "10": "128px"
+      },
+      "density": "comfortable"
+    },
+    "radius": {
+      "none": "0",
+      "sm": "10px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px",
+      "full": "999px"
+    },
+    "elevation": {
+      "1": "0 1px 2px #090C140F",
+      "2": "0 12px 32px #090C141A",
+      "3": "0 32px 80px #090C1429",
+      "inset": "inset 0 1px 0 #FFFFFFA6"
+    },
+    "effects": {
+      "blur": "18px",
+      "backdrop": "saturate(160%) blur(18px)",
+      "gradients": [
+        "radial-gradient(120% 90% at 20% 0%, #C9D8FF 0%, transparent 60%)",
+        "radial-gradient(100% 80% at 90% 100%, #FFD9EC 0%, transparent 55%)"
+      ],
+      "noise": "single-layer fractal grain at 4% opacity",
+      "border": "1px solid #0F12181A"
+    },
+    "motion": {
+      "duration": { "fast": "120ms", "base": "220ms", "slow": "380ms" },
+      "easing": {
+        "standard": "cubic-bezier(0.22, 0.61, 0.36, 1)",
+        "entrance": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "spring": "cubic-bezier(0.34, 1.56, 0.64, 1)"
+      },
+      "reducedMotion": "keep opacity and color transitions, drop transforms and springs, cap every duration at 60ms"
+    }
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 48px; padding: 0 24px; border-radius: 999px; background: var(--uiux-color-accent); color: var(--uiux-color-accent-text); font-weight: 600; letter-spacing: -0.01em; box-shadow: inset 0 1px 0 #FFFFFF59, 0 8px 24px #1856FF38; transition: transform 120ms cubic-bezier(0.22,0.61,0.36,1)",
+        "hover": "transform: translateY(-1px); filter: brightness(1.06)",
+        "active": "transform: translateY(0) scale(0.985)",
+        "focus-visible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 3px"
+      },
+      "glass": {
+        "base": "height: 48px; padding: 0 24px; border-radius: 999px; background: var(--uiux-color-surface); backdrop-filter: saturate(160%) blur(18px); border: 1px solid var(--uiux-color-border); color: var(--uiux-color-text); font-weight: 500",
+        "hover": "background: var(--uiux-color-surface-alt)"
+      }
+    },
+    "card": {
+      "glass": {
+        "base": "padding: 24px; border-radius: 24px; background: var(--uiux-color-surface); backdrop-filter: saturate(160%) blur(18px); border: 1px solid var(--uiux-color-border); box-shadow: 0 12px 32px #090C141A, inset 0 1px 0 #FFFFFF80",
+        "hover": "box-shadow: 0 32px 80px #090C1429, inset 0 1px 0 #FFFFFFB3"
+      }
+    },
+    "input": {
+      "default": {
+        "base": "height: 48px; padding: 0 16px; border-radius: 16px; background: var(--uiux-color-surface); border: 1px solid var(--uiux-color-border); color: var(--uiux-color-text); backdrop-filter: blur(12px)",
+        "focus-visible": "border-color: var(--uiux-color-focus); box-shadow: 0 0 0 4px #1856FF26; outline: none",
+        "invalid": "border-color: var(--uiux-color-danger); box-shadow: 0 0 0 4px #A8112A1F"
+      }
+    },
+    "nav": {
+      "bar": {
+        "base": "position: sticky; top: 0; height: 64px; padding: 0 24px; border-radius: 0 0 20px 20px; background: var(--uiux-color-surface); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--uiux-color-border)",
+        "scrolled": "box-shadow: 0 12px 32px #090C141A"
+      }
+    },
+    "table": {
+      "default": {
+        "base": "width: 100%; border-collapse: separate; border-spacing: 0 8px; font-size: 0.875rem",
+        "row": "background: var(--uiux-color-surface); backdrop-filter: blur(12px)",
+        "header": "text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.6875rem; color: var(--uiux-color-text-muted)"
+      }
+    },
+    "badge": {
+      "default": {
+        "base": "height: 24px; padding: 0 10px; border-radius: 999px; background: var(--uiux-color-surface-alt); border: 1px solid var(--uiux-color-border); font-size: 0.75rem; font-weight: 500"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Layer at most three translucent planes; each extra plane halves legibility.",
+      "Give every glass surface a specular top edge with an inset highlight, never a flat drop shadow alone.",
+      "Put the color story in a blurred background (gradient, photo, or artwork) and keep the foreground chrome neutral.",
+      "Animate transforms and opacity; reserve spring easing for entrances and dismissals."
+    ],
+    "dont": [
+      "Do not place glass surfaces on a flat white background — the effect reads as a plain card.",
+      "Do not use more than 20px of blur on text-bearing surfaces.",
+      "Do not mix glass with hard 2px borders or square corners.",
+      "Do not stack backdrop-filter on scrolling lists; it compounds cost per row."
+    ],
+    "antiPatterns": [
+      "Frosted card on pure white with no backdrop color: the style collapses into generic card UI.",
+      "Every surface translucent, including body text containers, producing a hazy unreadable page.",
+      "Blur applied per list item instead of one shared surface behind the list."
+    ]
+  },
+  "a11y": {
+    "notes": [
+      "Composite translucent surfaces over the actual backdrop before checking contrast; a 66% white layer over a pastel gradient is not white.",
+      "Keep body text on the opaque end of the surface scale; reserve the most translucent layer for decorative chrome.",
+      "Provide the reduced-motion variant: opacity-only transitions, no scale or spring, and no parallax."
+    ],
+    "contrastPairs": [
+      ["text", "bg"],
+      ["text", "surface"],
+      ["textMuted", "bg"],
+      ["accentText", "accent"],
+      ["text", "surfaceAlt"]
+    ]
+  },
+  "platformNotes": [
+    "component-specific-light-dark-theme",
+    "design-token-reactivity",
+    "visually-texture-content",
+    "animate-element-entry-exit",
+    "physics-based-easing",
+    "light-dismiss-a-dialog"
+  ],
+  "sources": [
+    { "label": "Authored for dsh-uiux" }
+  ]
+}
