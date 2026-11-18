@@ -52,6 +52,9 @@ window.__ModuleLoader__.load({
 
     function subscribeStyle(listener) {
       pinned.listeners.add(listener)
+      // Replay the current pin: a pane that mounts after the click would otherwise
+      // open empty and wait on the catalog for no reason.
+      if (pinned.slug !== '') listener(pinned.slug)
       return function () { pinned.listeners.delete(listener) }
     }
 
@@ -184,7 +187,7 @@ window.__ModuleLoader__.load({
       var stylesState = React.useState([])
       var styles = stylesState[0]
       var setStyles = stylesState[1]
-      var slugState = React.useState('')
+      var slugState = React.useState(pinned.slug)
       var slug = slugState[0]
       var setSlug = slugState[1]
       var otherState = React.useState('')
@@ -214,6 +217,9 @@ window.__ModuleLoader__.load({
       var errorState = React.useState('')
       var error = errorState[0]
       var setError = errorState[1]
+      var retryState = React.useState(0)
+      var retry = retryState[0]
+      var setRetry = retryState[1]
 
       var followRef = React.useRef(true)
       var revisionRef = React.useRef(-1)
@@ -246,7 +252,7 @@ window.__ModuleLoader__.load({
             if (!cancelled) setError(String((cause && cause.message) || cause))
           })
         return function () { cancelled = true }
-      }, [])
+      }, [retry])
 
       React.useEffect(function () {
         return subscribeStyle(function (next) {
@@ -501,7 +507,15 @@ window.__ModuleLoader__.load({
       }
 
       var body = error !== ''
-        ? h('div', { style: { padding: 16, fontSize: 13, color: MUTED } }, 'Preview routes are unavailable: ' + error)
+        ? h('div', { style: { padding: 16, fontSize: 13, color: MUTED } }, [
+          h('div', { key: 'message' }, 'Preview routes are unavailable: ' + error),
+          h('button', {
+            key: 'retry',
+            type: 'button',
+            style: Object.assign(controlStyle(false), { marginTop: 8 }),
+            onClick: function () { setError(''); setRetry(function (value) { return value + 1 }) },
+          }, 'Retry'),
+        ])
         : url === ''
           ? h('div', { style: { padding: 16, fontSize: 13, color: MUTED } }, 'Loading styles…')
           : h('div', {
