@@ -19,6 +19,8 @@ window.__ModuleLoader__.load({
     var React = require('react')
     var h = React.createElement
 
+    var PAGE_ID = 'dsh-uiux/page'
+    var PAGE_KIND = 'uiux-page'
     var PREVIEW_ID = 'dsh-uiux/preview'
     var PREVIEW_KIND = 'uiux-preview'
     var GALLERY_ID = 'dsh-uiux/gallery'
@@ -27,6 +29,8 @@ window.__ModuleLoader__.load({
     var STYLES_URL = '/dsh-uiux/preview/styles.json'
     var STATE_URL = '/dsh-uiux/preview/state.json'
     var GALLERY_URL = '/dsh-uiux/preview/gallery.json'
+    var FILE_URL = '/dsh-uiux/preview/file.html'
+    var PAGE_STORAGE = 'dsh-uiux:page-source'
     var POLL_MS = 2500
     var WIDTHS = [
       { value: 'auto', label: 'Full' },
@@ -160,9 +164,15 @@ window.__ModuleLoader__.load({
      * @param {number} nonce - cache-busting reload counter.
      * @returns {string} page URL.
      */
-    function pageUrl(slug, theme, width, nonce) {
-      return PAGE_URL + '?slug=' + encodeURIComponent(slug) + '&theme=' + theme
+    function pageUrl(slug, theme, width, nonce, tweaks) {
+      var url = PAGE_URL + '?slug=' + encodeURIComponent(slug) + '&theme=' + theme
         + '&width=' + width + '&v=' + nonce
+      var t = tweaks || {}
+      if (t.accent) url += '&accent=' + encodeURIComponent(t.accent.replace('#', ''))
+      if (t.radius && t.radius !== 1) url += '&radius=' + t.radius
+      if (t.space && t.space !== 1) url += '&space=' + t.space
+      if (t.type && t.type !== 1) url += '&type=' + t.type
+      return url
     }
 
     /**
@@ -177,6 +187,18 @@ window.__ModuleLoader__.load({
       var slugState = React.useState('')
       var slug = slugState[0]
       var setSlug = slugState[1]
+      var otherState = React.useState('')
+      var other = otherState[0]
+      var setOther = otherState[1]
+      var compareState = React.useState(false)
+      var compare = compareState[0]
+      var setCompare = compareState[1]
+      var designState = React.useState(false)
+      var design = designState[0]
+      var setDesign = designState[1]
+      var tweakState = React.useState({ accent: '', radius: 1, space: 1, type: 1 })
+      var tweaks = tweakState[0]
+      var setTweaks = tweakState[1]
       var themeState = React.useState('light')
       var theme = themeState[0]
       var setTheme = themeState[1]
@@ -196,6 +218,7 @@ window.__ModuleLoader__.load({
       var followRef = React.useRef(true)
       var revisionRef = React.useRef(-1)
       var schemesRef = React.useRef({})
+      var accentsRef = React.useRef({})
       var userThemeRef = React.useRef(false)
 
       React.useEffect(function () {
@@ -209,13 +232,15 @@ window.__ModuleLoader__.load({
             if (cancelled) return
             var rows = payload.styles || []
             var schemes = {}
-            for (var index = 0; index < rows.length; index += 1) schemes[rows[index].slug] = rows[index].scheme
+            var accents = {}
+            for (var index = 0; index < rows.length; index += 1) {
+              schemes[rows[index].slug] = rows[index].scheme
+              accents[rows[index].slug] = rows[index].accent
+            }
             schemesRef.current = schemes
+            accentsRef.current = accents
             setStyles(rows)
             if (!userThemeRef.current && schemes[rows[0] && rows[0].slug]) setTheme(schemes[rows[0].slug])
-            setSlug(function (previous) {
-              return previous || payload.defaultSlug || (payload.styles && payload.styles[0] && payload.styles[0].slug) || ''
-            })
           })
           .catch(function (cause) {
             if (!cancelled) setError(String((cause && cause.message) || cause))
@@ -262,11 +287,22 @@ window.__ModuleLoader__.load({
         if (native === 'light' || native === 'dark') setTheme(native)
       }, [slug])
 
-      var url = slug === '' ? '' : pageUrl(slug, theme, width, nonce)
+      var url = slug === '' ? '' : pageUrl(slug, theme, width, nonce, tweaks)
+      var otherUrl = other === '' ? '' : pageUrl(other, theme, width, nonce, tweaks)
 
       var options = styles.map(function (entry) {
         return h('option', { key: entry.slug, value: entry.slug }, entry.name + (entry.depth === 'brief' ? ' ·' : ''))
       })
+
+      function tweak(key, value) {
+        setTweaks(function (previous) {
+          var next = Object.assign({}, previous)
+          next[key] = value
+          return next
+        })
+      }
+
+      var accentValue = tweaks.accent !== '' ? tweaks.accent : (accentsRef.current[slug] || '#000000')
 
       var header = h('div', {
         style: {
@@ -282,10 +318,22 @@ window.__ModuleLoader__.load({
         h('select', {
           key: 'style',
           value: slug,
-          onChange: function (event) { setSlug(event.target.value) },
+          onChange: function (event) {
+            setSlug(event.target.value)
+            setTweaks({ accent: '', radius: 1, space: 1, type: 1 })
+          },
           style: Object.assign(controlStyle(false), { maxWidth: 200, flex: '1 1 140px' }),
           'aria-label': 'Style',
         }, options),
+        compare
+          ? h('select', {
+            key: 'other',
+            value: other,
+            onChange: function (event) { setOther(event.target.value) },
+            style: Object.assign(controlStyle(false), { maxWidth: 200, flex: '1 1 140px' }),
+            'aria-label': 'Second style',
+          }, [h('option', { key: '', value: '' }, 'Compare with…')].concat(options))
+          : null,
         h('div', { key: 'theme', style: { display: 'flex', gap: 4 } }, [
           h('button', {
             key: 'light',
@@ -309,6 +357,27 @@ window.__ModuleLoader__.load({
             title: item.value === 'auto' ? 'Fill the pane' : item.label + ' pixels wide',
           }, item.label)
         })),
+        h('button', {
+          key: 'design',
+          type: 'button',
+          style: controlStyle(design),
+          onClick: function () { setDesign(!design) },
+          title: 'Tweak the accent, rounding, spacing, and type scale',
+        }, 'Design'),
+        h('button', {
+          key: 'compare',
+          type: 'button',
+          style: controlStyle(compare),
+          onClick: function () {
+            setCompare(!compare)
+            if (!compare && other === '' && styles.length > 1) {
+              for (var index = 0; index < styles.length; index += 1) {
+                if (styles[index].slug !== slug) { setOther(styles[index].slug); break }
+              }
+            }
+          },
+          title: 'Show two styles side by side',
+        }, 'Compare'),
         h('button', {
           key: 'follow',
           type: 'button',
@@ -349,6 +418,88 @@ window.__ModuleLoader__.load({
         }, 'Open'),
       ])
 
+      var designBar = !design ? null : h('div', {
+        key: 'designbar',
+        style: {
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          gap: 10,
+          padding: '6px 8px',
+          borderBottom: '1px solid ' + BORDER,
+          fontSize: 11,
+          color: MUTED,
+        },
+      }, [
+        h('label', { key: 'accent', style: { display: 'flex', alignItems: 'center', gap: 4 } }, [
+          'Accent',
+          h('input', {
+            key: 'color',
+            type: 'color',
+            value: accentValue,
+            onChange: function (event) { tweak('accent', event.target.value) },
+            style: { width: 26, height: 20, padding: 0, border: '1px solid ' + BORDER, background: 'transparent' },
+          }),
+        ]),
+        slider('rounding', 'Rounding', 'radius', 0, 2, 0.05),
+        slider('spacing', 'Spacing', 'space', 0.8, 1.4, 0.05),
+        slider('type', 'Type', 'type', 0.85, 1.2, 0.05),
+        h('button', {
+          key: 'reset',
+          type: 'button',
+          style: controlStyle(false),
+          onClick: function () { setTweaks({ accent: '', radius: 1, space: 1, type: 1 }) },
+        }, 'Reset'),
+      ])
+
+      function slider(id, label, key, min, max, step) {
+        return h('label', { key: id, style: { display: 'flex', alignItems: 'center', gap: 4 } }, [
+          label,
+          h('input', {
+            key: 'range',
+            type: 'range',
+            min: min,
+            max: max,
+            step: step,
+            value: tweaks[key],
+            onChange: function (event) { tweak(key, Number.parseFloat(event.target.value)) },
+            style: { width: 72 },
+          }),
+          h('span', { key: 'value', style: { minWidth: 26 } }, Math.round(tweaks[key] * 100) + '%'),
+        ])
+      }
+
+      /**
+       * One iframe with a caption.
+       * @param {string} frameUrl - page URL.
+       * @param {string} label - caption text.
+       * @param {string} key - React key.
+       * @returns {object} element.
+       */
+      function stage(frameUrl, label, key) {
+        var widthPx = width === 'auto' ? '100%' : (width === 'phone' ? 390 : 768)
+        return h('div', {
+          key: key,
+          style: { flex: '1 1 0', minWidth: 0, display: 'flex', flexDirection: 'column' },
+        }, [
+          h('div', { key: 'label', style: { fontSize: 11, color: MUTED, padding: '4px 8px' } }, label),
+          h('iframe', {
+            key: 'frame',
+            src: frameUrl,
+            title: label,
+            style: {
+              width: widthPx,
+              maxWidth: '100%',
+              flex: '1 1 auto',
+              border: width === 'auto' ? 'none' : '1px solid ' + BORDER,
+              borderRadius: width === 'auto' ? 0 : 8,
+              background: '#fff',
+              alignSelf: 'center',
+            },
+          }),
+        ])
+      }
+
       var body = error !== ''
         ? h('div', { style: { padding: 16, fontSize: 13, color: MUTED } }, 'Preview routes are unavailable: ' + error)
         : url === ''
@@ -358,26 +509,16 @@ window.__ModuleLoader__.load({
               flex: '1 1 auto',
               minHeight: 0,
               display: 'flex',
-              justifyContent: 'center',
               background: 'var(--dsw-alias-bg-secondary, transparent)',
-              padding: width === 'auto' ? 0 : '8px 0',
+              gap: compare ? 1 : 0,
             },
-          }, h('iframe', {
-            key: url,
-            src: url,
-            title: 'Style preview',
-            style: {
-              width: width === 'auto' ? '100%' : (width === 'phone' ? 390 : 768),
-              height: '100%',
-              border: '1px solid ' + (width === 'auto' ? 'transparent' : BORDER),
-              borderRadius: width === 'auto' ? 0 : 8,
-              background: '#fff',
-            },
-          }))
+          }, compare && otherUrl !== ''
+            ? [stage(url, slug, 'left'), stage(otherUrl, other, 'right')]
+            : [stage(url, '', 'single')])
 
       return h('div', {
         style: { display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0, overflow: 'hidden' },
-      }, [header, body])
+      }, [header, designBar, body])
     }
 
     /**
@@ -526,6 +667,128 @@ window.__ModuleLoader__.load({
       ])
     }
 
+    /** Last page source the user loaded, so the tab reopens where they left it. */
+    var lastSource = readStoredPage()
+
+    /**
+     * Read the remembered page source, ignoring storage being unavailable.
+     * @returns {string} last used path or URL.
+     */
+    function readStoredPage() {
+      try {
+        return window.localStorage.getItem(PAGE_STORAGE) || ''
+      } catch (_) {
+        return ''
+      }
+    }
+
+    /**
+     * Remember the page source for next time.
+     * @param {string} value - path or URL.
+     */
+    function storePage(value) {
+      try {
+        window.localStorage.setItem(PAGE_STORAGE, value)
+      } catch (_) { /* private mode: the tab still works, it just forgets */ }
+    }
+
+    /**
+     * Turn the typed source into something an iframe can load.
+     * @param {string} source - absolute path or http(s) URL.
+     * @param {number} nonce - bumped by Reload.
+     * @returns {string} iframe URL, empty when there is nothing to load.
+     */
+    function pageSrc(source, nonce) {
+      var value = String(source || '').trim()
+      if (value === '') return ''
+      if (/^https?:\/\//iu.test(value)) {
+        var hash = value.indexOf('#')
+        var base = hash === -1 ? value : value.slice(0, hash)
+        var joiner = base.indexOf('?') === -1 ? '?' : '&'
+        return base + joiner + 'uiux=' + nonce + (hash === -1 ? '' : value.slice(hash))
+      }
+      return FILE_URL + '?path=' + encodeURIComponent(value) + '&uiux=' + nonce
+    }
+
+    /**
+     * Pane that shows a page the user is building.
+     * @returns {object} element tree.
+     */
+    function PagePanel() {
+      var draftState = React.useState(lastSource)
+      var draft = draftState[0]
+      var setDraft = draftState[1]
+      var loadedState = React.useState({ source: lastSource, nonce: 0 })
+      var loaded = loadedState[0]
+      var setLoaded = loadedState[1]
+
+      function load() {
+        var value = draft.trim()
+        storePage(value)
+        lastSource = value
+        setLoaded({ source: value, nonce: 0 })
+      }
+
+      function reload() {
+        setLoaded(function (previous) { return { source: previous.source, nonce: previous.nonce + 1 } })
+      }
+
+      var src = pageSrc(loaded.source, loaded.nonce)
+      var remote = /^https?:\/\//iu.test(loaded.source)
+
+      return h('div', {
+        style: { display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0, gap: 6, padding: 8 },
+      }, [
+        h('div', { key: 'bar', style: { display: 'flex', gap: 4, alignItems: 'center' } }, [
+          h('input', {
+            key: 'input',
+            type: 'text',
+            value: draft,
+            spellCheck: false,
+            placeholder: '/home/you/project/index.html',
+            onChange: function (event) { setDraft(event.target.value) },
+            onKeyDown: function (event) { if (event.key === 'Enter') load() },
+            style: Object.assign(controlStyle(false), {
+              flex: '1 1 auto',
+              minWidth: 0,
+              cursor: 'text',
+              fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+              fontSize: 11,
+            }),
+            'aria-label': 'Path or URL to preview',
+          }),
+          h('button', {
+            key: 'load',
+            type: 'button',
+            onClick: load,
+            style: controlStyle(true),
+            title: 'Load this path or URL',
+          }, 'Load'),
+          h('button', {
+            key: 'reload',
+            type: 'button',
+            onClick: reload,
+            disabled: src === '',
+            style: Object.assign(controlStyle(false), { opacity: src === '' ? 0.5 : 1 }),
+            title: 'Reload',
+          }, 'Reload'),
+        ]),
+        h('div', { key: 'hint', style: { fontSize: 11, color: MUTED, lineHeight: '15px' } },
+          src === ''
+            ? 'Point this at an HTML file you are building, or at a local dev server URL. Relative assets load from the same folder.'
+            : (remote ? 'External page: ' : 'File: ') + loaded.source),
+        src === ''
+          ? h('div', { key: 'empty', style: { flex: '1 1 auto' } })
+          : h('iframe', {
+            key: 'frame',
+            src: src,
+            title: 'Your page preview',
+            sandbox: 'allow-scripts allow-same-origin allow-forms allow-popups allow-modals',
+            style: { flex: '1 1 auto', width: '100%', minHeight: 240, border: '1px solid ' + BORDER, borderRadius: 8, background: '#fff' },
+          }),
+      ])
+    }
+
     /** Filled in `apply`, so panes can move the sidebar without prop drilling. */
     var client = null
 
@@ -565,6 +828,26 @@ window.__ModuleLoader__.load({
       }, 'uiux: gallery tab type')
 
       ctx.effect(function () {
+        return ctx.sidebarRightTabs.register({
+          id: PAGE_ID,
+          kind: PAGE_KIND,
+          title: function () { return 'Your page' },
+          guide: [{
+            id: PAGE_ID,
+            order: 42,
+            title: function () { return 'Your page' },
+            description: function () { return 'Preview an HTML file or local dev server you are building.' },
+          }],
+        })
+      }, 'uiux: page tab type')
+
+      ctx.effect(function () {
+        return ctx.slots.inject('sidebar.right.pane.tab', function () {
+          return ctx.slots.register({ name: 'sidebar.right.pane.tab', key: PAGE_ID }, PagePanel)
+        })
+      }, 'uiux: page pane body')
+
+      ctx.effect(function () {
         return ctx.slots.inject('sidebar.right.pane.tab', function () {
           return ctx.slots.register({
             name: 'sidebar.right.pane.tab',
@@ -583,6 +866,19 @@ window.__ModuleLoader__.load({
           }, GalleryPanel)
         })
       }, 'uiux: gallery pane body')
+
+      ctx.effect(function () {
+        return ctx.commandUi.register({
+          name: 'uiux-page',
+          label: function () { return 'Your page' },
+          description: function () { return 'Preview an HTML file or local dev server you are building.' },
+          available: function () { return true },
+          ui: {
+            kind: 'action',
+            run: function () { ctx.sidebarRight.openTab(PAGE_KIND) },
+          },
+        })
+      }, 'uiux: page command')
 
       ctx.effect(function () {
         return ctx.commandUi.register({

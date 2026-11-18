@@ -71,12 +71,12 @@ Parameters: `op` (`search`, `retrieve`, `list`), `query`, `ids`. Backed by the
 `retrieve` output can exceed a comfortable tool result, so responses are truncated with an
 explicit marker.
 
-## Preview and gallery tabs
+## Preview, gallery, and page tabs
 
-The client half (`client.js`) registers two right-sidebar tab types, `uiux-preview` and
-`uiux-gallery`, each with a guide entry so both are reachable from the sidebar's add menu. It
-also registers the `uiux-preview` and `uiux-gallery` commands, so the composer's + menu opens
-either pane without leaving the keyboard.
+The client half (`client.js`) registers three right-sidebar tab types, `uiux-preview`,
+`uiux-gallery`, and `uiux-page`, each with a guide entry so all three are reachable from the
+sidebar's add menu. It also registers the `uiux-preview`, `uiux-gallery`, and `uiux-page`
+commands, so the composer's + menu opens any pane without leaving the keyboard.
 
 The preview pane shows a style dropdown, a light/dark toggle, three stage widths (full, 768,
 390), a follow toggle, a reload button, and an iframe with the page. The pane adopts each style's
@@ -94,6 +94,28 @@ through the session's own input facade, so the agent learns the pick from a norm
 hand-written draft is left alone and the user is told to clear it. The preview header's **Ask
 agent** button sends the same request immediately via `ctx.sessions.scope(id).conversation.send`.
 
+The preview header carries two more controls. **Design** opens live sliders for accent colour,
+rounding, spacing, and type scale; they are sent as query parameters and rendered by
+`previewPage()` as an override block appended after the style's CSS, touching only the accent
+pair, the radius scale, the spacing scale, and type sizes. **Compare** renders two styles side by
+side at the same theme, width, and tweaks. Tweaks never touch the catalog: they are a preview
+affordance, and the spec the agent copies stays authoritative.
+
+## Your page
+
+`uiux-page` previews work in progress. The pane takes an absolute path or an http(s) URL; a
+directory opens its `index.html`; the last value is remembered in `localStorage`.
+
+`GET /dsh-uiux/preview/file.html?path=<abs>` reads the page and injects
+`<base href="/dsh-uiux/preview/fs/<rootToken>/">` after `<head>`, so the page's own relative
+assets resolve through `GET /dsh-uiux/preview/fs/<rootToken>/<rel>` (a `kind: 'prefix'` route).
+That asset route refuses `..` segments, dot-paths (`.git`, `.env`), paths that resolve outside
+the root, extensions outside a fixed MIME allowlist, and files above `MAX_FILE_BYTES` (24 MiB),
+and sends `Cache-Control: no-store`. The iframe carries `sandbox="allow-scripts allow-same-origin
+allow-forms allow-popups allow-modals"` because a page under development needs its scripts. This
+route reads files as the host user can read them: it is a local development affordance on an
+authenticated localhost port, not a general file server.
+
 Both panes receive their session through the registration's `inject: (sessionId) => ({ sessionId })`:
 `sidebar.right.pane.tab` is a session-scoped slot, so the framework hands the id to the body.
 
@@ -106,7 +128,10 @@ Content comes from four exact host routes:
 | `GET /dsh-uiux/preview/page.html?slug=&theme=&width=` | The demo page, composed from `uiux_spec` CSS output. |
 | `GET /dsh-uiux/preview/styles.json` | Picker rows for the whole catalog. |
 | `GET /dsh-uiux/preview/state.json` | Last spec slugs, revision, and the default style. |
-| `GET /dsh-uiux/preview/gallery.json` | Gallery cards: both palettes, type faces, radius, depth. |
+| `GET /dsh-uiux/preview/gallery.json` | Gallery cards: both palettes, type faces, radius, depth, thumbnail URL. |
+| `GET /dsh-uiux/preview/thumb.svg?slug=&scheme=` | One style's gallery thumbnail, painted from its tokens. |
+| `GET /dsh-uiux/preview/file.html?path=` | A page you are building, with a base element for its assets. |
+| `GET /dsh-uiux/preview/fs/<rootToken>/<path>` | That page's assets, served from its own folder. |
 
 The client half ships as plain JavaScript — no build step, same loader format as DSH's own
 client plugins. A newly added `dsh.client` manifest field is picked up when the host boots,

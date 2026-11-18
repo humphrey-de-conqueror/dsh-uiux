@@ -18,12 +18,13 @@ export const PREVIEW_WIDTHS = Object.freeze({ auto: 'auto', tablet: '768px', pho
 /**
  * Wrap a style's tokens in the demo page.
  * @param {import('./catalog.js').CatalogEntry} entry - style to render.
- * @param {{ theme?: 'light' | 'dark', width?: keyof typeof PREVIEW_WIDTHS }} [options] - color scheme and stage width.
+ * @param {{ theme?: 'light' | 'dark', width?: keyof typeof PREVIEW_WIDTHS, overrides?: PreviewOverrides }} [options] - color scheme, stage width, and live token tweaks.
  * @returns {string} standalone HTML document.
  */
 export function previewPage(entry, options = {}) {
   const theme = options.theme === 'dark' ? 'dark' : 'light'
   const width = PREVIEW_WIDTHS[options.width ?? 'auto'] ?? 'auto'
+  const overrides = overrideCss(entry.spec.tokens ?? {}, options.overrides ?? {})
   // The CSS banner repeats the style name. Keep that name from opening markup inside
   // `<style>`, and from closing the comment early.
   const tokens = renderSpec(entry, { format: 'css' })
@@ -42,6 +43,7 @@ export function previewPage(entry, options = {}) {
 <title>${copy.title} — ${escapeHtml(entry.name)}</title>
 <style>
 ${tokens}
+${overrides}
 *, *::before, *::after { box-sizing: border-box; }
 html, body { height: 100%; }
 body {
@@ -183,6 +185,108 @@ export function schemeOf(entry) {
 }
 
 /**
+ * @typedef {object} PreviewOverrides
+ * @property {string} [accent] - replacement accent colour, `#RRGGBB`.
+ * @property {number} [radius] - radius multiplier, 0–2.
+ * @property {number} [space] - spacing multiplier, 0.5–2.
+ * @property {number} [type] - type-scale multiplier, 0.6–2.
+ */
+
+/** Ranges each override is clamped to, so a stray query parameter cannot wreck a preview. */
+const OVERRIDE_RANGE = Object.freeze({
+  radius: [0, 2],
+  space: [0.5, 2],
+  type: [0.6, 2],
+})
+
+/**
+ * Multiply the numeric part of a CSS length.
+ * @param {string} value - token value such as `12px`, `1rem`, `0`, `999px`.
+ * @param {number} factor - multiplier.
+ * @returns {string} scaled length, unchanged when it cannot be scaled.
+ */
+export function scaleLength(value, factor) {
+  const match = /^\s*(-?\d*\.?\d+)(px|rem|em)?\s*$/u.exec(String(value ?? ''))
+  if (match === null || factor === 1) return String(value ?? '')
+  const amount = Number.parseFloat(match[1]) * factor
+  const rounded = Math.round(amount * 100) / 100
+  return `${rounded}${match[2] ?? ''}`
+}
+
+/**
+ * Scale every px/rem/em length inside a value, including inside `clamp()`.
+ * @param {string} value - a length or a `clamp(a, b, c)` expression.
+ * @param {number} factor - multiplier.
+ * @returns {string} scaled value.
+ */
+export function scaleLengths(value, factor) {
+  return String(value ?? '').replace(/(-?\d*\.?\d+)(px|rem|em)/gu, (_, amount, unit) => {
+    const scaled = Math.round(Number.parseFloat(amount) * factor * 100) / 100
+    return `${scaled}${unit}`
+  })
+}
+
+/**
+ * Readable text colour for an accent, so a hand-picked colour keeps its label legible.
+ * @param {string} hex - `#RRGGBB`.
+ * @returns {'#FFFFFF' | '#0B0B0C'} text colour.
+ */
+function inkOn(hex) {
+  const clean = hex.replace('#', '')
+  const channel = (offset) => {
+    const value = Number.parseInt(clean.slice(offset, offset + 2), 16) / 255
+    return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4
+  }
+  const luminance = 0.2126 * channel(0) + 0.7152 * channel(2) + 0.0722 * channel(4)
+  return luminance > 0.32 ? '#0B0B0C' : '#FFFFFF'
+}
+
+/**
+ * Build the CSS block that applies a user's live tweaks over the style's own tokens.
+ *
+ * Only the pieces a person can see change are touched: the accent pair, the radius
+ * scale, the spacing scale, and type sizes. Everything else stays the style's own.
+ * @param {Record<string, any>} tokens - a style's token block.
+ * @param {PreviewOverrides} overrides - requested tweaks.
+ * @returns {string} CSS declarations, empty when nothing was asked for.
+ */
+function overrideCss(tokens, overrides) {
+  const declarations = []
+  if (typeof overrides.accent === 'string' && /^#[0-9a-f]{6}$/iu.test(overrides.accent)) {
+    declarations.push(`--uiux-color-accent: ${overrides.accent.toUpperCase()};`)
+    declarations.push(`--uiux-color-accent-text: ${inkOn(overrides.accent)};`)
+  }
+  const radius = OVERRIDE_RANGE.radius
+  if (typeof overrides.radius === 'number' && overrides.radius !== 1) {
+    const factor = Math.min(radius[1], Math.max(radius[0], overrides.radius))
+    for (const [key, value] of Object.entries(tokens.radius ?? {})) {
+      declarations.push(`--uiux-radius-${key}: ${scaleLength(value, factor)};`)
+    }
+  }
+  const space = OVERRIDE_RANGE.space
+  if (typeof overrides.space === 'number' && overrides.space !== 1) {
+    const factor = Math.min(space[1], Math.max(space[0], overrides.space))
+    for (const [key, value] of Object.entries(tokens.space?.scale ?? {})) {
+      declarations.push(`--uiux-space-${key}: ${scaleLength(value, factor)};`)
+    }
+  }
+  const type = OVERRIDE_RANGE.type
+  if (typeof overrides.type === 'number' && overrides.type !== 1) {
+    const factor = Math.min(type[1], Math.max(type[0], overrides.type))
+    for (const [key, value] of Object.entries(tokens.type ?? {})) {
+      if (key === 'scale' || key === 'weights') continue
+      const size = value?.size
+      if (typeof size === 'string') declarations.push(`--uiux-text-${key}: ${scaleLengths(size, factor)};`)
+    }
+    ;(tokens.type?.scale ?? []).forEach((value, index) => {
+      declarations.push(`--uiux-text-${index + 1}: ${scaleLength(value, factor)};`)
+    })
+  }
+  if (declarations.length === 0) return ''
+  return `/* Live preview tweaks, not part of the style */\n:root {\n  ${declarations.join('\n  ')}\n}`
+}
+
+/**
  * Pick the roles a gallery card paints.
  * @param {Record<string, string> | undefined} colors - one scheme's roles.
  * @returns {{ bg: string, surface: string, text: string, accent: string, accentText: string, border: string }} card colors.
@@ -203,6 +307,17 @@ function palette(colors = {}) {
  * @param {import('./catalog.js').CatalogEntry[]} catalog - loaded catalog.
  * @returns {{ slug: string, name: string, depth: string, oneLiner: string }[]} picker rows.
  */
+/**
+ * The accent a style is seen with, for the colour picker's initial value.
+ * @param {import('./catalog.js').CatalogEntry} entry - catalog row.
+ * @returns {string} `#RRGGBB` accent of the native scheme.
+ */
+function nativeAccent(entry) {
+  const colors = entry.spec.tokens?.color?.[schemeOf(entry)] ?? entry.spec.tokens?.color?.light ?? {}
+  const accent = String(colors.accent ?? '#000000')
+  return accent.length === 9 ? accent.slice(0, 7) : accent
+}
+
 export function styleIndex(catalog) {
   return catalog.map(entry => ({
     slug: entry.slug,
@@ -210,6 +325,7 @@ export function styleIndex(catalog) {
     depth: entry.depth,
     oneLiner: entry.oneLiner,
     scheme: schemeOf(entry),
+    accent: nativeAccent(entry),
   }))
 }
 

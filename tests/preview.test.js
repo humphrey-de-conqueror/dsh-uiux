@@ -96,7 +96,8 @@ test('preview state keeps at most four slugs and does not leak its array', () =>
 test('style index summarizes the whole catalog', () => {
   const rows = styleIndex(catalog)
   assert.equal(rows.length, 79)
-  assert.deepEqual(Object.keys(rows[0]), ['slug', 'name', 'depth', 'oneLiner', 'scheme'])
+  assert.deepEqual(Object.keys(rows[0]), ['slug', 'name', 'depth', 'oneLiner', 'scheme', 'accent'])
+  assert.match(rows[0].accent, /^#[0-9A-F]{6}$/u)
   assert.equal(rows.find(row => row.slug === 'cyberpunk').scheme, 'dark')
   assert.equal(rows.find(row => row.slug === 'editorial').scheme, 'light')
   assert.ok(rows.some(row => row.slug === 'liquid-glass' && row.depth === 'full'))
@@ -133,6 +134,8 @@ test('routes keep the documented paths under the preview prefix', () => {
   const { ctx, routes } = fakeHost()
   registerRoutes(ctx, { catalog, config: {}, preview: createPreviewState() })
   assert.deepEqual([...routes.keys()].sort(), [
+    `${PREVIEW_PREFIX}/file.html`,
+    `${PREVIEW_PREFIX}/fs/`,
     `${PREVIEW_PREFIX}/gallery.json`,
     `${PREVIEW_PREFIX}/page.html`,
     `${PREVIEW_PREFIX}/state.json`,
@@ -257,4 +260,13 @@ test('gallery rows carry a thumbnail URL', () => {
   for (const row of payload.styles) {
     assert.equal(row.thumb, `/dsh-uiux/preview/thumb.svg?slug=${row.slug}`)
   }
+})
+
+test('length scaling keeps the unit and refuses to touch non-lengths', async () => {
+  const { scaleLength, scaleLengths } = await import('../src/preview.js')
+  assert.equal(scaleLength('16px', 0.5), '8px')
+  assert.equal(scaleLength('1rem', 1.2), '1.2rem')
+  assert.equal(scaleLength('0', 2), '0')
+  assert.equal(scaleLength('clamp(2rem, 3vw, 3rem)', 1.1), 'clamp(2rem, 3vw, 3rem)')
+  assert.equal(scaleLengths('clamp(2rem, 3vw, 3rem)', 1.1), 'clamp(2.2rem, 3vw, 3.3rem)')
 })

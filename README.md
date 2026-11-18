@@ -51,8 +51,25 @@ stage width to check responsiveness, reload, or open the page in its own tab.
 The demo page is built from the same CSS custom properties `uiux_spec` returns, so the
 preview cannot drift from the spec.
 
-Both panes are also one click away from the composer's **+** menu as the `uiux-preview` and
-`uiux-gallery` commands.
+Two more controls on the same pane:
+
+- **Design** opens live sliders for the accent colour, rounding, spacing, and type scale. They
+  are applied as an override block over the style's own tokens, so you can audition a variation
+  before asking for it — the tweaks are visible only in the preview and never change the spec.
+- **Compare** shows two styles side by side at the same theme, width, and tweaks.
+
+## Your page
+
+**Your page** previews something you are actually building. Type an absolute path to an HTML
+file — or a directory, which opens its `index.html` — or a local dev server URL, and press
+**Load**. The last path is remembered.
+
+Local files are served from their own folder, so relative `./style.css`, images, and `./app.js`
+resolve exactly as they do when you open the file in a browser. Paths outside that folder,
+dot-paths such as `.git` or `.env`, and non-asset extensions are refused.
+
+All three panes are also one click away from the composer's **+** menu as the `uiux-preview`,
+`uiux-gallery`, and `uiux-page` commands.
 
 ## Gallery
 
@@ -75,7 +92,8 @@ per-style iframe.
   style-specific pass/fail review.
 - **Chrome Modern Web Guidance** wrapped as a tool, so interaction behaviour comes from a
   maintained platform source rather than model habit.
-- **A right-sidebar preview tab** that renders the style the agent last worked on.
+- **Three right-sidebar tabs**: the style the agent last worked on, a gallery of every style,
+  and a preview of a page you are building.
 
 Full tier: aurora, bento-grid, claymorphism, cyberpunk, dark-luxury, data-dashboard,
 editorial, glassmorphism, japandi, liquid-glass, material-you, maximalist-pop,
