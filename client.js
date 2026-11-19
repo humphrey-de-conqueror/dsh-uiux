@@ -571,9 +571,9 @@ window.__ModuleLoader__.load({
     function StyleFrame(props) {
       var entry = props.entry
       var ref = React.useRef(null)
-      var scaleState = React.useState(0.5)
-      var scale = scaleState[0]
-      var setScale = scaleState[1]
+      var widthState = React.useState(280)
+      var width = widthState[0]
+      var setWidth = widthState[1]
       var srcState = React.useState('')
       var src = srcState[0]
       var setSrc = srcState[1]
@@ -586,8 +586,8 @@ window.__ModuleLoader__.load({
 
         if (typeof ResizeObserver === 'function') {
           var observer = new ResizeObserver(function (records) {
-            var width = records[0].contentRect.width
-            if (width > 0) setScale(width / 640)
+            var measured = Math.round(records[0].contentRect.width)
+            if (measured > 0) setWidth(measured)
           })
           observer.observe(node)
           disposers.push(function () { observer.disconnect() })
@@ -618,7 +618,7 @@ window.__ModuleLoader__.load({
         style: {
           position: 'relative',
           width: '100%',
-          height: Math.round(400 * scale),
+          height: Math.round(width * 1.35),
           overflow: 'hidden',
           borderBottom: '1px solid ' + BORDER,
           background: entry.light.bg,
@@ -635,11 +635,9 @@ window.__ModuleLoader__.load({
           position: 'absolute',
           top: 0,
           left: 0,
-          width: 640,
-          height: 400,
+          width: width,
+          height: Math.round(width * 1.35),
           border: 0,
-          transform: 'scale(' + scale + ')',
-          transformOrigin: 'top left',
           pointerEvents: 'none',
         },
       }))
@@ -666,7 +664,7 @@ window.__ModuleLoader__.load({
         title: entry.oneLiner,
       }, [
         h(StyleFrame, { key: 'frame', entry: entry }),
-        h('div', { key: 'meta', style: { padding: '8px 10px 10px' } }, [
+        h('div', { key: 'meta', style: { padding: '10px 12px 12px' } }, [
           h('div', { key: 'name', style: { fontSize: 13, fontWeight: 600, lineHeight: '18px' } }, entry.name),
           h('div', {
             key: 'one',
@@ -760,10 +758,10 @@ window.__ModuleLoader__.load({
                 flex: '1 1 auto',
                 minHeight: 0,
                 overflow: 'auto',
-                padding: 10,
+                padding: 12,
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                gap: 10,
+                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                gap: 16,
                 alignContent: 'start',
               },
             }, visible.map(function (entry) {

@@ -5,6 +5,7 @@
 
 import { findStyle, rankStyles } from './catalog.js'
 import { list, retrieve, search } from './mwg.js'
+import { mixStyles, normalizeWeights, parseMix, renderMix } from './mix.js'
 import { renderSpec } from './render.js'
 
 /**
@@ -70,6 +71,41 @@ export function createHandlers(options) {
         parts.push(`Unknown styles ignored: ${unknown.join(', ')}. Call \`uiux_styles\` for valid slugs.`)
       }
       return parts.join('\n\n---\n\n')
+    },
+
+    /**
+     * Blend two or more styles into one spec.
+     * @param {{ styles: string[], format?: string, sections?: string[], maxBytes?: number }} args - mix request.
+     * @returns {string} rendered blend, or an explanation of what went wrong.
+     */
+    mix(args) {
+      let parsed
+      try {
+        parsed = normalizeWeights(parseMix(args.styles))
+      } catch (error) {
+        return `${error.message}. Call \`uiux_styles\` if you need slugs to mix.`
+      }
+      const resolved = []
+      const unknown = []
+      for (const entry of parsed) {
+        const style = findStyle(catalog, entry.slug)
+        if (style === undefined) unknown.push(entry.slug)
+        else resolved.push({ ...style, weight: entry.weight })
+      }
+      if (unknown.length > 0) {
+        return `No style matched: ${unknown.join(', ')}. Call \`uiux_styles\` to find a valid slug.`
+      }
+      const weights = resolved.map(entry => entry.weight)
+      const budget = Math.min(args.maxBytes ?? config.maxSpecBytes, config.maxSpecBytes)
+      const blend = mixStyles(resolved, weights)
+      preview?.record(resolved.map(entry => entry.slug))
+      const body = renderMix(blend, { sections: args.sections, format: args.format, maxBytes: budget })
+      const weak = resolved.filter(entry => entry.depth === 'brief')
+      const note = weak.length === 0
+        ? ''
+        : `\n\n\nMixing with brief-tier styles (${weak.map(entry => entry.slug).join(', ')}) means their `
+          + 'component recipes are absent: the blend carries the dominant style\'s components.\n'
+      return `${body}${note}`
     },
 
     /**

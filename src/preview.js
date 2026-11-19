@@ -70,6 +70,7 @@ body {
 :focus-visible { outline: 2px solid var(--uiux-color-focus); outline-offset: 2px; }
 footer { margin-top: var(--uiux-space-7, 40px); color: var(--uiux-color-text-muted); font-size: 11px; }
 ${compact ? 'footer { display: none; }' : ''}
+${compact ? COMPACT_CSS : ''}
 ${layout.css}
 </style>
 </head>
@@ -363,6 +364,25 @@ h1 { margin: 0 0 var(--uiux-space-3); font-family: ${quoteFamily(display.family)
     }
   },
 }
+
+/**
+ * Layout fixes for the gallery's small frames.
+ *
+ * A card is roughly 300 px wide, which is narrower than any of these compositions assume.
+ * Without this the bento keeps six columns and the glass hero keeps two, and every card
+ * becomes a squeezed stripe. Stacking once, in compact mode only, keeps the full-size
+ * preview honest.
+ */
+const COMPACT_CSS = `
+@media (max-width: 720px) {
+  .hero, .cards, .controls, .wide, .bento { grid-template-columns: 1fr !important; }
+  .hero { display: block !important; }
+  .tile, .stack, .wide, .hero { grid-column: auto !important; grid-row: auto !important; }
+  .tile + .tile, .cards > * + *, .controls > * + * { margin-top: var(--uiux-space-3, 12px); }
+  .controls > * + * { margin-left: 0; }
+  .row { flex-wrap: wrap; }
+}
+`
 
 /** The style's own gradient layers, or none when it declares no gradients. */
 function gradientOf(entry) {

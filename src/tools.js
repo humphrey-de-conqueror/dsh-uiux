@@ -1,9 +1,9 @@
 /**
  * Model-facing tools of the uiux bundle.
  *
- * Three tools, deliberately small: browse styles, read one style's spec, and
- * consult Google's Modern Web Guidance for the platform capabilities the spec
- * references.
+ * Four tools, deliberately small: browse styles, read one style's spec, blend
+ * styles, and consult Google's Modern Web Guidance for the platform
+ * capabilities the spec references.
  */
 
 import { defineTool } from '@deepseek-ai/dsh-tools'
@@ -22,7 +22,7 @@ const asText = Object.freeze({
   render: (_args, value) => [{ type: 'text', text: String(value) }],
 })
 
-/** Formats accepted by `uiux_spec`. */
+/** Formats accepted by `uiux_spec` and `uiux_mix`. */
 const FORMATS = /** @type {const} */ (['md', 'css', 'tailwind', 'json'])
 
 /**
@@ -74,6 +74,31 @@ export function registerTools(ctx, options) {
     },
     output: asText,
     execute: handlers.spec,
+  }))
+
+  ctx.tools.register(defineTool({
+    name: 'uiux_mix',
+    description:
+      'Blend two to four styles into one spec when a single style is not right. Weights are optional: '
+      + '`["editorial:70", "bento-grid:30"]` gives a mix weighted towards the first. Colours are averaged per '
+      + 'scheme and numeric lengths (radius, spacing, durations, type sizes) are averaged where the units agree; '
+      + 'structure — families, components, elevation, effects, rules — comes from the dominant (first) style, '
+      + 'because a blend of two structures is not a structure. Contrast is NOT re-verified for a blend. Prefer a '
+      + `single style unless the user asked for a blend or two directions are genuinely both required.`,
+    parameters: {
+      styles: {
+        type: 'array', required: true, items: { type: 'string' },
+        description: 'Slugs from `uiux_styles`, optionally with ":<weight>", e.g. ["editorial:70", "bento-grid:30"]',
+      },
+      sections: {
+        type: 'array', items: { type: 'string', enum: [...SECTION_NAMES] },
+        description: 'Subset of sections; defaults to overview, tokens, type, motion, a11y',
+      },
+      format: { type: 'string', enum: [...FORMATS], description: 'Output format; defaults to "md"' },
+      maxBytes: { type: 'integer', description: 'Byte budget for the result' },
+    },
+    output: asText,
+    execute: handlers.mix,
   }))
 
   if (!config.platformGuidance) return

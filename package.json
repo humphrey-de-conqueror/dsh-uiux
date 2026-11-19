@@ -1,6 +1,6 @@
 {
   "name": "dsh-uiux",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": true,
   "description": "Design-direction plugin for DeepSeek Harness: named visual styles with implementation-ready tokens, platform guidance, a review rubric, and a live preview tab.",
   "type": "module",

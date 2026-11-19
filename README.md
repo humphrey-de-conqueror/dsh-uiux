@@ -18,7 +18,7 @@ dsh plugin install link:/home/humphrey-de-conqueror/dsh-uiux
 
 Or through the Plugin Manager: **Install bundle**, target
 `link:/home/humphrey-de-conqueror/dsh-uiux`. Restart or reload the session; the `uiux` skill
-appears in the skill catalog and the three tools become available.
+appears in the skill catalog and the four tools become available.
 
 ## Use
 
@@ -37,12 +37,13 @@ interaction guidance, then review. You can also call the tools directly:
 | --- | --- |
 | `uiux_styles` | Find styles by mood, domain, or name. |
 | `uiux_spec` | Get one or more styles as Markdown, CSS, Tailwind v4, or JSON. |
+| `uiux_mix` | Blend two to four styles when one direction is not enough, e.g. `["editorial:70", "bento-grid:30"]`. |
 | `uiux_platform_guide` | Search Chrome's Modern Web Guidance, then retrieve the guides that matter. |
 
 ## How to use it
 
 [docs/GUIDE.md](docs/GUIDE.md) splits the plugin into what runs on its own (the skill and the
-three tools) and what you drive by hand (the three panes, the + menu, the gallery-to-composer
+four tools) and what you drive by hand (the three panes, the + menu, the gallery-to-composer
 path). Read that first.
 
 ## Preview

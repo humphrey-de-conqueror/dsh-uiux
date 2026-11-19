@@ -1,7 +1,7 @@
 # UI/UX styles
 
 This plugin gives the agent a vocabulary for visual design direction, and the tokens to
-execute it without inventing values. It ships one skill (`uiux`) and three tools.
+execute it without inventing values. It ships one skill (`uiux`) and four tools.
 
 ## What it adds
 
@@ -10,6 +10,7 @@ execute it without inventing values. It ships one skill (`uiux`) and three tools
 | Skill | `uiux` | Routes design work: shortlist a style, fetch its spec, build, check platform behaviour, review. |
 | Tool | `uiux_styles` | Searches the catalog by mood words, domain, tags, or style name and returns a candidate table. |
 | Tool | `uiux_spec` | Renders one or more styles as Markdown, CSS custom properties, a Tailwind v4 `@theme` block, or JSON. |
+| Tool | `uiux_mix` | Blends two to four styles into one spec, weighted, with structure taken from the dominant style. |
 | Tool | `uiux_platform_guide` | Wraps Chrome's Modern Web Guidance: search 209 platform guides, then retrieve the ones that matter. |
 | Client tab | `uiux-preview` | Right-sidebar pane that previews a style as a rendered demo page. |
 
@@ -71,6 +72,19 @@ Output formats:
 
 Every format honours a byte budget and, when it truncates, says which sections were dropped
 instead of silently cutting mid-sentence.
+
+### `uiux_mix`
+
+Blends styles when one direction cannot carry the brief: `["editorial:70", "bento-grid:30"]`, at most
+four, weights optional. The rule is narrow on purpose — colours are averaged per scheme, numeric
+lengths (radius, spacing, durations, type sizes) are averaged where the units agree, and structure
+(font families, components, elevation, effects, rules) comes from the dominant first style, because
+a blend of two structures is not a structure. A mixed style renders through the same renderer as a
+real style and is marked `mix` tier. Contrast is not re-verified for a blend, and the output says
+so; blend with only brief-tier styles and the output notes that no component recipes exist.
+
+Weights are percentages when some styles are weighted and others are not (`60` + two unweighted =
+60 / 20 / 20), and relative shares when all are weighted (`70/30` and `3/1` both work).
 
 ### `uiux_platform_guide`
 

@@ -5,7 +5,7 @@ description: Design and build interfaces in a named visual style - fetch concret
 
 # UI/UX design
 
-This skill routes design work through three tools that this plugin registers, plus the
+This skill routes design work through four tools that this plugin registers, plus the
 reference files beside this one. The styles are authored specs, not adjectives: each one
 carries color roles, type scale, spacing, radius, elevation, motion, and component recipes
 that you copy directly instead of inventing values.
@@ -22,7 +22,9 @@ that you copy directly instead of inventing values.
    - `css` - paste the custom-property block into the stylesheet as-is.
    - `tailwind` - paste the `@theme` block (Tailwind v4 assumed).
    - `json` - feed a generator or another tool.
-   Name the style you applied in your reply so the user can ask for a different one.
+   If the user asked for a blend ("70% editorial, 30% bento", "editorial but calmer"), call
+   `uiux_mix` instead — it returns one spec, weighted, with the dominant style's structure.
+   Name the style or blend you applied in your reply so the user can ask for a different one.
    The **Style preview** tab in the right sidebar renders whatever you last fetched, so
    point the user there when they want to see the direction before you build. The
    **Style gallery** tab shows every style as a card; both are also in the composer's +

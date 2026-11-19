@@ -18,26 +18,27 @@ function fakeContext() {
   }
 }
 
-test('registers styles and spec always, guide when enabled', () => {
+test('registers styles, spec, and mix always, guide when enabled', () => {
   const { ctx, tools } = fakeContext()
   registerTools(ctx, { catalog, config: resolveConfig({ platformGuidance: false }) })
-  assert.deepEqual(tools.map(tool => tool.name), ['uiux_styles', 'uiux_spec'])
+  assert.deepEqual(tools.map(tool => tool.name), ['uiux_styles', 'uiux_spec', 'uiux_mix'])
 })
 
 test('registers the platform guide when the dependency resolves', () => {
   const { ctx, tools } = fakeContext()
   registerTools(ctx, { catalog, config: resolveConfig({ platformGuidance: true }) })
-  assert.deepEqual(tools.map(tool => tool.name), ['uiux_styles', 'uiux_spec', 'uiux_platform_guide'])
+  assert.deepEqual(tools.map(tool => tool.name), ['uiux_styles', 'uiux_spec', 'uiux_mix', 'uiux_platform_guide'])
 })
 
 test('tool definitions expose parameters and text output', async () => {
   const { ctx, tools } = fakeContext()
   registerTools(ctx, { catalog, config: resolveConfig({ platformGuidance: false }) })
-  const [styles, spec] = tools
+  const [styles, spec, mix] = tools
   assert.equal(styles.parameters.properties.query.type, 'string')
   assert.deepEqual(spec.parameters.required, ['slugs'])
   assert.equal(spec.parameters.properties.slugs.type, 'array')
   assert.deepEqual(spec.parameters.properties.format.enum, ['md', 'css', 'tailwind', 'json'])
+  assert.deepEqual(mix.parameters.required, ['styles'])
   const rendered = styles.output.render({}, await styles.execute({ query: 'editorial' }))
   assert.equal(rendered.length, 1)
   assert.equal(rendered[0].type, 'text')
