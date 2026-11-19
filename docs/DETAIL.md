@@ -107,8 +107,11 @@ every `uiux_spec` call records its slugs on the host, the pane polls `state.json
 revision bump adopts the first slug unless you picked a style in the gallery.
 
 The gallery pane shows all 79 styles as cards. Each card frames the style's own rendered page
-(`page.html?slug=&compact=1`) in a scaled, pointer-inert iframe that mounts only when it scrolls
-into view, so what you browse is the real composition — a Swiss poster, a glass control centre,
+(`page.html?slug=&compact=1`) in a pointer-inert iframe inside a fixed 3:4 frame, mounted only
+when it scrolls into view. The page is rendered at the card's own width — nothing is scaled and
+nothing is measured in JavaScript, so a 320 px card is a real 320 px page and a collapsed strip
+is not possible. Compact pages stack their grids under 720 px so that width still reads as the
+style. What you browse is the real composition — a Swiss poster, a glass control centre,
 a terminal — not a colour swatch. Previously a card carried an SVG wireframe (`thumb.svg`, now
 removed) that
 reuses one wireframe — header bar, `Aa` hero, measure lines, accent action, three cards — painted

@@ -81,7 +81,8 @@ All three panes are also one click away from the composer's **+** menu as the `u
 ## Gallery
 
 **Style gallery** shows all 79 styles as cards with a filter box. Each card frames the style's
-real page in miniature, mounted only when it scrolls into view, so the composition shows — a
+real page in a fixed 3:4 frame — the page is rendered at the card's own width, never scaled —
+mounted only when it scrolls into view, so the composition shows — a
 Swiss poster, a glass panel stack, a terminal — and not just the palette. Dark-first styles frame
 their dark page. Clicking a card opens it in the preview tab (in its native scheme) and puts a
 one-line style request into the composer: press Enter to ask for it, or use **Ask agent** in the

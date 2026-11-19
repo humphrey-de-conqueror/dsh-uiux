@@ -571,9 +571,6 @@ window.__ModuleLoader__.load({
     function StyleFrame(props) {
       var entry = props.entry
       var ref = React.useRef(null)
-      var widthState = React.useState(280)
-      var width = widthState[0]
-      var setWidth = widthState[1]
       var srcState = React.useState('')
       var src = srcState[0]
       var setSrc = srcState[1]
@@ -582,43 +579,31 @@ window.__ModuleLoader__.load({
       React.useEffect(function () {
         var node = ref.current
         if (node === null) return undefined
-        var disposers = []
-
-        if (typeof ResizeObserver === 'function') {
-          var observer = new ResizeObserver(function (records) {
-            var measured = Math.round(records[0].contentRect.width)
-            if (measured > 0) setWidth(measured)
-          })
-          observer.observe(node)
-          disposers.push(function () { observer.disconnect() })
-        }
-
-        if (typeof IntersectionObserver === 'function') {
-          var seen = new IntersectionObserver(function (records) {
-            for (var index = 0; index < records.length; index += 1) {
-              if (records[index].isIntersecting) {
-                setSrc(native)
-                seen.disconnect()
-              }
-            }
-          }, { rootMargin: '300px' })
-          seen.observe(node)
-          disposers.push(function () { seen.disconnect() })
-        } else {
+        if (typeof IntersectionObserver !== 'function') {
           setSrc(native)
+          return undefined
         }
-
-        return function () {
-          for (var index = 0; index < disposers.length; index += 1) disposers[index]()
-        }
+        var seen = new IntersectionObserver(function (records) {
+          for (var index = 0; index < records.length; index += 1) {
+            if (records[index].isIntersecting) {
+              setSrc(native)
+              seen.disconnect()
+            }
+          }
+        }, { rootMargin: '400px' })
+        seen.observe(node)
+        return function () { seen.disconnect() }
       }, [native])
 
+      // A card is a frame: fixed 3:4 shape in CSS, so the page renders at the card's own
+      // width with no measurement, no scaling, and no chance of a collapsed strip.
       return h('div', {
         ref: ref,
         style: {
           position: 'relative',
           width: '100%',
-          height: Math.round(width * 1.35),
+          aspectRatio: '3 / 4',
+          minHeight: 240,
           overflow: 'hidden',
           borderBottom: '1px solid ' + BORDER,
           background: entry.light.bg,
@@ -635,8 +620,8 @@ window.__ModuleLoader__.load({
           position: 'absolute',
           top: 0,
           left: 0,
-          width: width,
-          height: Math.round(width * 1.35),
+          width: '100%',
+          height: '100%',
           border: 0,
           pointerEvents: 'none',
         },
@@ -758,10 +743,10 @@ window.__ModuleLoader__.load({
                 flex: '1 1 auto',
                 minHeight: 0,
                 overflow: 'auto',
-                padding: 12,
+                padding: 14,
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                gap: 16,
+                gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+                gap: 18,
                 alignContent: 'start',
               },
             }, visible.map(function (entry) {
