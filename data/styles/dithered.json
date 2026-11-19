@@ -2,6 +2,7 @@
   "slug": "dithered",
   "name": "Dithered",
   "depth": "brief",
+  "composition": "terminal",
   "oneLiner": "Few-color dot patterns that simulate tone and give a digital surface a printed, retro grain.",
   "preferredScheme": "light",
   "aliases": [],

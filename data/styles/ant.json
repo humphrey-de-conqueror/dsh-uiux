@@ -2,6 +2,7 @@
   "slug": "ant",
   "name": "Ant",
   "depth": "brief",
+  "composition": "column",
   "oneLiner": "Data-dense enterprise clarity: consistent components, compact rows, and predictable interaction.",
   "preferredScheme": "light",
   "aliases": [],

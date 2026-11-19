@@ -2,6 +2,7 @@
   "slug": "liquid-glass",
   "name": "Liquid Glass",
   "depth": "full",
+  "composition": "glass",
   "oneLiner": "Translucent, layered surfaces with specular edges, saturated backdrops, and spring-weighted motion — depth you can almost touch.",
   "preferredScheme": "light",
   "aliases": [

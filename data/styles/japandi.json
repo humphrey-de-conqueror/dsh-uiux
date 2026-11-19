@@ -2,6 +2,7 @@
   "slug": "japandi",
   "name": "Japandi",
   "depth": "full",
+  "composition": "column",
   "oneLiner": "Japanese restraint meets Scandinavian warmth: paper tones, honest materials, low contrast, and space used as a feature.",
   "preferredScheme": "light",
   "aliases": [
@@ -126,9 +127,9 @@
       "full": "999px"
     },
     "elevation": {
-      "none": "none",
       "1": "0 1px 0 #D9D0C3",
-      "2": "0 18px 40px -28px rgba(46, 42, 37, 0.3)"
+      "2": "0 18px 40px -28px rgba(46, 42, 37, 0.3)",
+      "none": "none"
     },
     "effects": {
       "blur": "0",

@@ -2,6 +2,7 @@
   "slug": "monochrome-architecture",
   "name": "Monochrome Architecture",
   "depth": "full",
+  "composition": "poster",
   "oneLiner": "Structure as style: hairline grids, oversized neutral type, and not a single hue outside the grey spectrum.",
   "preferredScheme": "light",
   "aliases": [
@@ -126,9 +127,9 @@
       "full": "0"
     },
     "elevation": {
-      "none": "none",
       "1": "0 1px 0 #C9C9C9",
-      "2": "0 0 0 1px #C9C9C9"
+      "2": "0 0 0 1px #C9C9C9",
+      "none": "none"
     },
     "effects": {
       "blur": "0",

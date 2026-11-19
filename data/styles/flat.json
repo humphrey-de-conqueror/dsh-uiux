@@ -2,6 +2,7 @@
   "slug": "flat",
   "name": "Flat",
   "depth": "brief",
+  "composition": "column",
   "oneLiner": "Two-dimensional clarity with vibrant color and no depth tricks, optimized for speed and legibility.",
   "preferredScheme": "light",
   "aliases": [],

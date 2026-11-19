@@ -2,6 +2,7 @@
   "slug": "sleek",
   "name": "Sleek",
   "depth": "brief",
+  "composition": "column",
   "oneLiner": "Clean lines, deliberate spacing, and subtle interaction, tuned so nothing looks accidental.",
   "preferredScheme": "light",
   "aliases": [],

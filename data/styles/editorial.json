@@ -2,6 +2,7 @@
   "slug": "editorial",
   "name": "Editorial",
   "depth": "full",
+  "composition": "column",
   "oneLiner": "Magazine craft for the screen: a serif voice, measured columns, and typographic detail that rewards reading.",
   "preferredScheme": "light",
   "aliases": [
@@ -128,9 +129,9 @@
       "full": "999px"
     },
     "elevation": {
-      "none": "none",
       "1": "0 1px 0 #D8CDBC",
-      "2": "0 12px 32px -12px rgba(23, 19, 14, 0.18)"
+      "2": "0 12px 32px -12px rgba(23, 19, 14, 0.18)",
+      "none": "none"
     },
     "effects": {
       "blur": "0",

@@ -2,6 +2,7 @@
   "slug": "colorful",
   "name": "Colorful",
   "depth": "brief",
+  "composition": "soft",
   "oneLiner": "Saturated color and high-contrast palettes that make an interface feel alive and current.",
   "preferredScheme": "light",
   "aliases": [],

@@ -2,6 +2,7 @@
   "slug": "clean",
   "name": "Clean",
   "depth": "brief",
+  "composition": "column",
   "oneLiner": "White space, one restrained palette, legible type, and nothing that is not doing work.",
   "preferredScheme": "light",
   "aliases": [],

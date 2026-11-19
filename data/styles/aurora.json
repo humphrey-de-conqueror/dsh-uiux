@@ -2,6 +2,7 @@
   "slug": "aurora",
   "name": "Aurora",
   "depth": "full",
+  "composition": "glass",
   "oneLiner": "A deep polar sky with slow bands of green and violet light drifting behind calm, low-noise interface chrome.",
   "preferredScheme": "dark",
   "aliases": [
@@ -127,10 +128,10 @@
       "full": "999px"
     },
     "elevation": {
-      "none": "none",
       "1": "0 1px 0 rgba(234, 240, 255, 0.06) inset",
       "2": "0 24px 60px -24px rgba(94, 234, 212, 0.18)",
-      "3": "0 40px 120px -40px rgba(139, 92, 246, 0.32)"
+      "3": "0 40px 120px -40px rgba(139, 92, 246, 0.32)",
+      "none": "none"
     },
     "effects": {
       "blur": "24px",

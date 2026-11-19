@@ -2,6 +2,7 @@
   "slug": "pacman",
   "name": "Pacman",
   "depth": "brief",
+  "composition": "toy",
   "oneLiner": "8-bit arcade play with pixel type, dotted borders, and a palette borrowed from cabinet cabinets.",
   "preferredScheme": "dark",
   "aliases": [],

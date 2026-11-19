@@ -7,7 +7,7 @@ import { test } from 'node:test'
 
 import { loadCatalog } from '../src/catalog.js'
 import { createPreviewState } from '../src/preview-state.js'
-import { DEFAULT_PREVIEW_SLUG, PREVIEW_WIDTHS, galleryIndex, previewPage, schemeOf, styleIndex } from '../src/preview.js'
+import { DEFAULT_PREVIEW_SLUG, PREVIEW_WIDTHS, compositionOf, galleryIndex, previewPage, schemeOf, styleIndex } from '../src/preview.js'
 import { PREVIEW_PREFIX, registerRoutes } from '../src/routes.js'
 
 const catalog = loadCatalog('data/')
@@ -140,7 +140,6 @@ test('routes keep the documented paths under the preview prefix', () => {
     `${PREVIEW_PREFIX}/page.html`,
     `${PREVIEW_PREFIX}/state.json`,
     `${PREVIEW_PREFIX}/styles.json`,
-    `${PREVIEW_PREFIX}/thumb.svg`,
   ])
 })
 
@@ -216,50 +215,54 @@ test('gallery route returns every card row', () => {
   assert.equal(payload.styles[0].light.bg.startsWith('#'), true)
 })
 
-test('thumbnail route paints one style from its own tokens', async () => {
-  const { previewThumb } = await import('../src/thumb.js')
-  const entry = catalog.find(row => row.slug === 'editorial')
-  const svg = previewThumb(entry)
-  const light = entry.spec.tokens.color.light
-  assert.match(svg, /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg"/u)
-  assert.equal(svg.includes(`fill="${light.bg}"`), true)
-  assert.equal(svg.includes(`fill="${light.accent}"`), true)
-  assert.equal(svg.includes(entry.name), true)
-  assert.equal(svg.includes('<script'), false)
+test('each style carries a composition, and it changes the page structure', () => {
+  const expected = {
+    'swiss-international': 'poster',
+    'liquid-glass': 'glass',
+    'terminal-crt': 'terminal',
+    'neumorphism': 'soft',
+    'bento-grid': 'bento',
+    'neo-brutalism': 'toy',
+    'editorial': 'column',
+  }
+  for (const [slug, composition] of Object.entries(expected)) {
+    const entry = catalog.find(row => row.slug === slug)
+    assert.equal(compositionOf(entry), composition, slug)
+    const html = previewPage(entry)
+    assert.equal(html.includes(`data-composition="${composition}"`), true, slug)
+  }
 
-  const dark = previewThumb(entry, { scheme: 'dark' })
-  assert.equal(dark.includes(`fill="${entry.spec.tokens.color.dark.bg}"`), true)
+  // Two styles that only differed by colour before must now differ structurally.
+  const poster = previewPage(catalog.find(row => row.slug === 'swiss-international'))
+  const glass = previewPage(catalog.find(row => row.slug === 'liquid-glass'))
+  assert.equal(poster.includes('class="index"'), true)
+  assert.equal(glass.includes('class="screen"'), false)
+  assert.equal(glass.includes('backdrop-filter'), true)
+  assert.equal(poster.includes('backdrop-filter'), false)
 
-  const cyber = catalog.find(row => row.slug === 'cyberpunk')
-  assert.equal(previewThumb(cyber, { scheme: schemeOf(cyber) }).includes(`fill="${cyber.spec.tokens.color.dark.bg}"`), true)
+  // A brief style inherits the composition of its typographic preset.
+  assert.equal(compositionOf(catalog.find(row => row.slug === 'matrix')), 'terminal')
 })
 
-test('thumbnail route serves SVG and 404s an unknown slug', () => {
-  const { ctx, routes } = fakeHost()
-  registerRoutes(ctx, { catalog, config: {}, preview: createPreviewState() })
-  const thumb = routes.get(`${PREVIEW_PREFIX}/thumb.svg`)
-
-  const ok = response()
-  thumb(request('/dsh-uiux/preview/thumb.svg?slug=liquid-glass'), ok)
-  assert.equal(ok.result().status, 200)
-  assert.equal(ok.result().headers['Content-Type'], 'image/svg+xml; charset=utf-8')
-  assert.match(ok.result().body, /<svg/u)
-
-  const missing = response()
-  thumb(request('/dsh-uiux/preview/thumb.svg?slug=nope'), missing)
-  assert.equal(missing.result().status, 404)
-  assert.match(missing.result().body, /Unknown style: nope/u)
-})
-
-test('gallery rows carry a thumbnail URL', () => {
+test('gallery frames the real page for each style', () => {
   const { ctx, routes } = fakeHost()
   registerRoutes(ctx, { catalog, config: {}, preview: createPreviewState() })
   const browse = response()
   routes.get(`${PREVIEW_PREFIX}/gallery.json`)(request('/dsh-uiux/preview/gallery.json'), browse)
   const payload = JSON.parse(browse.result().body)
   for (const row of payload.styles) {
-    assert.equal(row.thumb, `/dsh-uiux/preview/thumb.svg?slug=${row.slug}`)
+    assert.equal(row.page, `/dsh-uiux/preview/page.html?slug=${row.slug}&compact=1`)
+    assert.equal(row.darkPage, `/dsh-uiux/preview/page.html?slug=${row.slug}&theme=dark&compact=1`)
   }
+})
+
+test('compact pages drop the footer so a small frame reads as a picture', () => {
+  const entry = catalog.find(row => row.slug === 'editorial')
+  const full = previewPage(entry)
+  const framed = previewPage(entry, { compact: true })
+  assert.equal(full.includes('footer { display: none; }'), false)
+  assert.equal(framed.includes('footer { display: none; }'), true)
+  assert.equal(framed.includes('padding: 20px;'), true)
 })
 
 test('length scaling keeps the unit and refuses to touch non-lengths', async () => {

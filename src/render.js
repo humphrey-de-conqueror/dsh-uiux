@@ -60,6 +60,7 @@ function pick(spec, sections) {
         out.overview = {
           slug: spec.slug, name: spec.name, oneLiner: spec.oneLiner, mood: spec.mood,
           tags: spec.tags, bestFor: spec.bestFor, avoidFor: spec.avoidFor ?? [],
+          composition: spec.composition ?? null, preferredScheme: spec.preferredScheme ?? 'light',
         }
         break
       case 'tokens': {
@@ -119,6 +120,8 @@ function renderMarkdown(entry, sections, maxBytes) {
 const MARKDOWN = {
   overview(spec) {
     const lines = [`\n${spec.oneLiner}\n`]
+    if (spec.composition) lines.push(`- **Composition:** \`${spec.composition}\` — build this layout, not a generic card grid`)
+    if (spec.preferredScheme) lines.push(`- **Native scheme:** ${spec.preferredScheme}`)
     if (spec.mood?.length) lines.push(`- **Mood:** ${spec.mood.join(', ')}`)
     if (spec.tags?.length) lines.push(`- **Tags:** ${spec.tags.join(', ')}`)
     if (spec.bestFor?.length) lines.push(`- **Best for:** ${spec.bestFor.join(', ')}`)

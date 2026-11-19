@@ -83,9 +83,11 @@ preview header sends it immediately.
 | Ask agent | Send the current style request now. |
 | Open | The page in its own browser tab. |
 
-**Design** is an audition, not an edit: the sliders render an override block over the style's
-own tokens, so you can see "same layout, warmer accent, less rounding" before asking for it.
-The spec the agent copies stays authoritative — tweaks never leak into it.
+**Design** renders an override block over the style's own tokens, so you can see "same layout,
+warmer accent, less rounding" before asking for it. When you press **Ask agent** with tweaks
+dialled in, the request names them — "I dialled these in on the preview and they should carry
+over the defaults: accent #22AA88, radius ×0.4, spacing ×1.3" — so the agent knows what you
+liked. The style's own spec still stays authoritative; the tweaks are a request, not an edit.
 
 ### Your page
 
@@ -121,10 +123,10 @@ The agent shortlists, fetches the spec, and builds; you watch in the preview tab
 
 ## Limits worth knowing
 
-- **Design tweaks do not travel** to the agent. Say what you liked, or ask for the variation in
-  words.
+- **Design tweaks travel only when you send.** If you change them and never press Enter or
+  **Ask agent**, nothing reaches the agent.
 - **Compare** compares styles, not your page against a style.
 - **Your page** previews local files and local dev servers. Remote sites often refuse to be
   framed, and are not fetched through the plugin.
-- **Thumbnails** are painted from tokens, not screenshots — accurate about colour, type, and
-  shape, not about a specific layout.
+- **Gallery cards** are live miniature pages, framed and scaled. They show the style's demo
+  composition, not your own project.

@@ -2,6 +2,7 @@
   "slug": "vaporwave",
   "name": "Vaporwave",
   "depth": "full",
+  "composition": "glass",
   "oneLiner": "A sunset grid horizon, chrome type, and pastel neon: the internet's romantic memory of the 1980s, rendered on purpose.",
   "preferredScheme": "dark",
   "aliases": [
@@ -126,10 +127,10 @@
       "full": "999px"
     },
     "elevation": {
-      "none": "none",
       "1": "0 0 0 1px #3A2559",
       "2": "0 0 24px rgba(255, 113, 206, 0.35)",
-      "3": "0 0 48px rgba(1, 205, 254, 0.3)"
+      "3": "0 0 48px rgba(1, 205, 254, 0.3)",
+      "none": "none"
     },
     "effects": {
       "blur": "6px",

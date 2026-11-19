@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-composition="column">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,11 +77,11 @@
 
 
 *, *::before, *::after { box-sizing: border-box; }
-html, body { height: 100%; }
+html, body { min-height: 100%; }
 body {
   margin: 0;
-  padding: var(--uiux-space-8, 32px) var(--uiux-space-6, 24px);
-  background: var(--uiux-color-bg);
+  padding: var(--uiux-space-7, 40px) var(--uiux-space-6, 24px);
+  background-color: var(--uiux-color-bg);
   color: var(--uiux-color-text);
   font-family: "Source Serif 4", Georgia, serif;
   font-size: 1.1875rem;
@@ -89,92 +89,39 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 .shell { max-width: 1040px; margin: 0 auto; }
-.stage { max-width: auto; margin: 0 auto; }
-.eyebrow {
-  margin: 0 0 var(--uiux-space-2, 8px);
-  color: var(--uiux-color-text-muted);
-  font-family: Fraunces;
-  letter-spacing: 0em;
-  text-transform: uppercase;
-  font-size: 12px;
-}
-h1 {
-  margin: 0 0 var(--uiux-space-3, 12px);
-  font-family: Fraunces, Georgia, serif;
-  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
-  font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: -0.02em;
-}
-.lede { margin: 0; max-width: 60ch; color: var(--uiux-color-text-muted); }
-.actions { display: flex; flex-wrap: wrap; gap: var(--uiux-space-3, 12px); margin: var(--uiux-space-6, 24px) 0; }
-.primary, .quiet {
-  border-radius: var(--uiux-radius-md, 8px);
-  border: 1px solid var(--uiux-color-accent);
-  background: var(--uiux-color-accent);
-  color: var(--uiux-color-accent-text);
-  font: inherit;
-  font-weight: 600;
-  padding: 10px 18px;
-  cursor: pointer;
-}
-.quiet { background: transparent; color: var(--uiux-color-text); border-color: var(--uiux-color-border); }
-.grid { display: grid; gap: var(--uiux-space-4, 16px); grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-.card {
-  border: 1px solid var(--uiux-color-border);
-  border-radius: var(--uiux-radius-lg, 12px);
-  background: var(--uiux-color-surface);
-  padding: var(--uiux-space-5, 20px);
-  box-shadow: var(--uiux-shadow-1, none);
-}
-.card h2 { margin: 0 0 var(--uiux-space-2, 8px); font-family: Fraunces; font-size: 1.125rem; }
-.card p { margin: 0; color: var(--uiux-color-text-muted); }
-.metric { font-family: "IBM Plex Mono", ui-monospace; font-size: 2rem; font-variant-numeric: tabular-nums; }
-label { display: block; margin: var(--uiux-space-6, 24px) 0 var(--uiux-space-2, 8px); font-size: 12px; color: var(--uiux-color-text-muted); }
-input, select {
-  width: 100%; max-width: 360px;
-  border: 1px solid var(--uiux-color-border);
-  border-radius: var(--uiux-radius-md, 8px);
-  background: var(--uiux-color-surface);
-  color: var(--uiux-color-text);
-  font: inherit;
-  padding: 10px 12px;
-}
+.meta { color: var(--uiux-color-text-muted); }
 :focus-visible { outline: 2px solid var(--uiux-color-focus); outline-offset: 2px; }
-footer { margin-top: var(--uiux-space-8, 32px); color: var(--uiux-color-text-muted); font-size: 12px; }
+footer { margin-top: var(--uiux-space-7, 40px); color: var(--uiux-color-text-muted); font-size: 11px; }
+
+
+.measure { max-width: 64ch; margin: 0 auto; }
+.chrome { display: flex; justify-content: space-between; padding-bottom: var(--uiux-space-3); border-bottom: 1px solid var(--uiux-color-border); font-family: "IBM Plex Mono"; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--uiux-color-text-muted); }
+h1 { margin: var(--uiux-space-6) 0 var(--uiux-space-3); font-family: Fraunces, Georgia, serif; font-size: clamp(2.5rem, 6vw, 4.25rem); font-weight: 400; line-height: 1.02; letter-spacing: -0.02em; }
+.lede { margin: 0 0 var(--uiux-space-5); max-width: 56ch; font-size: 1.0625rem; color: var(--uiux-color-text-muted); }
+.rows { display: grid; }
+.row { display: grid; grid-template-columns: 1fr auto; gap: var(--uiux-space-4); padding: var(--uiux-space-3) 0; border-bottom: 1px solid var(--uiux-color-border); }
+.row .value { font-family: "IBM Plex Mono"; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.row .note { grid-column: 1 / -1; margin: 4px 0 0; font-size: 0.875rem; color: var(--uiux-color-text-muted); }
+.actions { display: flex; gap: var(--uiux-space-3); margin-top: var(--uiux-space-5); }
+.btn { padding: 10px 18px; border: 1px solid var(--uiux-color-text); border-radius: var(--uiux-radius-sm); background: transparent; color: inherit; font: inherit; font-size: 0.875rem; cursor: pointer; }
+.btn-solid { background: var(--uiux-color-text); color: var(--uiux-color-bg); border-color: var(--uiux-color-text); }
+.link { display: inline-block; margin-top: var(--uiux-space-5); color: var(--uiux-color-accent); text-decoration: none; border-bottom: 1px solid currentColor; font-size: 0.9375rem; }
+
 </style>
 </head>
 <body>
-<div class="shell">
-  <div class="stage">
-    <p class="eyebrow">Editorial · full tier</p>
-    <h1>The Quiet Machine</h1>
-    <p class="lede">Notes on interfaces that respect reading, written for people who finish sentences.</p>
-    <div class="actions">
-      <button class="primary" type="button">Continue</button>
-      <button class="quiet" type="button">Review changes</button>
-    </div>
-    <div class="grid">
-      <section class="card">
-        <h2>Reading time</h2>
-        <p class="metric">7 min</p>
-        <p>Long-form, one column, no interruptions.</p>
-      </section>
-      <section class="card">
-        <h2>Measure</h2>
-        <p class="metric">68 ch</p>
-        <p>Held inside the comfortable reading range.</p>
-      </section>
-      <section class="card">
-        <h2>Contrast</h2>
-        <p class="metric">11.2:1</p>
-        <p>Ink on paper, verified not assumed.</p>
-      </section>
-    </div>
-    <label for="uiux-preview-field">Project name</label>
-    <input id="uiux-preview-field" value="Northwind" autocomplete="off">
-    <footer>Tokens come from <code>uiux_spec</code> for <code>editorial</code>. Only the demo layout is local.</footer>
+<div class="shell"><div class="measure">
+  <header class="chrome"><span>Editorial</span><span>Notes · 2026</span></header>
+  <h1>The Quiet Machine</h1>
+  <p class="lede">Notes on interfaces that respect reading, written for people who finish sentences.</p>
+  <div class="rows">
+    <div class="row"><span class="label">Reading time</span><span class="value">7 min</span><p class="note">Long-form, one column, no interruptions.</p></div>
+    <div class="row"><span class="label">Measure</span><span class="value">68 ch</span><p class="note">Held inside the comfortable reading range.</p></div>
+    <div class="row"><span class="label">Contrast</span><span class="value">11.2:1</span><p class="note">Ink on paper, verified not assumed.</p></div>
   </div>
-</div>
+  <div class="actions"><button class="btn btn-solid" type="button">Continue</button><button class="btn" type="button">Review changes</button></div>
+  <a class="link" href="#read">Read the specification</a>
+  <footer>Colour, type, spacing, radius, and depth come from <code>uiux_spec</code> for <code>editorial</code>. The layout demonstrates this composition.</footer>
+</div></div>
 </body>
 </html>

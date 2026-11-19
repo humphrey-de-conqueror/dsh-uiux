@@ -2,6 +2,7 @@
   "slug": "codex",
   "name": "Codex",
   "depth": "brief",
+  "composition": "terminal",
   "oneLiner": "Blank-canvas minimalism where black carries structure and typography does all the talking.",
   "preferredScheme": "light",
   "aliases": [],

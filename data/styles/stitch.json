@@ -2,6 +2,7 @@
   "slug": "stitch",
   "name": "Stitch",
   "depth": "brief",
+  "composition": "column",
   "oneLiner": "Clean, high-contrast enterprise UI for data workflows, with drag-and-drop structure made visible.",
   "preferredScheme": "light",
   "aliases": [],

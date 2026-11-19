@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-composition="bento">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,11 +77,11 @@
 
 
 *, *::before, *::after { box-sizing: border-box; }
-html, body { height: 100%; }
+html, body { min-height: 100%; }
 body {
   margin: 0;
-  padding: var(--uiux-space-8, 32px) var(--uiux-space-6, 24px);
-  background: var(--uiux-color-bg);
+  padding: var(--uiux-space-7, 40px) var(--uiux-space-6, 24px);
+  background-color: var(--uiux-color-bg);
   color: var(--uiux-color-text);
   font-family: Inter, system-ui, sans-serif;
   font-size: 0.875rem;
@@ -89,92 +89,50 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 .shell { max-width: 1040px; margin: 0 auto; }
-.stage { max-width: auto; margin: 0 auto; }
-.eyebrow {
-  margin: 0 0 var(--uiux-space-2, 8px);
-  color: var(--uiux-color-text-muted);
-  font-family: Inter;
-  letter-spacing: 0em;
-  text-transform: uppercase;
-  font-size: 12px;
-}
-h1 {
-  margin: 0 0 var(--uiux-space-3, 12px);
-  font-family: Inter, system-ui, sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-}
-.lede { margin: 0; max-width: 60ch; color: var(--uiux-color-text-muted); }
-.actions { display: flex; flex-wrap: wrap; gap: var(--uiux-space-3, 12px); margin: var(--uiux-space-6, 24px) 0; }
-.primary, .quiet {
-  border-radius: var(--uiux-radius-md, 8px);
-  border: 1px solid var(--uiux-color-accent);
-  background: var(--uiux-color-accent);
-  color: var(--uiux-color-accent-text);
-  font: inherit;
-  font-weight: 600;
-  padding: 10px 18px;
-  cursor: pointer;
-}
-.quiet { background: transparent; color: var(--uiux-color-text); border-color: var(--uiux-color-border); }
-.grid { display: grid; gap: var(--uiux-space-4, 16px); grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-.card {
-  border: 1px solid var(--uiux-color-border);
-  border-radius: var(--uiux-radius-lg, 12px);
-  background: var(--uiux-color-surface);
-  padding: var(--uiux-space-5, 20px);
-  box-shadow: var(--uiux-shadow-1, none);
-}
-.card h2 { margin: 0 0 var(--uiux-space-2, 8px); font-family: Inter; font-size: 1.125rem; }
-.card p { margin: 0; color: var(--uiux-color-text-muted); }
-.metric { font-family: "JetBrains Mono", ui-monospace; font-size: 2rem; font-variant-numeric: tabular-nums; }
-label { display: block; margin: var(--uiux-space-6, 24px) 0 var(--uiux-space-2, 8px); font-size: 12px; color: var(--uiux-color-text-muted); }
-input, select {
-  width: 100%; max-width: 360px;
-  border: 1px solid var(--uiux-color-border);
-  border-radius: var(--uiux-radius-md, 8px);
-  background: var(--uiux-color-surface);
-  color: var(--uiux-color-text);
-  font: inherit;
-  padding: 10px 12px;
-}
+.meta { color: var(--uiux-color-text-muted); }
 :focus-visible { outline: 2px solid var(--uiux-color-focus); outline-offset: 2px; }
-footer { margin-top: var(--uiux-space-8, 32px); color: var(--uiux-color-text-muted); font-size: 12px; }
+footer { margin-top: var(--uiux-space-7, 40px); color: var(--uiux-color-text-muted); font-size: 11px; }
+
+
+.bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--uiux-space-4); }
+.tile { padding: var(--uiux-space-5); border: 1px solid var(--uiux-color-border); border-radius: var(--uiux-radius-lg); background: var(--uiux-color-surface); box-shadow: var(--uiux-shadow-1); }
+.tile h2 { margin: 0 0 var(--uiux-space-2); font-family: "JetBrains Mono"; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--uiux-color-text-muted); }
+.tile p { margin: 0; font-size: 0.875rem; color: var(--uiux-color-text-muted); }
+.tile .value { font-family: "JetBrains Mono"; font-size: 2rem; font-variant-numeric: tabular-nums; color: var(--uiux-color-text); }
+.hero { grid-column: span 4; grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; }
+.hero h1 { margin: 0 0 var(--uiux-space-3); font-family: Inter, system-ui, sans-serif; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.04; letter-spacing: -0.02em; }
+.hero .lede { max-width: 40ch; font-size: 1rem; }
+.accent { background-color: var(--uiux-color-accent); background-image: none; color: var(--uiux-color-accent-text); border-color: transparent; }
+.accent h2, .accent p, .accent .value { color: inherit; }
+.stack { grid-column: span 2; }
+.wide { grid-column: span 6; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--uiux-space-4); align-items: baseline; }
+.btn { align-self: flex-start; padding: 10px 16px; border: 1px solid var(--uiux-color-border); border-radius: var(--uiux-radius-full); background: var(--uiux-color-surface); color: inherit; font: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer; box-shadow: var(--uiux-shadow-1); }
+.btn-solid { background: var(--uiux-color-accent); color: var(--uiux-color-accent-text); border-color: transparent; }
+
 </style>
 </head>
 <body>
-<div class="shell">
-  <div class="stage">
-    <p class="eyebrow">Data Dashboard · full tier</p>
-    <h1>Fleet health</h1>
-    <p class="lede">Daily operations across 42 regions, in one quiet surface.</p>
-    <div class="actions">
-      <button class="primary" type="button">Continue</button>
-      <button class="quiet" type="button">Review changes</button>
+<div class="shell"><div class="bento">
+  <section class="tile hero">
+    <div>
+      <h2>Data Dashboard</h2>
+      <h1>Fleet health</h1>
+      <p class="lede">Daily operations across 42 regions, in one quiet surface.</p>
     </div>
-    <div class="grid">
-      <section class="card">
-        <h2>Uptime</h2>
-        <p class="metric">99.98%</p>
-        <p>Rolling seven-day average, all regions.</p>
-      </section>
-      <section class="card">
-        <h2>Sessions</h2>
-        <p class="metric">1,204</p>
-        <p>Active control surfaces in the last hour.</p>
-      </section>
-      <section class="card">
-        <h2>Drift</h2>
-        <p class="metric">0.3s</p>
-        <p>Median response time to a state change.</p>
-      </section>
-    </div>
-    <label for="uiux-preview-field">Project name</label>
-    <input id="uiux-preview-field" value="Northwind" autocomplete="off">
-    <footer>Tokens come from <code>uiux_spec</code> for <code>data-dashboard</code>. Only the demo layout is local.</footer>
-  </div>
-</div>
+    <div><button class="btn btn-solid" type="button">Continue</button> <button class="btn" type="button">Review</button></div>
+  </section>
+  <section class="tile accent stack">
+    <h2>Focus</h2>
+    <p class="value">99.98%</p>
+    <p>Uptime</p>
+  </section>
+  <section class="tile stack"><h2>Sessions</h2><p class="value">1,204</p><p>Active control surfaces in the last hour.</p></section>
+  <section class="tile wide">
+    <div><h2>Drift</h2><p class="value">0.3s</p></div>
+    <p>Median response time to a state change.</p>
+    <p>Daily operations across 42 regions, in one quiet surface.</p>
+  </section>
+  <footer>Colour, type, spacing, radius, and depth come from <code>uiux_spec</code> for <code>data-dashboard</code>. The layout demonstrates this composition.</footer>
+</div></div>
 </body>
 </html>

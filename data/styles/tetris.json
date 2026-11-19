@@ -2,6 +2,7 @@
   "slug": "tetris",
   "name": "Tetris",
   "depth": "brief",
+  "composition": "toy",
   "oneLiner": "Blocky game energy with a compact, high-contrast layout and bold display type.",
   "preferredScheme": "light",
   "aliases": [],

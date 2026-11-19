@@ -30,6 +30,13 @@ that you copy directly instead of inventing values.
 3. **Build.** Use the style's tokens for every color, radius, space, shadow, and duration.
    Build components from the `components` section before inventing new ones. Every value in
    the spec exists for a reason; if you deviate, say which value and why.
+
+   The spec's **composition** line is part of the style, not decoration: `poster` means rules
+   and giant type in a grid, `glass` means floating translucent panels over a gradient,
+   `terminal` means monospace rows in a framed screen, `bento` means unequal tiles, `soft`
+   means one surface with paired shadows, `toy` means thick borders and hard offsets. A style
+   poured into a generic card grid is a colour swap, and that is the failure mode this plugin
+   exists to prevent.
 4. **Check the platform.** Before shipping an interaction (dialog, tabs, carousel, sticky
    header, dark mode, form, animation, image priority), call `uiux_platform_guide` with
    `op: "search"` and the behavior you are implementing, then `op: "retrieve"` for the ids

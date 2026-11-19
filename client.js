@@ -105,27 +105,46 @@ window.__ModuleLoader__.load({
     }
 
     /**
+     * Describe the live tweaks a person dialled in, so an agent can carry them over.
+     * @param {{ accent?: string, radius?: number, space?: number, type?: number }} [tweaks] - design bar values.
+     * @returns {string} a sentence fragment, empty when nothing was changed.
+     */
+    function tweakText(tweaks) {
+      var t = tweaks || {}
+      var parts = []
+      if (typeof t.accent === 'string' && t.accent !== '') parts.push('accent ' + t.accent.toUpperCase())
+      if (typeof t.radius === 'number' && t.radius !== 1) parts.push('radius ×' + t.radius)
+      if (typeof t.space === 'number' && t.space !== 1) parts.push('spacing ×' + t.space)
+      if (typeof t.type === 'number' && t.type !== 1) parts.push('type scale ×' + t.type)
+      if (parts.length === 0) return ''
+      return ' I dialled these in on the preview and they should carry over the defaults: ' + parts.join(', ') + '.'
+    }
+
+    /**
      * The request a gallery pick should send to the agent.
      * @param {object} entry - catalog row.
+     * @param {{ accent?: string, radius?: number, space?: number, type?: number }} [tweaks] - live tweaks to name.
      * @returns {string} prompt text.
      */
-    function requestText(entry) {
+    function requestText(entry, tweaks) {
       return 'Use the ' + entry.name + ' style (`' + entry.slug + '`) for this UI. '
         + 'Call uiux_spec for its tokens, build to them, and review the result against the checklist.'
+        + tweakText(tweaks)
     }
 
     /**
      * Send a style request into the pane's session right now.
      * @param {string | undefined} sessionId - session owning the pane.
      * @param {object} entry - catalog row.
+     * @param {{ accent?: string, radius?: number, space?: number, type?: number }} [tweaks] - live tweaks to name.
      * @returns {boolean} whether the send was dispatched.
      */
-    function sendRequest(sessionId, entry) {
+    function sendRequest(sessionId, entry, tweaks) {
       if (!sessionId || client === null) return false
       var actx = client.sessions.scope(sessionId)
       if (actx === undefined || actx === null) return false
       var input = sessionInput(sessionId)
-      actx.conversation.send(requestText(entry)).catch(function (cause) {
+      actx.conversation.send(requestText(entry, tweaks)).catch(function (cause) {
         if (input !== null) input.notify('error', 'Could not send the style request: ' + String((cause && cause.message) || cause))
       })
       return true
@@ -136,9 +155,10 @@ window.__ModuleLoader__.load({
      * @param {string | undefined} sessionId - session owning the pane.
      * @param {object} entry - catalog row.
      * @param {boolean} force - overwrite even a hand-written draft.
+     * @param {{ accent?: string, radius?: number, space?: number, type?: number }} [tweaks] - live tweaks to name.
      * @returns {boolean} whether the composer now holds the request.
      */
-    function primeRequest(sessionId, entry, force) {
+    function primeRequest(sessionId, entry, force, tweaks) {
       var input = sessionInput(sessionId)
       if (input === null) return false
       var draft = ''
@@ -153,7 +173,7 @@ window.__ModuleLoader__.load({
         input.focus()
         return false
       }
-      input.setDraft(requestText(entry))
+      input.setDraft(requestText(entry, tweaks))
       input.notify('info', entry.name + ' style request is in the composer — press Enter to send.')
       input.focus()
       return true
@@ -410,7 +430,7 @@ window.__ModuleLoader__.load({
               if (styles[index].slug === slug) entry = styles[index]
             }
             if (entry === null) return
-            if (!sendRequest(sessionId, entry)) {
+            if (!sendRequest(sessionId, entry, tweakState[0])) {
               setError('This pane is not bound to a session; open it from a chat.')
             }
           },
@@ -540,6 +560,91 @@ window.__ModuleLoader__.load({
      * @param {{ entry: object, onPick: (slug: string) => void }} props - row data and pick handler.
      * @returns {import('react').ReactElement} card.
      */
+    /**
+     * A real frame of the style's page, scaled down.
+     *
+     * The card is a small viewport onto the same document the preview tab loads, so a
+     * style's composition shows up here, not just its colours. The frame mounts only
+     * when the card scrolls near the viewport, because a gallery of 79 pages is a lot
+     * of documents to load at once.
+     */
+    function StyleFrame(props) {
+      var entry = props.entry
+      var ref = React.useRef(null)
+      var scaleState = React.useState(0.5)
+      var scale = scaleState[0]
+      var setScale = scaleState[1]
+      var srcState = React.useState('')
+      var src = srcState[0]
+      var setSrc = srcState[1]
+      var native = entry.scheme === 'dark' ? entry.darkPage : entry.page
+
+      React.useEffect(function () {
+        var node = ref.current
+        if (node === null) return undefined
+        var disposers = []
+
+        if (typeof ResizeObserver === 'function') {
+          var observer = new ResizeObserver(function (records) {
+            var width = records[0].contentRect.width
+            if (width > 0) setScale(width / 640)
+          })
+          observer.observe(node)
+          disposers.push(function () { observer.disconnect() })
+        }
+
+        if (typeof IntersectionObserver === 'function') {
+          var seen = new IntersectionObserver(function (records) {
+            for (var index = 0; index < records.length; index += 1) {
+              if (records[index].isIntersecting) {
+                setSrc(native)
+                seen.disconnect()
+              }
+            }
+          }, { rootMargin: '300px' })
+          seen.observe(node)
+          disposers.push(function () { seen.disconnect() })
+        } else {
+          setSrc(native)
+        }
+
+        return function () {
+          for (var index = 0; index < disposers.length; index += 1) disposers[index]()
+        }
+      }, [native])
+
+      return h('div', {
+        ref: ref,
+        style: {
+          position: 'relative',
+          width: '100%',
+          height: Math.round(400 * scale),
+          overflow: 'hidden',
+          borderBottom: '1px solid ' + BORDER,
+          background: entry.light.bg,
+        },
+      }, src === '' ? null : h('iframe', {
+        key: 'page',
+        src: src,
+        title: entry.name + ' preview',
+        loading: 'lazy',
+        scrolling: 'no',
+        tabIndex: -1,
+        'aria-hidden': true,
+        style: {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: 640,
+          height: 400,
+          border: 0,
+          transform: 'scale(' + scale + ')',
+          transformOrigin: 'top left',
+          pointerEvents: 'none',
+        },
+      }))
+    }
+
     function GalleryCard(props) {
       var entry = props.entry
       return h('button', {
@@ -560,21 +665,7 @@ window.__ModuleLoader__.load({
         },
         title: entry.oneLiner,
       }, [
-        h('img', {
-          key: 'thumb',
-          src: entry.thumb,
-          alt: entry.name + ' preview',
-          loading: 'lazy',
-          width: 320,
-          height: 200,
-          style: {
-            display: 'block',
-            width: '100%',
-            height: 'auto',
-            borderBottom: '1px solid ' + BORDER,
-            background: entry.light.bg,
-          },
-        }),
+        h(StyleFrame, { key: 'frame', entry: entry }),
         h('div', { key: 'meta', style: { padding: '8px 10px 10px' } }, [
           h('div', { key: 'name', style: { fontSize: 13, fontWeight: 600, lineHeight: '18px' } }, entry.name),
           h('div', {

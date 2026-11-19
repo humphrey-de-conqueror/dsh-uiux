@@ -2,6 +2,7 @@
   "slug": "levels",
   "name": "Levels",
   "depth": "brief",
+  "composition": "column",
   "oneLiner": "Conversion-first clarity: hierarchy, trust signals, and speed, with nothing between the user and the action.",
   "preferredScheme": "light",
   "aliases": [],

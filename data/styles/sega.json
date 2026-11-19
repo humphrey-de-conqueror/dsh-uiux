@@ -2,6 +2,7 @@
   "slug": "sega",
   "name": "Sega",
   "depth": "brief",
+  "composition": "toy",
   "oneLiner": "Arcade punch with offset shadows, hard edges, and pixel display type that feels physical.",
   "preferredScheme": "dark",
   "aliases": [],

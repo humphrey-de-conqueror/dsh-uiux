@@ -2,6 +2,7 @@
   "slug": "bento-grid",
   "name": "Bento Grid",
   "depth": "full",
+  "composition": "bento",
   "oneLiner": "A modular composition of unequal tiles, where layout itself is the argument and every card has one job.",
   "preferredScheme": "light",
   "aliases": [
@@ -129,10 +130,10 @@
       "full": "999px"
     },
     "elevation": {
-      "none": "none",
       "1": "0 1px 2px rgba(14, 18, 24, 0.06)",
       "2": "0 8px 24px -8px rgba(14, 18, 24, 0.12)",
-      "3": "0 24px 48px -24px rgba(14, 18, 24, 0.24)"
+      "3": "0 24px 48px -24px rgba(14, 18, 24, 0.24)",
+      "none": "none"
     },
     "effects": {
       "blur": "12px",

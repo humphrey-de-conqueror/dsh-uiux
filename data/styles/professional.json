@@ -2,6 +2,7 @@
   "slug": "professional",
   "name": "Professional",
   "depth": "brief",
+  "composition": "column",
   "oneLiner": "Business-ready structure and trustworthy polish, designed to survive a procurement review.",
   "preferredScheme": "light",
   "aliases": [],

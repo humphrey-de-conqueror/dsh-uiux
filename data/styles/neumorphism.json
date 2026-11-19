@@ -2,6 +2,7 @@
   "slug": "neumorphism",
   "name": "Neumorphism",
   "depth": "full",
+  "composition": "soft",
   "oneLiner": "One monochrome surface pressed and raised out of itself: twin shadows, no borders, and a soft, tactile quietness.",
   "preferredScheme": "light",
   "aliases": [

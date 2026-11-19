@@ -16,13 +16,20 @@ export const DEFAULT_PREVIEW_SLUG = 'liquid-glass'
 export const PREVIEW_WIDTHS = Object.freeze({ auto: 'auto', tablet: '768px', phone: '390px' })
 
 /**
- * Wrap a style's tokens in the demo page.
+ * Wrap a style's tokens in a demo page whose *composition* matches the style, not
+ * just its colours.
+ *
+ * A colour swap is not a style: Swiss International is a grid and giant type, liquid
+ * glass is floating translucent panels over a gradient, a terminal is monospace rows.
+ * Each style therefore names a composition archetype, and that archetype decides the
+ * page structure the tokens are poured into.
  * @param {import('./catalog.js').CatalogEntry} entry - style to render.
- * @param {{ theme?: 'light' | 'dark', width?: keyof typeof PREVIEW_WIDTHS, overrides?: PreviewOverrides }} [options] - color scheme, stage width, and live token tweaks.
+ * @param {{ theme?: 'light' | 'dark', width?: keyof typeof PREVIEW_WIDTHS, overrides?: PreviewOverrides, compact?: boolean }} [options] - color scheme, stage width, live token tweaks, and the gallery's small-frame mode.
  * @returns {string} standalone HTML document.
  */
 export function previewPage(entry, options = {}) {
   const theme = options.theme === 'dark' ? 'dark' : 'light'
+  const compact = options.compact === true
   const width = PREVIEW_WIDTHS[options.width ?? 'auto'] ?? 'auto'
   const overrides = overrideCss(entry.spec.tokens ?? {}, options.overrides ?? {})
   // The CSS banner repeats the style name. Keep that name from opening markup inside
@@ -34,22 +41,24 @@ export function previewPage(entry, options = {}) {
   const display = type.display
   const body = type.body
   const mono = type.mono ?? body
+  const composition = compositionOf(entry)
+  const layout = LAYOUTS[composition]({ entry, copy, display, body, mono, width })
 
   return `<!doctype html>
-<html lang="en" data-theme="${theme}">
+<html lang="en" data-theme="${theme}" data-composition="${composition}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${copy.title} — ${escapeHtml(entry.name)}</title>
+<title>${escapeHtml(copy.title)} — ${escapeHtml(entry.name)}</title>
 <style>
 ${tokens}
 ${overrides}
 *, *::before, *::after { box-sizing: border-box; }
-html, body { height: 100%; }
+html, body { min-height: 100%; }
 body {
   margin: 0;
-  padding: var(--uiux-space-8, 32px) var(--uiux-space-6, 24px);
-  background: var(--uiux-color-bg);
+  padding: ${compact ? '20px' : 'var(--uiux-space-7, 40px) var(--uiux-space-6, 24px)'};
+  background-color: var(--uiux-color-bg);
   color: var(--uiux-color-text);
   font-family: ${quoteFamily(body.family)}, ${body.fallback};
   font-size: ${body.size};
@@ -57,97 +66,322 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 .shell { max-width: ${width === 'auto' ? '1040px' : width}; margin: 0 auto; }
-.stage { max-width: ${width}; margin: 0 auto; }
-.eyebrow {
-  margin: 0 0 var(--uiux-space-2, 8px);
-  color: var(--uiux-color-text-muted);
-  font-family: ${quoteFamily(display.family)};
-  letter-spacing: ${body.tracking ?? '0.02em'};
-  text-transform: uppercase;
-  font-size: 12px;
-}
-h1 {
-  margin: 0 0 var(--uiux-space-3, 12px);
-  font-family: ${quoteFamily(display.family)}, ${display.fallback};
-  font-size: ${display.size};
-  font-weight: ${display.weight ?? 600};
-  line-height: ${display.leading ?? 1.1};
-  letter-spacing: ${display.tracking ?? '-0.01em'};
-}
-.lede { margin: 0; max-width: 60ch; color: var(--uiux-color-text-muted); }
-.actions { display: flex; flex-wrap: wrap; gap: var(--uiux-space-3, 12px); margin: var(--uiux-space-6, 24px) 0; }
-.primary, .quiet {
-  border-radius: var(--uiux-radius-md, 8px);
-  border: 1px solid var(--uiux-color-accent);
-  background: var(--uiux-color-accent);
-  color: var(--uiux-color-accent-text);
-  font: inherit;
-  font-weight: 600;
-  padding: 10px 18px;
-  cursor: pointer;
-}
-.quiet { background: transparent; color: var(--uiux-color-text); border-color: var(--uiux-color-border); }
-.grid { display: grid; gap: var(--uiux-space-4, 16px); grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-.card {
-  border: 1px solid var(--uiux-color-border);
-  border-radius: var(--uiux-radius-lg, 12px);
-  background: var(--uiux-color-surface);
-  padding: var(--uiux-space-5, 20px);
-  box-shadow: var(--uiux-shadow-1, none);
-}
-.card h2 { margin: 0 0 var(--uiux-space-2, 8px); font-family: ${quoteFamily(display.family)}; font-size: 1.125rem; }
-.card p { margin: 0; color: var(--uiux-color-text-muted); }
-.metric { font-family: ${quoteFamily(mono.family)}, ${mono.fallback}; font-size: 2rem; font-variant-numeric: tabular-nums; }
-label { display: block; margin: var(--uiux-space-6, 24px) 0 var(--uiux-space-2, 8px); font-size: 12px; color: var(--uiux-color-text-muted); }
-input, select {
-  width: 100%; max-width: 360px;
-  border: 1px solid var(--uiux-color-border);
-  border-radius: var(--uiux-radius-md, 8px);
-  background: var(--uiux-color-surface);
-  color: var(--uiux-color-text);
-  font: inherit;
-  padding: 10px 12px;
-}
+.meta { color: var(--uiux-color-text-muted); }
 :focus-visible { outline: 2px solid var(--uiux-color-focus); outline-offset: 2px; }
-footer { margin-top: var(--uiux-space-8, 32px); color: var(--uiux-color-text-muted); font-size: 12px; }
+footer { margin-top: var(--uiux-space-7, 40px); color: var(--uiux-color-text-muted); font-size: 11px; }
+${compact ? 'footer { display: none; }' : ''}
+${layout.css}
 </style>
 </head>
 <body>
-<div class="shell">
-  <div class="stage">
-    <p class="eyebrow">${escapeHtml(entry.name)} · ${entry.depth} tier</p>
-    <h1>${escapeHtml(copy.title)}</h1>
-    <p class="lede">${escapeHtml(copy.subtitle)}</p>
-    <div class="actions">
-      <button class="primary" type="button">Continue</button>
-      <button class="quiet" type="button">Review changes</button>
-    </div>
-    <div class="grid">
-      <section class="card">
-        <h2>${escapeHtml(copy.metrics[0][0])}</h2>
-        <p class="metric">${escapeHtml(copy.metrics[0][1])}</p>
-        <p>${escapeHtml(copy.metrics[0][2])}</p>
-      </section>
-      <section class="card">
-        <h2>${escapeHtml(copy.metrics[1][0])}</h2>
-        <p class="metric">${escapeHtml(copy.metrics[1][1])}</p>
-        <p>${escapeHtml(copy.metrics[1][2])}</p>
-      </section>
-      <section class="card">
-        <h2>${escapeHtml(copy.metrics[2][0])}</h2>
-        <p class="metric">${escapeHtml(copy.metrics[2][1])}</p>
-        <p>${escapeHtml(copy.metrics[2][2])}</p>
-      </section>
-    </div>
-    <label for="uiux-preview-field">Project name</label>
-    <input id="uiux-preview-field" value="Northwind" autocomplete="off">
-    <footer>Tokens come from <code>uiux_spec</code> for <code>${escapeHtml(entry.slug)}</code>. Only the demo layout is local.</footer>
-  </div>
-</div>
+${layout.body}
 </body>
 </html>
 `
 }
+
+/** Compositions a style may name. */
+const COMPOSITIONS = Object.freeze(['poster', 'column', 'bento', 'glass', 'soft', 'terminal', 'toy'])
+
+/**
+ * The archetype a style renders as.
+ * @param {import('./catalog.js').CatalogEntry} entry - catalog row.
+ * @returns {string} a key of `LAYOUTS`.
+ */
+export function compositionOf(entry) {
+  const declared = entry.spec.composition
+  return COMPOSITIONS.includes(declared) ? declared : 'column'
+}
+
+/**
+ * The three demo metrics, pre-escaped for both tables and cards.
+ * @param {{ metrics?: string[][] }} copy - demo copy.
+ * @returns {{ index: string, label: string, value: string, note: string }[]} rows.
+ */
+function metricRows(copy) {
+  return (copy.metrics ?? []).slice(0, 3).map((metric, index) => ({
+    index: String(index + 1).padStart(2, '0'),
+    label: escapeHtml(metric[0]),
+    value: escapeHtml(metric[1]),
+    note: escapeHtml(metric[2]),
+  }))
+}
+
+/**
+ * Shared footer line: what is real here and what is demo scaffolding.
+ * @param {import('./catalog.js').CatalogEntry} entry - catalog row.
+ * @returns {string} footer markup.
+ */
+function footNote(entry) {
+  return `<footer>Colour, type, spacing, radius, and depth come from <code>uiux_spec</code> for <code>${escapeHtml(entry.slug)}</code>. The layout demonstrates this composition.</footer>`
+}
+
+/**
+ * Per-composition page bodies and the CSS only that composition needs.
+ * Every value comes from a token, so tweaks and dark mode keep working.
+ * @type {Record<string, (context: { entry: any, copy: any, display: any, body: any, mono: any, width: string }) => { css: string, body: string }>}
+ */
+const LAYOUTS = {
+  poster: ({ entry, copy, display, mono }) => {
+    const rows = metricRows(copy)
+    return {
+      css: `
+.chrome { display: flex; justify-content: space-between; gap: var(--uiux-space-4); padding-bottom: var(--uiux-space-2); border-bottom: 2px solid var(--uiux-color-text); font-family: ${quoteFamily(mono.family)}; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; }
+.hero { padding: var(--uiux-space-6) 0 var(--uiux-space-5); }
+.kicker { display: inline-block; padding: 4px 8px; background: var(--uiux-color-accent); color: var(--uiux-color-accent-text); font-family: ${quoteFamily(mono.family)}; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; }
+h1 { margin: var(--uiux-space-4) 0 var(--uiux-space-3); font-family: ${quoteFamily(display.family)}, ${display.fallback}; font-size: clamp(3.25rem, 11.5vw, 8rem); font-weight: 800; line-height: 0.84; letter-spacing: -0.045em; text-transform: uppercase; }
+.lede { max-width: 54ch; margin: 0; padding-top: var(--uiux-space-3); border-top: 1px solid var(--uiux-color-text); }
+.actions { display: flex; margin-top: var(--uiux-space-5); }
+.btn { border: 2px solid var(--uiux-color-text); background: var(--uiux-color-text); color: var(--uiux-color-bg); padding: 13px 22px; font: inherit; font-family: ${quoteFamily(mono.family)}; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; }
+.btn-quiet { background: transparent; color: var(--uiux-color-text); border-left: 0; }
+.index { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--uiux-color-text); }
+.index li { display: grid; grid-template-columns: 3rem 1fr auto; align-items: baseline; gap: var(--uiux-space-3); padding: var(--uiux-space-3) 0; border-bottom: 1px solid var(--uiux-color-border); }
+.index .num { font-family: ${quoteFamily(mono.family)}; font-size: 11px; color: var(--uiux-color-text-muted); }
+.index .value { font-family: ${quoteFamily(display.family)}; font-size: 1.75rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+`,
+      body: `<div class="shell">
+  <header class="chrome"><span>${escapeHtml(entry.name)}</span><span>System · v1.0</span></header>
+  <section class="hero">
+    <span class="kicker">Design system</span>
+    <h1>${escapeHtml(copy.title)}</h1>
+    <p class="lede">${escapeHtml(copy.subtitle)}</p>
+    <div class="actions"><button class="btn" type="button">Explore system</button><button class="btn btn-quiet" type="button">Documentation</button></div>
+  </section>
+  <ol class="index">
+    ${rows.map(row => `<li><span class="num">${row.index}</span><span class="label">${row.label}</span><span class="value">${row.value}</span></li>`).join('\n    ')}
+  </ol>
+  ${footNote(entry)}
+</div>`,
+    }
+  },
+
+  column: ({ entry, copy, display, mono }) => {
+    const rows = metricRows(copy)
+    return {
+      css: `
+.measure { max-width: 64ch; margin: 0 auto; }
+.chrome { display: flex; justify-content: space-between; padding-bottom: var(--uiux-space-3); border-bottom: 1px solid var(--uiux-color-border); font-family: ${quoteFamily(mono.family)}; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--uiux-color-text-muted); }
+h1 { margin: var(--uiux-space-6) 0 var(--uiux-space-3); font-family: ${quoteFamily(display.family)}, ${display.fallback}; font-size: clamp(2.5rem, 6vw, 4.25rem); font-weight: 400; line-height: 1.02; letter-spacing: -0.02em; }
+.lede { margin: 0 0 var(--uiux-space-5); max-width: 56ch; font-size: 1.0625rem; color: var(--uiux-color-text-muted); }
+.rows { display: grid; }
+.row { display: grid; grid-template-columns: 1fr auto; gap: var(--uiux-space-4); padding: var(--uiux-space-3) 0; border-bottom: 1px solid var(--uiux-color-border); }
+.row .value { font-family: ${quoteFamily(mono.family)}; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.row .note { grid-column: 1 / -1; margin: 4px 0 0; font-size: 0.875rem; color: var(--uiux-color-text-muted); }
+.actions { display: flex; gap: var(--uiux-space-3); margin-top: var(--uiux-space-5); }
+.btn { padding: 10px 18px; border: 1px solid var(--uiux-color-text); border-radius: var(--uiux-radius-sm); background: transparent; color: inherit; font: inherit; font-size: 0.875rem; cursor: pointer; }
+.btn-solid { background: var(--uiux-color-text); color: var(--uiux-color-bg); border-color: var(--uiux-color-text); }
+.link { display: inline-block; margin-top: var(--uiux-space-5); color: var(--uiux-color-accent); text-decoration: none; border-bottom: 1px solid currentColor; font-size: 0.9375rem; }
+`,
+      body: `<div class="shell"><div class="measure">
+  <header class="chrome"><span>${escapeHtml(entry.name)}</span><span>Notes · 2026</span></header>
+  <h1>${escapeHtml(copy.title)}</h1>
+  <p class="lede">${escapeHtml(copy.subtitle)}</p>
+  <div class="rows">
+    ${rows.map(row => `<div class="row"><span class="label">${row.label}</span><span class="value">${row.value}</span><p class="note">${row.note}</p></div>`).join('\n    ')}
+  </div>
+  <div class="actions"><button class="btn btn-solid" type="button">Continue</button><button class="btn" type="button">Review changes</button></div>
+  <a class="link" href="#read">Read the specification</a>
+  ${footNote(entry)}
+</div></div>`,
+    }
+  },
+
+  bento: ({ entry, copy, display, mono }) => {
+    const rows = metricRows(copy)
+    return {
+      css: `
+.bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--uiux-space-4); }
+.tile { padding: var(--uiux-space-5); border: 1px solid var(--uiux-color-border); border-radius: var(--uiux-radius-lg); background: var(--uiux-color-surface); box-shadow: var(--uiux-shadow-1); }
+.tile h2 { margin: 0 0 var(--uiux-space-2); font-family: ${quoteFamily(mono.family)}; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--uiux-color-text-muted); }
+.tile p { margin: 0; font-size: 0.875rem; color: var(--uiux-color-text-muted); }
+.tile .value { font-family: ${quoteFamily(mono.family)}; font-size: 2rem; font-variant-numeric: tabular-nums; color: var(--uiux-color-text); }
+.hero { grid-column: span 4; grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; }
+.hero h1 { margin: 0 0 var(--uiux-space-3); font-family: ${quoteFamily(display.family)}, ${display.fallback}; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.04; letter-spacing: -0.02em; }
+.hero .lede { max-width: 40ch; font-size: 1rem; }
+.accent { background-color: var(--uiux-color-accent); background-image: ${gradientOf(entry)}; color: var(--uiux-color-accent-text); border-color: transparent; }
+.accent h2, .accent p, .accent .value { color: inherit; }
+.stack { grid-column: span 2; }
+.wide { grid-column: span 6; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--uiux-space-4); align-items: baseline; }
+.btn { align-self: flex-start; padding: 10px 16px; border: 1px solid var(--uiux-color-border); border-radius: var(--uiux-radius-full); background: var(--uiux-color-surface); color: inherit; font: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer; box-shadow: var(--uiux-shadow-1); }
+.btn-solid { background: var(--uiux-color-accent); color: var(--uiux-color-accent-text); border-color: transparent; }
+`,
+      body: `<div class="shell"><div class="bento">
+  <section class="tile hero">
+    <div>
+      <h2>${escapeHtml(entry.name)}</h2>
+      <h1>${escapeHtml(copy.title)}</h1>
+      <p class="lede">${escapeHtml(copy.subtitle)}</p>
+    </div>
+    <div><button class="btn btn-solid" type="button">Continue</button> <button class="btn" type="button">Review</button></div>
+  </section>
+  <section class="tile accent stack">
+    <h2>Focus</h2>
+    <p class="value">${escapeHtml(rows[0].value)}</p>
+    <p>${escapeHtml(rows[0].label)}</p>
+  </section>
+  <section class="tile stack"><h2>${escapeHtml(rows[1].label)}</h2><p class="value">${escapeHtml(rows[1].value)}</p><p>${escapeHtml(rows[1].note)}</p></section>
+  <section class="tile wide">
+    <div><h2>${escapeHtml(rows[2].label)}</h2><p class="value">${escapeHtml(rows[2].value)}</p></div>
+    <p>${escapeHtml(rows[2].note)}</p>
+    <p>${escapeHtml(copy.subtitle)}</p>
+  </section>
+  ${footNote(entry)}
+</div></div>`,
+    }
+  },
+
+  glass: ({ entry, copy, display, mono }) => {
+    const rows = metricRows(copy)
+    return {
+      css: `
+body { background-image: ${gradientOf(entry)}; background-attachment: fixed; }
+.panel { padding: var(--uiux-space-5); border: 1px solid var(--uiux-color-border); border-radius: var(--uiux-radius-xl, 28px); background: var(--uiux-color-surface); box-shadow: var(--uiux-shadow-2), inset 0 1px 0 rgba(255, 255, 255, 0.55); backdrop-filter: ${blurOf(entry)}; -webkit-backdrop-filter: ${blurOf(entry)}; }
+.hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--uiux-space-4); align-items: start; }
+h1 { margin: var(--uiux-space-3) 0 var(--uiux-space-2); font-family: ${quoteFamily(display.family)}, ${display.fallback}; font-size: clamp(2.25rem, 4.6vw, 3.5rem); line-height: 1.03; letter-spacing: -0.025em; }
+.lede { margin: 0; color: var(--uiux-color-text-muted); }
+.eyebrow { margin: 0; font-family: ${quoteFamily(mono.family)}; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--uiux-color-text-muted); }
+.controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--uiux-space-3); }
+.control { display: flex; align-items: center; gap: var(--uiux-space-3); padding: var(--uiux-space-3) var(--uiux-space-4); border-radius: var(--uiux-radius-full); background: var(--uiux-color-surface-alt); border: 1px solid var(--uiux-color-border); box-shadow: var(--uiux-shadow-1), inset 0 1px 0 rgba(255, 255, 255, 0.6); }
+.control .dot { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--uiux-color-accent); color: var(--uiux-color-accent-text); font-size: 15px; }
+.control .label { font-size: 0.875rem; }
+.control .state { margin-left: auto; font-family: ${quoteFamily(mono.family)}; font-size: 11px; color: var(--uiux-color-text-muted); }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--uiux-space-3); margin-top: var(--uiux-space-4); }
+.card h2 { margin: 0 0 var(--uiux-space-2); font-family: ${quoteFamily(mono.family)}; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--uiux-color-text-muted); }
+.card .value { margin: 0; font-family: ${quoteFamily(mono.family)}; font-size: 1.75rem; font-variant-numeric: tabular-nums; }
+.card p { margin: 4px 0 0; font-size: 0.8125rem; color: var(--uiux-color-text-muted); }
+.btn { margin-top: var(--uiux-space-4); padding: 11px 20px; border: 0; border-radius: var(--uiux-radius-full); background: var(--uiux-color-accent); color: var(--uiux-color-accent-text); font: inherit; font-weight: 600; font-size: 0.9375rem; cursor: pointer; box-shadow: var(--uiux-shadow-1); }
+.btn-quiet { background: var(--uiux-color-surface-alt); color: var(--uiux-color-text); border: 1px solid var(--uiux-color-border); }
+`,
+      body: `<div class="shell">
+  <section class="panel hero">
+    <div>
+      <p class="eyebrow">${escapeHtml(entry.name)}</p>
+      <h1>${escapeHtml(copy.title)}</h1>
+      <p class="lede">${escapeHtml(copy.subtitle)}</p>
+      <div><button class="btn" type="button">Continue</button> <button class="btn btn-quiet" type="button">Review changes</button></div>
+    </div>
+    <div class="controls">
+      ${rows.map(row => `<div class="control"><span class="dot">${row.index}</span><span class="label">${row.label}</span><span class="state">${row.value}</span></div>`).join('\n      ')}
+    </div>
+  </section>
+  <div class="cards">
+    ${rows.map(row => `<section class="panel card"><h2>${row.label}</h2><p class="value">${row.value}</p><p>${row.note}</p></section>`).join('\n    ')}
+  </div>
+  ${footNote(entry)}
+</div>`,
+    }
+  },
+
+  soft: ({ entry, copy, display, mono }) => {
+    const rows = metricRows(copy)
+    return {
+      css: `
+.panel { padding: var(--uiux-space-6); border-radius: var(--uiux-radius-xl, 28px); background: var(--uiux-color-bg); box-shadow: var(--uiux-shadow-2); }
+h1 { margin: 0 0 var(--uiux-space-3); font-family: ${quoteFamily(display.family)}, ${display.fallback}; font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.05; letter-spacing: -0.02em; }
+.lede { margin: 0 0 var(--uiux-space-5); max-width: 52ch; color: var(--uiux-color-text-muted); }
+.row { display: flex; align-items: center; gap: var(--uiux-space-4); margin-bottom: var(--uiux-space-3); padding: var(--uiux-space-4); border-radius: var(--uiux-radius-lg); background: var(--uiux-color-bg); box-shadow: var(--uiux-shadow-2); }
+.row .badge { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; box-shadow: var(--uiux-shadow-2); font-family: ${quoteFamily(mono.family)}; font-size: 13px; color: var(--uiux-color-text-muted); }
+.row .label { font-size: 0.9375rem; }
+.row .value { margin-left: auto; font-family: ${quoteFamily(mono.family)}; font-size: 1.375rem; font-variant-numeric: tabular-nums; }
+.toggle { position: relative; width: 52px; height: 30px; margin-left: var(--uiux-space-3); border: 0; border-radius: 999px; background: var(--uiux-color-bg); box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.16), inset -2px -2px 6px rgba(255, 255, 255, 0.7); cursor: pointer; }
+.toggle::after { content: ""; position: absolute; top: 4px; left: 4px; width: 22px; height: 22px; border-radius: 50%; background: var(--uiux-color-accent); box-shadow: var(--uiux-shadow-1); }
+.actions { display: flex; gap: var(--uiux-space-4); margin-top: var(--uiux-space-5); }
+.btn { padding: 13px 26px; border: 0; border-radius: var(--uiux-radius-full); background: var(--uiux-color-bg); color: var(--uiux-color-text); font: inherit; font-weight: 600; cursor: pointer; box-shadow: var(--uiux-shadow-2); }
+.btn:active { box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.18), inset -3px -3px 8px rgba(255, 255, 255, 0.8); }
+.btn-solid { background: var(--uiux-color-accent); color: var(--uiux-color-accent-text); }
+`,
+      body: `<div class="shell"><div class="panel">
+  <h1>${escapeHtml(copy.title)}</h1>
+  <p class="lede">${escapeHtml(copy.subtitle)}</p>
+  ${rows.map(row => `<div class="row"><span class="badge">${row.index}</span><span class="label">${row.label}</span><span class="value">${row.value}</span><button class="toggle" type="button" aria-label="Toggle ${row.label}"></button></div>`).join('\n  ')}
+  <div class="actions"><button class="btn btn-solid" type="button">Continue</button><button class="btn" type="button">Review changes</button></div>
+  ${footNote(entry)}
+</div></div>`,
+    }
+  },
+
+  terminal: ({ entry, copy, display, mono }) => {
+    const rows = metricRows(copy)
+    return {
+      css: `
+body { font-family: ${quoteFamily(mono.family)}, ${mono.fallback}; font-size: 13px; }
+.screen { padding: var(--uiux-space-4); border: 1px solid var(--uiux-color-border); background: var(--uiux-color-surface); box-shadow: ${glowOf(entry)}; }
+.bar { display: flex; justify-content: space-between; margin-bottom: var(--uiux-space-3); padding-bottom: var(--uiux-space-2); border-bottom: 1px solid var(--uiux-color-border); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--uiux-color-text-muted); }
+.prompt { color: var(--uiux-color-accent); }
+.line { display: grid; grid-template-columns: 6.5rem 1fr; gap: var(--uiux-space-3); padding: 2px 0; }
+.line .key { color: var(--uiux-color-text-muted); }
+h1 { margin: var(--uiux-space-3) 0 var(--uiux-space-2); font-family: ${quoteFamily(display.family)}, ${display.fallback}; font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.01em; }
+.lede { margin: 0 0 var(--uiux-space-4); max-width: 72ch; color: var(--uiux-color-text-muted); }
+.caret { display: inline-block; width: 0.6ch; height: 1.05em; background: var(--uiux-color-accent); vertical-align: text-bottom; animation: blink 1.1s steps(2, start) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.actions { margin-top: var(--uiux-space-3); }
+.btn { padding: 6px 12px; border: 1px solid var(--uiux-color-accent); background: transparent; color: var(--uiux-color-accent); font: inherit; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; }
+.btn-solid { background: var(--uiux-color-accent); color: var(--uiux-color-accent-text); }
+@media (prefers-reduced-motion: reduce) { .caret { animation: none; opacity: 1; } }
+`,
+      body: `<div class="shell"><div class="screen">
+  <div class="bar"><span>${escapeHtml(entry.slug)}@session</span><span>tty1 · 80×24</span></div>
+  <p class="prompt">~ $ status --all<span class="caret"></span></p>
+  <h1>${escapeHtml(copy.title)}</h1>
+  <p class="lede">${escapeHtml(copy.subtitle)}</p>
+  ${rows.map(row => `<div class="line"><span class="key">${row.label}</span><span>${row.value} · ${row.note}</span></div>`).join('\n  ')}
+  <div class="actions"><button class="btn btn-solid" type="button">run</button> <button class="btn" type="button">--help</button></div>
+  ${footNote(entry)}
+</div></div>`,
+    }
+  },
+
+  toy: ({ entry, copy, display, mono }) => {
+    const rows = metricRows(copy)
+    return {
+      css: `
+.chips { display: flex; gap: var(--uiux-space-3); margin-bottom: var(--uiux-space-4); }
+.chip { display: inline-block; padding: 4px 10px; border: 2px solid var(--uiux-color-text); background: var(--uiux-color-bg); box-shadow: 3px 3px 0 0 var(--uiux-color-text); font-family: ${quoteFamily(mono.family)}; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; transform: rotate(-1.5deg); }
+.chip:nth-child(2) { background: var(--uiux-color-accent); color: var(--uiux-color-accent-text); transform: rotate(1deg); }
+h1 { margin: 0 0 var(--uiux-space-3); font-family: ${quoteFamily(display.family)}, ${display.fallback}; font-size: clamp(2.75rem, 8.5vw, 5.5rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.03em; text-transform: uppercase; }
+.lede { margin: 0 0 var(--uiux-space-5); max-width: 48ch; font-size: 1.0625rem; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--uiux-space-4); }
+.card { padding: var(--uiux-space-4); border: 2px solid var(--uiux-color-text); background: var(--uiux-color-surface); box-shadow: 6px 6px 0 0 var(--uiux-color-text); }
+.card h2 { margin: 0 0 var(--uiux-space-2); font-family: ${quoteFamily(mono.family)}; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; }
+.card .value { margin: 0; font-family: ${quoteFamily(display.family)}; font-size: 2rem; font-weight: 800; }
+.card p { margin: 4px 0 0; font-size: 0.875rem; }
+.actions { display: flex; gap: var(--uiux-space-4); margin-top: var(--uiux-space-5); }
+.btn { padding: 12px 20px; border: 2px solid var(--uiux-color-text); background: var(--uiux-color-accent); color: var(--uiux-color-accent-text); font: inherit; font-weight: 800; font-size: 0.9375rem; letter-spacing: 0.02em; text-transform: uppercase; box-shadow: 4px 4px 0 0 var(--uiux-color-text); cursor: pointer; }
+.btn-quiet { background: var(--uiux-color-bg); color: var(--uiux-color-text); }
+.btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--uiux-color-text); }
+`,
+      body: `<div class="shell">
+  <div class="chips"><span class="chip">${escapeHtml(entry.name)}</span><span class="chip">loud by design</span></div>
+  <h1>${escapeHtml(copy.title)}</h1>
+  <p class="lede">${escapeHtml(copy.subtitle)}</p>
+  <div class="cards">
+    ${rows.map(row => `<section class="card"><h2>${row.label}</h2><p class="value">${row.value}</p><p>${row.note}</p></section>`).join('\n    ')}
+  </div>
+  <div class="actions"><button class="btn" type="button">Continue</button><button class="btn btn-quiet" type="button">Review</button></div>
+  ${footNote(entry)}
+</div>`,
+    }
+  },
+}
+
+/** The style's own gradient layers, or none when it declares no gradients. */
+function gradientOf(entry) {
+  const gradients = entry.spec.tokens.effects?.gradients
+  return Array.isArray(gradients) && gradients.length > 0 ? gradients.join(', ') : 'none'
+}
+
+/** The style's blur radius, used by the glass composition. */
+function blurOf(entry) {
+  const blur = entry.spec.tokens.effects?.blur
+  return typeof blur === 'string' && blur !== '0' ? blur : '0px'
+}
+
+/** A style's glow, if it declares one, so a terminal can look alive. */
+function glowOf(entry) {
+  const glow = entry.spec.tokens.effects?.glow
+  return typeof glow === 'string' ? glow : 'none'
+}
+
 
 /**
  * Build the rows the gallery tab renders: two palette strips plus the type faces,

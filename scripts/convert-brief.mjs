@@ -39,6 +39,21 @@ const ALIASES = { bento: 'bento-grid', neobrutalism: 'neo-brutalism', premium: '
  * Type and geometry families. Each preset names real, widely available
  * families so a spec can be pasted into a real stylesheet.
  */
+/**
+ * Composition archetype per typographic preset, so a brief style renders with a
+ * structure that belongs to it instead of the same column of cards.
+ */
+const COMPOSITION_BY_PRESET = {
+  sans: 'column',
+  grotesk: 'poster',
+  serif: 'column',
+  mono: 'terminal',
+  pixel: 'toy',
+  round: 'soft',
+  paper: 'poster',
+  hand: 'toy',
+}
+
 const PRESETS = {
   sans: { display: 'Inter', body: 'Inter', mono: 'JetBrains Mono', radius: ['6px', '10px', '16px'], density: 'standard' },
   grotesk: { display: 'Space Grotesk', body: 'Inter', mono: 'JetBrains Mono', radius: ['8px', '12px', '20px'], density: 'standard' },
@@ -215,6 +230,7 @@ function convert(entry) {
     slug: entry.slug,
     name: entry.name,
     depth: 'brief',
+    composition: COMPOSITION_BY_PRESET[authored.preset ?? 'sans'],
     oneLiner: authored.oneLiner,
     preferredScheme: dark ? 'dark' : 'light',
     aliases: authored.aliases ?? [],

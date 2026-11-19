@@ -2,6 +2,7 @@
   "slug": "fiction",
   "name": "Fiction",
   "depth": "brief",
+  "composition": "soft",
   "oneLiner": "Storybook warmth with chunky outlines, warm surfaces, and expressive display type.",
   "preferredScheme": "light",
   "aliases": [],

@@ -2,6 +2,7 @@
   "slug": "sketch",
   "name": "Sketch",
   "depth": "brief",
+  "composition": "toy",
   "oneLiner": "Warm-paper hand-drawn interface with dashed outlines and illustrated, tactile shadows.",
   "preferredScheme": "light",
   "aliases": [],

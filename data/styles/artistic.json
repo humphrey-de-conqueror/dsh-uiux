@@ -2,6 +2,7 @@
   "slug": "artistic",
   "name": "Artistic",
   "depth": "brief",
+  "composition": "column",
   "oneLiner": "High-contrast poster energy: expressive type, unexpected color pairs, and composition treated as an argument.",
   "preferredScheme": "light",
   "aliases": [],

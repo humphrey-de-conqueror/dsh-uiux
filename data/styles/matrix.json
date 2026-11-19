@@ -2,6 +2,7 @@
   "slug": "matrix",
   "name": "Matrix",
   "depth": "brief",
+  "composition": "terminal",
   "oneLiner": "Cyber-terminal mono density with one green interaction accent against deep black.",
   "preferredScheme": "dark",
   "aliases": [],

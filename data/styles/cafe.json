@@ -2,6 +2,7 @@
   "slug": "cafe",
   "name": "Cafe",
   "depth": "brief",
+  "composition": "poster",
   "oneLiner": "Warm, softly lit layout with cozy type and unhurried spacing that invites a long browse.",
   "preferredScheme": "light",
   "aliases": [],

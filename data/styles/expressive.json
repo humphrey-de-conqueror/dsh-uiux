@@ -2,6 +2,7 @@
   "slug": "expressive",
   "name": "Expressive",
   "depth": "brief",
+  "composition": "soft",
   "oneLiner": "Personality-forward color and layout with enough structure underneath to stay usable.",
   "preferredScheme": "light",
   "aliases": [],

@@ -2,6 +2,7 @@
   "slug": "glassmorphism",
   "name": "Glassmorphism",
   "depth": "full",
+  "composition": "glass",
   "oneLiner": "Frosted panels floating over saturated color: blur, a 1px light edge, and enough backdrop drama to earn the transparency.",
   "preferredScheme": "light",
   "aliases": [
@@ -127,10 +128,10 @@
       "full": "999px"
     },
     "elevation": {
-      "none": "none",
       "1": "0 1px 0 rgba(255, 255, 255, 0.6) inset",
       "2": "0 20px 48px -20px rgba(20, 26, 46, 0.28)",
-      "3": "0 40px 80px -32px rgba(20, 26, 46, 0.36)"
+      "3": "0 40px 80px -32px rgba(20, 26, 46, 0.36)",
+      "none": "none"
     },
     "effects": {
       "blur": "18px",

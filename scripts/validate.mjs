@@ -97,6 +97,9 @@ if (files.length === 0) failures.push('data/styles: no style files')
 /** @type {Map<string, string>} */
 const seenSlugs = new Map()
 /** @type {Map<string, string>} */
+/** Compositions the preview knows how to render. Keep in sync with src/preview.js. */
+const COMPOSITIONS = ['poster', 'column', 'bento', 'glass', 'soft', 'terminal', 'toy']
+
 const seenAliases = new Map()
 
 for (const file of files) {
@@ -115,6 +118,9 @@ for (const file of files) {
   else seenSlugs.set(spec.slug, file)
   if (!isString(spec.name)) fail(file, 'name is required')
   if (spec.depth !== 'full' && spec.depth !== 'brief') fail(file, 'depth must be "full" or "brief"')
+  if (!COMPOSITIONS.includes(spec.composition)) {
+    fail(file, `composition must be one of ${COMPOSITIONS.join(', ')}`)
+  }
   if (!isString(spec.oneLiner) || spec.oneLiner.length < 20) fail(file, 'oneLiner must be a sentence')
   if (!isStringList(spec.mood) || spec.mood.length === 0) fail(file, 'mood must be a non-empty string list')
   if (!isStringList(spec.tags) || spec.tags.length === 0) fail(file, 'tags must be a non-empty string list')

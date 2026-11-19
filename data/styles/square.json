@@ -2,6 +2,7 @@
   "slug": "square",
   "name": "Square",
   "depth": "brief",
+  "composition": "column",
   "oneLiner": "Delicate type and a polished, quiet grid for a refined commerce or studio presence.",
   "preferredScheme": "light",
   "aliases": [],

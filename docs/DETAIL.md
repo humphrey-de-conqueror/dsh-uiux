@@ -36,6 +36,14 @@ editorial, glassmorphism, japandi, liquid-glass, material-you, maximalist-pop,
 monochrome-architecture, neo-brutalism, neumorphism, paper-print, premium-minimalism,
 swiss-international, terminal-crt, vaporwave.
 
+Every style also names a **composition**: `poster`, `column`, `bento`, `glass`, `soft`,
+`terminal`, or `toy`. Colour alone does not make a style — Swiss International is a grid of
+rules and giant type, liquid glass is floating translucent panels over a gradient, a terminal is
+monospace rows. The composition decides the structure the tokens are poured into, and both the
+preview page and the gallery cards render from it, so two styles never share a layout unless
+they genuinely belong to the same family. Brief styles take their composition from their
+typographic preset; `scripts/validate.mjs` rejects any style without one.
+
 `skills/uiux/references/style-index.md` lists every style with its one-liner and is generated
 from the same files by `npm run build:index`.
 
@@ -84,7 +92,11 @@ The preview pane shows a style dropdown, a light/dark toggle, three stage widths
 every `uiux_spec` call records its slugs on the host, the pane polls `state.json`, and a
 revision bump adopts the first slug unless you picked a style in the gallery.
 
-The gallery pane paints all 79 styles as cards, each with a thumbnail (`thumb.svg?slug=`) that
+The gallery pane shows all 79 styles as cards. Each card frames the style's own rendered page
+(`page.html?slug=&compact=1`) in a scaled, pointer-inert iframe that mounts only when it scrolls
+into view, so what you browse is the real composition — a Swiss poster, a glass control centre,
+a terminal — not a colour swatch. Previously a card carried an SVG wireframe (`thumb.svg`, now
+removed) that
 reuses one wireframe — header bar, `Aa` hero, measure lines, accent action, three cards — painted
 from that style's own tokens. Every style declares `preferredScheme`, authored for the full tier
 and derived from `data/brief-meta.json` for briefs, so dark-first styles (Cyberpunk, Aurora,
@@ -119,7 +131,8 @@ authenticated localhost port, not a general file server.
 Both panes receive their session through the registration's `inject: (sessionId) => ({ sessionId })`:
 `sidebar.right.pane.tab` is a session-scoped slot, so the framework hands the id to the body.
 
-No iframes are involved in the gallery, so 79 styles cost one JSON request.
+Gallery cards frame the real page. Frames mount lazily — only what you scroll past — so opening
+the gallery costs one JSON request and a handful of documents.
 
 Content comes from four exact host routes:
 
@@ -128,8 +141,7 @@ Content comes from four exact host routes:
 | `GET /dsh-uiux/preview/page.html?slug=&theme=&width=` | The demo page, composed from `uiux_spec` CSS output. |
 | `GET /dsh-uiux/preview/styles.json` | Picker rows for the whole catalog. |
 | `GET /dsh-uiux/preview/state.json` | Last spec slugs, revision, and the default style. |
-| `GET /dsh-uiux/preview/gallery.json` | Gallery cards: both palettes, type faces, radius, depth, thumbnail URL. |
-| `GET /dsh-uiux/preview/thumb.svg?slug=&scheme=` | One style's gallery thumbnail, painted from its tokens. |
+| `GET /dsh-uiux/preview/gallery.json` | Gallery cards: both palettes, type faces, radius, depth, and the two page URLs a card frames. |
 | `GET /dsh-uiux/preview/file.html?path=` | A page you are building, with a base element for its assets. |
 | `GET /dsh-uiux/preview/fs/<rootToken>/<path>` | That page's assets, served from its own folder. |
 

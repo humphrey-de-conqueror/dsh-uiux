@@ -2,6 +2,7 @@
   "slug": "swiss-international",
   "name": "Swiss International",
   "depth": "full",
+  "composition": "poster",
   "oneLiner": "Strict columns, flush-left Helvetica, one signal red, and rules instead of shadows — clarity as a moral position.",
   "preferredScheme": "light",
   "aliases": [
@@ -129,8 +130,8 @@
       "full": "999px"
     },
     "elevation": {
-      "none": "none",
-      "1": "0 0 0 1px #0A0A0A"
+      "1": "0 0 0 1px #0A0A0A",
+      "none": "none"
     },
     "effects": {
       "blur": "0",

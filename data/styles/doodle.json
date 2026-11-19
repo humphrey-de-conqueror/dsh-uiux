@@ -2,6 +2,7 @@
   "slug": "doodle",
   "name": "Doodle",
   "depth": "brief",
+  "composition": "toy",
   "oneLiner": "Hand-drawn lines, imperfect shapes, and a sketchbook voice for interfaces that want to feel authored.",
   "preferredScheme": "light",
   "aliases": [],

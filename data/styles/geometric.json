@@ -2,6 +2,7 @@
   "slug": "geometric",
   "name": "Geometric",
   "depth": "brief",
+  "composition": "column",
   "oneLiner": "Precise shapes and a neutral palette, with a layout disciplined enough to stay out of the way.",
   "preferredScheme": "light",
   "aliases": [],

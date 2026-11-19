@@ -2,6 +2,7 @@
   "slug": "refined",
   "name": "Refined",
   "depth": "brief",
+  "composition": "column",
   "oneLiner": "Understated serif elegance and curated restraint, where every margin is a decision.",
   "preferredScheme": "light",
   "aliases": [],

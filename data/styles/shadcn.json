@@ -2,6 +2,7 @@
   "slug": "shadcn",
   "name": "Shadcn",
   "depth": "brief",
+  "composition": "column",
   "oneLiner": "Monochrome, utility-first components with quiet borders and predictable spacing, ready for a real app.",
   "preferredScheme": "light",
   "aliases": [],

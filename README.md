@@ -79,15 +79,14 @@ All three panes are also one click away from the composer's **+** menu as the `u
 
 ## Gallery
 
-**Style gallery** shows all 79 styles as cards with a filter box. Each card carries a generated
-thumbnail: the same small wireframe — header, hero, accent action, three cards — painted from
-that style's own colours, radii, and display face, so a card is a real sight of the style rather
-than a colour swatch. Dark-first styles thumbnail dark. Clicking a card opens it in the preview
-tab (in its native scheme) and puts a one-line style request into the composer: press Enter to
-ask for it, or use **Ask agent** in the preview header to send it straight away. A draft you
-typed is never overwritten. The cards are painted from `/dsh-uiux/preview/gallery.json` and
-`/dsh-uiux/preview/thumb.svg`, so the gallery needs no build step, no image assets, and no
-per-style iframe.
+**Style gallery** shows all 79 styles as cards with a filter box. Each card frames the style's
+real page in miniature, mounted only when it scrolls into view, so the composition shows — a
+Swiss poster, a glass panel stack, a terminal — and not just the palette. Dark-first styles frame
+their dark page. Clicking a card opens it in the preview tab (in its native scheme) and puts a
+one-line style request into the composer: press Enter to ask for it, or use **Ask agent** in the
+preview header to send it straight away. A draft you typed is never overwritten. Rows come from
+`/dsh-uiux/preview/gallery.json`; the frames are `/dsh-uiux/preview/page.html`, so there are no
+image assets and no build step.
 
 ## What is inside
 

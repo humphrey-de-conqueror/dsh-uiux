@@ -2,6 +2,7 @@
   "slug": "paper-print",
   "name": "Paper Print",
   "depth": "full",
+  "composition": "poster",
   "oneLiner": "Two-spot-colour print on uncoated stock: halftone texture, visible ink registration, and editorial confidence.",
   "preferredScheme": "light",
   "aliases": [

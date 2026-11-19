@@ -2,6 +2,7 @@
   "slug": "agentic",
   "name": "Agentic",
   "depth": "brief",
+  "composition": "poster",
   "oneLiner": "An AI-first console where the user delegates an outcome and watches work happen, instead of configuring controls.",
   "preferredScheme": "light",
   "aliases": [],

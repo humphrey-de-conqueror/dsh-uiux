@@ -2,6 +2,7 @@
   "slug": "paper",
   "name": "Paper",
   "depth": "brief",
+  "composition": "poster",
   "oneLiner": "Print-inspired warmth on paper-toned surfaces with minimal color and tactile edges.",
   "preferredScheme": "light",
   "aliases": [],
