@@ -26,6 +26,7 @@ Always in the agent's toolbox, no menu, no setup:
 | `uiux_styles` | Searches 79 styles (32 with full specs) by name, mood, or domain ("calm fintech dashboard"). |
 | `uiux_spec` | Returns a style's concrete tokens and component recipes as Markdown, CSS, Tailwind v4, or JSON. |
 | `uiux_mix` | Blends two to four styles when one direction is not enough — "70% editorial, 30% bento". |
+| `uiux_motion` | Skeleton, loading bar, scroll reveal, shared element, context menu, toast, hover lift — each with a snippet that needs no dependency where possible. |
 | `uiux_platform_guide` | Searches Chrome's Modern Web Guidance and retrieves the guide for an interaction (dialogs, tabs, scroll, animation). |
 
 The third one is why the plugin does not invent platform behaviour: when the agent needs to

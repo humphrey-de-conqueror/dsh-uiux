@@ -43,6 +43,7 @@ export function previewPage(entry, options = {}) {
   const mono = type.mono ?? body
   const composition = compositionOf(entry)
   const layout = LAYOUTS[composition]({ entry, copy, display, body, mono, width })
+  const animate = options.animate === true
 
   return `<!doctype html>
 <html lang="en" data-theme="${theme}" data-composition="${composition}">
@@ -72,13 +73,67 @@ footer { margin-top: var(--uiux-space-7, 40px); color: var(--uiux-color-text-mut
 ${compact ? 'footer { display: none; }' : ''}
 ${compact ? COMPACT_CSS : ''}
 ${layout.css}
+${animate ? MOTION_CSS : ''}
 </style>
 </head>
 <body>
 ${layout.body}
+${animate ? motionDemo() : ''}
 </body>
 </html>
 `
+}
+
+/**
+ * Animation shown in the preview, and only there: a loading bar, a skeleton block,
+ * a lift on hover, and a scroll-revealed row. Every rule is CSS and every rule stops
+ * under `prefers-reduced-motion`, so a preview frame costs one document parse and no
+ * JavaScript runtime.
+ */
+const MOTION_CSS = `
+.motion-demo { margin-top: var(--uiux-space-6, 24px); padding-top: var(--uiux-space-5, 20px); border-top: 1px solid var(--uiux-color-border); display: grid; gap: var(--uiux-space-4, 14px); }
+.motion-demo > .label { font-family: var(--uiux-font-mono, monospace); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--uiux-color-text-muted); }
+.motion-bar { position: relative; height: 3px; overflow: hidden; background: var(--uiux-color-surface-alt); border-radius: 999px; }
+.motion-bar::after { content: ""; position: absolute; inset-block: 0; inset-inline-start: -40%; width: 40%; background: var(--uiux-color-accent); animation: motion-slide 1.2s cubic-bezier(.4, 0, .2, 1) infinite; }
+@keyframes motion-slide { to { inset-inline-start: 100% } }
+.motion-skeleton { display: grid; gap: 8px; }
+.motion-skeleton span { display: block; height: 10px; border-radius: var(--uiux-radius-sm, 4px); background: linear-gradient(90deg, color-mix(in srgb, var(--uiux-color-border) 55%, var(--uiux-color-surface-alt)) 25%, color-mix(in srgb, var(--uiux-color-border) 85%, var(--uiux-color-surface-alt)) 37%, color-mix(in srgb, var(--uiux-color-border) 55%, var(--uiux-color-surface-alt)) 63%); background-size: 400% 100%; animation: motion-sweep 1.4s ease-in-out infinite; }
+.motion-skeleton span:last-child { width: 60%; }
+@keyframes motion-sweep { from { background-position: 100% 50% } to { background-position: 0 50% } }
+.motion-lift {
+  justify-self: start;
+  font: inherit;
+  font-family: var(--uiux-font-body, inherit);
+  padding: 10px 16px;
+  border: 0;
+  border-radius: var(--uiux-radius-md, 8px);
+  background: var(--uiux-color-accent);
+  color: var(--uiux-color-accent-text);
+  cursor: pointer;
+  transition: transform 160ms cubic-bezier(.2, .8, .2, 1), box-shadow 160ms ease;
+}
+@media (hover: hover) and (pointer: fine) { .motion-lift:hover { transform: translateY(-2px); box-shadow: var(--uiux-shadow-lg, 0 10px 24px rgb(0 0 0 / .14)); } }
+.motion-reveal { animation: motion-reveal linear both; animation-timeline: view(); animation-range: entry 10% cover 40%; }
+@keyframes motion-reveal { from { opacity: 0; transform: translateY(20px) } to { opacity: 1; transform: none } }
+@supports not (animation-timeline: view()) { .motion-reveal { animation: none } }
+@media (prefers-reduced-motion: reduce) {
+  .motion-bar::after, .motion-skeleton span, .motion-reveal { animation: none }
+  .motion-lift, .motion-lift:hover { transition: none; transform: none }
+}
+`
+
+/**
+ * The animation showcase: what a style's motion tokens look like in use.
+ * @returns {string} markup appended to the preview page.
+ */
+function motionDemo() {
+  return `<section class="motion-demo" aria-label="Motion">
+  <p class="label">Motion · loading, reveal, lift</p>
+  <div class="motion-bar" role="progressbar" aria-label="Loading"></div>
+  <div class="motion-skeleton" aria-busy="true" aria-live="polite"><span></span><span></span><span></span></div>
+  <button class="motion-lift">Hover to lift</button>
+  <p class="motion-reveal">Scroll to reveal this line. Motion follows the style's own duration and easing tokens.</p>
+</section>`
 }
 
 /** Compositions a style may name. */

@@ -83,7 +83,15 @@ function pageHandler(options) {
     const theme = requestedTheme === 'dark' || requestedTheme === 'light' ? requestedTheme : schemeOf(entry)
     const widthKey = url.searchParams.get('width') ?? 'auto'
     const width = Object.hasOwn(PREVIEW_WIDTHS, widthKey) ? widthKey : 'auto'
-    sendHtml(res, previewPage(entry, { theme, width, overrides: overridesOf(url), compact: url.searchParams.get('compact') === '1' }))
+    sendHtml(res, previewPage(entry, {
+      theme,
+      width,
+      overrides: overridesOf(url),
+      compact: url.searchParams.get('compact') === '1',
+      // Gallery frames stay still: a grid of animating documents is dozens of composited
+      // layers fighting for the same frames. Only the single preview pane animates.
+      animate: url.searchParams.get('animate') === '1',
+    }))
   }
 }
 

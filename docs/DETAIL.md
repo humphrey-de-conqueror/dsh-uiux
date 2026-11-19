@@ -1,7 +1,7 @@
 # UI/UX styles
 
 This plugin gives the agent a vocabulary for visual design direction, and the tokens to
-execute it without inventing values. It ships one skill (`uiux`) and four tools.
+execute it without inventing values. It ships one skill (`uiux`) and five tools.
 
 ## What it adds
 
@@ -11,6 +11,7 @@ execute it without inventing values. It ships one skill (`uiux`) and four tools.
 | Tool | `uiux_styles` | Searches the catalog by mood words, domain, tags, or style name and returns a candidate table. |
 | Tool | `uiux_spec` | Renders one or more styles as Markdown, CSS custom properties, a Tailwind v4 `@theme` block, or JSON. |
 | Tool | `uiux_mix` | Blends two to four styles into one spec, weighted, with structure taken from the dominant style. |
+| Tool | `uiux_motion` | Resolves an animation need to a native-first recipe, with the fallback, the accessibility trap, and any install line. |
 | Tool | `uiux_platform_guide` | Wraps Chrome's Modern Web Guidance: search 209 platform guides, then retrieve the ones that matter. |
 | Client tab | `uiux-preview` | Right-sidebar pane that previews a style as a rendered demo page. |
 
@@ -78,6 +79,18 @@ Output formats:
 
 Every format honours a byte budget and, when it truncates, says which sections were dropped
 instead of silently cutting mid-sentence.
+
+### `uiux_motion`
+
+`op: "list"` ranks the recipes by the need; `op: "show"` returns the snippet, the notes, the
+fallback, and — for the one library recipe — the install line; `op: "probe"` reads a
+project's `package.json` so a recommendation is only made for what is installed or clearly
+missing.
+
+Recipes live in `data/motion.json` and follow a native-first rule enforced by the validator:
+every recipe cites at least one Modern Web Guidance id that exists, and a `library` recipe
+must name its dependency. Adding a recipe is a data edit; the tool, the gate, and the
+preview pick it up without code changes.
 
 ### `uiux_mix`
 

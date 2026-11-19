@@ -3,9 +3,12 @@ import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 import { loadCatalog } from '../src/catalog.js'
 import { resolveConfig } from '../src/config.js'
+import { loadMotion } from '../src/motion.js'
 import { registerTools } from '../src/tools.js'
 
-const catalog = loadCatalog(fileURLToPath(new URL('../data/', import.meta.url)))
+const dataRoot = fileURLToPath(new URL('../data/', import.meta.url))
+const catalog = loadCatalog(dataRoot)
+const motion = loadMotion(dataRoot)
 
 /** Capture the tools a registration pass would add. */
 function fakeContext() {
@@ -20,14 +23,14 @@ function fakeContext() {
 
 test('registers styles, spec, and mix always, guide when enabled', () => {
   const { ctx, tools } = fakeContext()
-  registerTools(ctx, { catalog, config: resolveConfig({ platformGuidance: false }) })
-  assert.deepEqual(tools.map(tool => tool.name), ['uiux_styles', 'uiux_spec', 'uiux_mix'])
+  registerTools(ctx, { catalog, motion, config: resolveConfig({ platformGuidance: false }) })
+  assert.deepEqual(tools.map(tool => tool.name), ['uiux_styles', 'uiux_spec', 'uiux_mix', 'uiux_motion'])
 })
 
 test('registers the platform guide when the dependency resolves', () => {
   const { ctx, tools } = fakeContext()
-  registerTools(ctx, { catalog, config: resolveConfig({ platformGuidance: true }) })
-  assert.deepEqual(tools.map(tool => tool.name), ['uiux_styles', 'uiux_spec', 'uiux_mix', 'uiux_platform_guide'])
+  registerTools(ctx, { catalog, motion, config: resolveConfig({ platformGuidance: true }) })
+  assert.deepEqual(tools.map(tool => tool.name), ['uiux_styles', 'uiux_spec', 'uiux_mix', 'uiux_motion', 'uiux_platform_guide'])
 })
 
 test('tool definitions expose parameters and text output', async () => {

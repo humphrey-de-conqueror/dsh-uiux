@@ -6,15 +6,16 @@
 import { findStyle, rankStyles } from './catalog.js'
 import { list, retrieve, search } from './mwg.js'
 import { mixStyles, normalizeWeights, parseMix, renderMix } from './mix.js'
+import { installNeeds, probeProject, rankMotion, renderMotion } from './motion.js'
 import { renderSpec } from './render.js'
 
 /**
- * Build the execute functions of the three tools.
- * @param {{ catalog: import('./catalog.js').CatalogEntry[], config: import('./config.js').UiuxConfig, preview?: ReturnType<import('./preview-state.js').createPreviewState> }} options - loaded catalog, resolved config, and the preview follow state.
+ * Build the execute functions of the tools.
+ * @param {{ catalog: import('./catalog.js').CatalogEntry[], motion: object[], config: import('./config.js').UiuxConfig, preview?: ReturnType<import('./preview-state.js').createPreviewState> }} options - loaded catalog, motion recipes, resolved config, and the preview follow state.
  * @returns {object} one async execute function per tool.
  */
 export function createHandlers(options) {
-  const { catalog, config, preview } = options
+  const { catalog, motion = [], config, preview } = options
 
   return {
     /**
@@ -106,6 +107,71 @@ export function createHandlers(options) {
         : `\n\n\nMixing with brief-tier styles (${weak.map(entry => entry.slug).join(', ')}) means their `
           + 'component recipes are absent: the blend carries the dominant style\'s components.\n'
       return `${body}${note}`
+    },
+
+    /**
+     * Resolve an animation need to a native-first recipe.
+     * @param {{ op?: 'list' | 'show' | 'probe', query?: string, ids?: string[], dir?: string, format?: string }} args - operation.
+     * @returns {string} recipe text, a list, or a project probe.
+     */
+    motion(args) {
+      const op = args.op ?? (args.ids !== undefined ? 'show' : args.query !== undefined ? 'list' : 'list')
+      if (op === 'list') {
+        const ranked = rankMotion(motion, args.query)
+        if (ranked.length === 0) {
+          return `No motion recipe matched "${args.query ?? ''}". Call \`uiux_motion\` with no query to see all `
+            + `${motion.length} recipes.`
+        }
+        const rows = ['| id | recipe | approach | needs |', '| --- | --- | --- | --- |']
+        for (const recipe of ranked) {
+          const needs = recipe.deps.length === 0 ? 'platform only' : recipe.deps.map(dep => `\`${dep.name}\``).join(', ')
+          rows.push(`| \`${recipe.id}\` | ${recipe.name} | ${recipe.kind} | ${needs} |`)
+        }
+        return `${rows.join('\n')}\n\n${ranked.length} of ${motion.length} recipes. `
+          + 'Read one with `uiux_motion` { op: "show", ids: ["…"] } — every recipe leads with the platform API.'
+      }
+      if (op === 'probe') {
+        if (args.dir === undefined) {
+          return '`uiux_motion` with op "probe" needs `dir`: an absolute path to the project being built.'
+        }
+        const probe = probeProject(args.dir)
+        if (!probe.hasPackageJson) {
+          return `No package.json in ${args.dir}, so nothing can be assumed to be installed. `
+            + 'Every recipe here works without dependencies; check a library recipe before using it.'
+        }
+        if (probe.error !== undefined) return probe.error
+        const names = Object.keys(probe.dependencies)
+        const lines = [
+          `# Installed dependencies in ${probe.root}`,
+          '',
+          names.length === 0 ? 'None.' : names.sort().map(name => `- \`${name}\`@${probe.dependencies[name]}`).join('\n'),
+        ]
+        const libraries = motion.filter(recipe => recipe.deps.length > 0)
+        if (libraries.length > 0) {
+          lines.push('', '## Library recipes and what they need', '')
+          for (const recipe of libraries) {
+            const missing = installNeeds(recipe, probe.dependencies)
+            lines.push(`- \`${recipe.id}\`: ${missing.length === 0 ? 'ready' : `missing ${missing.map(dep => `\`${dep.name}\``).join(', ')}`}`)
+          }
+        }
+        return lines.join('\n')
+      }
+      if (args.ids === undefined || args.ids.length === 0) {
+        return '`uiux_motion` with op "show" needs `ids` from a list.'
+      }
+      const found = []
+      const missing = []
+      for (const id of args.ids) {
+        const recipe = motion.find(entry => entry.id === id)
+        if (recipe === undefined) missing.push(id)
+        else found.push(recipe)
+      }
+      if (found.length === 0) {
+        return `No motion recipe matched: ${missing.join(', ')}. Call \`uiux_motion\` to list them.`
+      }
+      const parts = found.map(recipe => renderMotion(recipe, { format: args.format }))
+      if (missing.length > 0) parts.push(`Unknown recipes ignored: ${missing.join(', ')}.`)
+      return parts.join('\n\n---\n\n')
     },
 
     /**

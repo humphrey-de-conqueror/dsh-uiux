@@ -1,9 +1,10 @@
 /**
  * Model-facing tools of the uiux bundle.
  *
- * Four tools, deliberately small: browse styles, read one style's spec, blend
- * styles, and consult Google's Modern Web Guidance for the platform
- * capabilities the spec references.
+ * Five tools, deliberately small: browse styles, read one style's spec, blend
+ * styles, resolve an animation need to a native-first recipe, and consult
+ * Google's Modern Web Guidance for the platform capabilities the spec
+ * references.
  */
 
 import { defineTool } from '@deepseek-ai/dsh-tools'
@@ -28,7 +29,7 @@ const FORMATS = /** @type {const} */ (['md', 'css', 'tailwind', 'json'])
 /**
  * Register the tools on the plugin context.
  * @param {import('@deepseek-ai/cordis').Context} ctx - plugin context carrying the tool registry.
- * @param {{ catalog: import('./catalog.js').CatalogEntry[], config: import('./config.js').UiuxConfig }} options - loaded catalog and resolved config.
+ * @param {{ catalog: import('./catalog.js').CatalogEntry[], motion: object[], config: import('./config.js').UiuxConfig }} options - loaded catalog, motion recipes, and resolved config.
  */
 export function registerTools(ctx, options) {
   const { catalog, config } = options
@@ -99,6 +100,29 @@ export function registerTools(ctx, options) {
     },
     output: asText,
     execute: handlers.mix,
+  }))
+
+  ctx.tools.register(defineTool({
+    name: 'uiux_motion',
+    description:
+      'Resolve an animation need to an implementation that leads with the web platform: skeleton screens, loading '
+      + 'bars, scroll reveal, shared-element page transitions, context menus, toasts, hover lift, spring entrances. '
+      + 'Each recipe gives a working snippet, the platform guides behind it, and the accessibility trap. Use it '
+      + 'before adding an animation library: most of these need no dependency at all. `op: "probe"` reads a '
+      + "project's package.json so a library recipe is only recommended when it is already installed or clearly "
+      + 'needed — and then the recipe carries the exact install line, so stop, install, and continue.',
+    parameters: {
+      op: {
+        type: 'string', enum: ['list', 'show', 'probe'],
+        description: 'list recipes (optionally filtered by `query`), show recipes by id, or probe a project',
+      },
+      query: { type: 'string', description: 'For `list`: what you need, e.g. "skeleton while loading a table"' },
+      ids: { type: 'array', items: { type: 'string' }, description: 'For `show`: recipe ids from a list' },
+      dir: { type: 'string', description: 'For `probe`: absolute path to the project being built' },
+      format: { type: 'string', enum: ['md', 'html'], description: 'For `show`: Markdown (default) or a bare HTML snippet' },
+    },
+    output: asText,
+    execute: handlers.motion,
   }))
 
   if (!config.platformGuidance) return

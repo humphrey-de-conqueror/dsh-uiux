@@ -234,6 +234,42 @@ const pairs = spec.a11y?.contrastPairs
   }
 }
 
+// Motion recipes: every cited platform guide has to exist, and ids have to be unique,
+// or `uiux_motion` hands out a dead reference.
+const motionFile = join(ROOT, 'data', 'motion.json')
+if (existsSync(motionFile)) {
+  let recipes
+  try {
+    recipes = JSON.parse(readFileSync(motionFile, 'utf8')).recipes
+  } catch (error) {
+    fail('motion.json', `is not valid JSON: ${error.message}`)
+    recipes = []
+  }
+  if (!Array.isArray(recipes) || recipes.length === 0) fail('motion.json', 'must list at least one recipe')
+  const seen = new Set()
+  for (const recipe of recipes ?? []) {
+    const id = recipe.id ?? '?'
+    if (seen.has(id)) fail('motion.json', `duplicate recipe id "${id}"`)
+    seen.add(id)
+    for (const field of ['name', 'oneLiner', 'kind', 'snippet', 'fallback']) {
+      if (!isString(recipe[field])) fail('motion.json', `recipe "${id}" is missing "${field}"`)
+    }
+    if (!Array.isArray(recipe.guides) || recipe.guides.length === 0) {
+      fail('motion.json', `recipe "${id}" must cite at least one platform guide`)
+    } else if (guideIds !== undefined) {
+      for (const guide of recipe.guides) {
+        if (!guideIds.has(guide)) fail('motion.json', `recipe "${id}" cites unknown guide "${guide}"`)
+      }
+    }
+    if (!Array.isArray(recipe.notes) || recipe.notes.length === 0) {
+      fail('motion.json', `recipe "${id}" needs at least one note`)
+    }
+    if (recipe.kind === 'library' && !(recipe.deps ?? []).length) {
+      fail('motion.json', `recipe "${id}" is a library recipe with no dependency`)
+    }
+  }
+}
+
 if (failures.length > 0) {
   process.stderr.write(`dsh-uiux: ${failures.length} validation failure(s)\n`)
   for (const failure of failures) process.stderr.write(`  ${failure}\n`)

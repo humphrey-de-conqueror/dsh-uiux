@@ -5,7 +5,7 @@ description: Design and build interfaces in a named visual style - fetch concret
 
 # UI/UX design
 
-This skill routes design work through four tools that this plugin registers, plus the
+This skill routes design work through five tools that this plugin registers, plus the
 reference files beside this one. The styles are authored specs, not adjectives: each one
 carries color roles, type scale, spacing, radius, elevation, motion, and component recipes
 that you copy directly instead of inventing values.
@@ -44,7 +44,15 @@ that you copy directly instead of inventing values.
    `op: "search"` and the behavior you are implementing, then `op: "retrieve"` for the ids
    worth reading. These are Chrome's Modern Web Guidance rules - follow them over your own
    habits.
-5. **Review.** Work through `references/quality/web-interface-guidelines.md` before you call
+5. **Animate from the platform up.** Call `uiux_motion` with what the interface needs
+   ("skeleton while the table loads", "shared element into the detail page") before adding
+   any animation library. Recipes lead with native APIs - `popover` for menus,
+   `startViewTransition` for shared elements, `animation-timeline: view()` for scroll
+   reveal, CSS keyframes for skeletons and loaders - and each one includes the reduced-motion
+   branch. When a recipe requires a dependency the project lacks (`spring-entrance` needs
+   `motion`), check with `op: "probe"` and `dir`, then stop, install it, and continue; do not
+   hand-roll what the recipe already solved.
+6. **Review.** Work through `references/quality/web-interface-guidelines.md` before you call
    the work done. Fix what it flags; it is the difference between a styled page and a
    finished one.
 

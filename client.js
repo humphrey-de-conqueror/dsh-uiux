@@ -187,9 +187,9 @@ window.__ModuleLoader__.load({
      * @param {number} nonce - cache-busting reload counter.
      * @returns {string} page URL.
      */
-    function pageUrl(slug, theme, width, nonce, tweaks) {
+    function pageUrl(slug, theme, width, nonce, tweaks, animate) {
       var url = PAGE_URL + '?slug=' + encodeURIComponent(slug) + '&theme=' + theme
-        + '&width=' + width + '&v=' + nonce
+        + '&width=' + width + '&v=' + nonce + (animate ? '&animate=1' : '')
       var t = tweaks || {}
       if (t.accent) url += '&accent=' + encodeURIComponent(t.accent.replace('#', ''))
       if (t.radius && t.radius !== 1) url += '&radius=' + t.radius
@@ -313,8 +313,8 @@ window.__ModuleLoader__.load({
         if (native === 'light' || native === 'dark') setTheme(native)
       }, [slug])
 
-      var url = slug === '' ? '' : pageUrl(slug, theme, width, nonce, tweaks)
-      var otherUrl = other === '' ? '' : pageUrl(other, theme, width, nonce, tweaks)
+      var url = slug === '' ? '' : pageUrl(slug, theme, width, nonce, tweaks, true)
+      var otherUrl = other === '' ? '' : pageUrl(other, theme, width, nonce, tweaks, true)
 
       var options = styles.map(function (entry) {
         return h('option', { key: entry.slug, value: entry.slug }, entry.name + (entry.depth === 'brief' ? ' ·' : ''))

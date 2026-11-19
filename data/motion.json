@@ -1,0 +1,131 @@
+{
+  "note": "Native first. Every recipe leads with a platform API, because the browser already ships the animation primitives most interfaces need. A library appears only where the platform genuinely cannot do the job, and then it comes with the exact install line so the agent can stop, install, and continue.",
+  "recipes": [
+    {
+      "id": "skeleton",
+      "name": "Skeleton screen",
+      "oneLiner": "Hold the layout while content loads, so nothing jumps.",
+      "kind": "css",
+      "guides": ["animate-element-entry-exit"],
+      "snippet": "<style>\n.skeleton {\n  background: linear-gradient(90deg, var(--uiux-color-surface-alt) 25%, var(--uiux-color-surface) 37%, var(--uiux-color-surface-alt) 63%);\n  background-size: 400% 100%;\n  animation: skeleton-sweep 1.4s ease-in-out infinite;\n  border-radius: var(--uiux-radius-sm);\n  color: transparent;\n}\n.skeleton-line { height: 0.75rem; margin-bottom: 0.5rem; }\n.skeleton-line:last-child { width: 60%; }\n@keyframes skeleton-sweep { from { background-position: 100% 50% } to { background-position: 0 50% } }\n@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; background: var(--uiux-color-surface-alt) } }\n</style>\n<div aria-busy=\"true\" aria-live=\"polite\">\n  <div class=\"skeleton skeleton-line\"></div>\n  <div class=\"skeleton skeleton-line\"></div>\n  <div class=\"skeleton skeleton-line\"></div>\n</div>",
+      "notes": [
+        "Announce the wait: `aria-busy=\"true\"` on the region, and `aria-live=\"polite\"` so the swap is spoken.",
+        "Skeletons must match the real layout's line count and widths, or the load causes exactly the jump they were meant to prevent.",
+        "Under reduced motion the sweep stops; the block stays."
+      ],
+      "fallback": "If the wait is under ~300ms, show nothing: a skeleton that flashes is worse than a blank frame.",
+      "deps": []
+    },
+    {
+      "id": "loading-bar",
+      "name": "Indeterminate loading bar",
+      "oneLiner": "A thin bar that says work is happening, without a spinner.",
+      "kind": "css",
+      "guides": ["animate-element-entry-exit"],
+      "snippet": "<style>\n.loading-bar { position: relative; height: 3px; overflow: hidden; background: var(--uiux-color-surface-alt); border-radius: 999px; }\n.loading-bar::after {\n  content: \"\";\n  position: absolute; inset-block: 0; inset-inline-start: -40%;\n  width: 40%;\n  background: var(--uiux-color-accent);\n  animation: loading-slide 1.2s cubic-bezier(.4, 0, .2, 1) infinite;\n}\n@keyframes loading-slide { to { inset-inline-start: 100% } }\n@media (prefers-reduced-motion: reduce) { .loading-bar::after { animation: none; inset-inline-start: 30%; width: 40% } }\n</style>\n<div class=\"loading-bar\" role=\"progressbar\" aria-label=\"Loading\"></div>",
+      "notes": [
+        "Animate `inset-inline-start` or `transform`, never `width`: width triggers layout on every frame.",
+        "A determinate bar needs `aria-valuenow`; this one is indeterminate, so it has no value attributes.",
+        "Three pixels is the visible minimum; below that it reads as a border artefact."
+      ],
+      "fallback": "For anything over ~2s, prefer a determinate bar driven by real progress; an indeterminate bar beats a spinner only for short waits.",
+      "deps": []
+    },
+    {
+      "id": "scroll-reveal",
+      "name": "Reveal on scroll",
+      "oneLiner": "Sections settle in as they enter the viewport.",
+      "kind": "native",
+      "guides": ["scroll-entry-exit-effects", "animate-element-entry-exit"],
+      "snippet": "<style>\n@supports (animation-timeline: view()) {\n  .reveal {\n    animation: reveal-in linear both;\n    animation-timeline: view();\n    animation-range: entry 10% cover 30%;\n  }\n  @keyframes reveal-in { from { opacity: 0; transform: translateY(24px) } to { opacity: 1; transform: none } }\n}\n@media (prefers-reduced-motion: reduce) { .reveal { animation: none } }\n</style>\n<section class=\"reveal\">…</section>",
+      "notes": [
+        "Scroll-driven animations run on the compositor and need no scroll listener, so they cost nothing per frame.",
+        "Wrap in `@supports (animation-timeline: view())`; the unsupported branch shows the content normally, not invisible.",
+        "Keep the travel under ~32px. Anything larger fights the scroll instead of riding it."
+      ],
+      "fallback": "Where scroll-driven animations are unavailable, add a single `IntersectionObserver` that toggles a class; do not compute positions in a scroll handler.",
+      "deps": []
+    },
+    {
+      "id": "shared-element",
+      "name": "Shared element transition",
+      "oneLiner": "A card grows into the page it opens, so the user keeps their place.",
+      "kind": "native",
+      "guides": ["same-document-transitions", "faster-spa-view-transitions", "group-element-transitions"],
+      "snippet": "<style>\n.card-thumb { view-transition-name: product-media; }\n::view-transition-old(product-media), ::view-transition-new(product-media) { animation-duration: 240ms; }\n@media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important } }\n</style>\n<script>\nfunction navigate(update) {\n  if (!document.startViewTransition) { update(); return }\n  document.startViewTransition(update)\n}\n</script>",
+      "notes": [
+        "The name must be unique per snapshot: give it to exactly one element, or the transition is dropped silently.",
+        "Old and new roots are snapshots, so animating inside them costs nothing.",
+        "Browser support is now broad enough to use as the default path; keep the `if` guard for the rest."
+      ],
+      "fallback": "No view transitions: keep the normal navigation and let the new page scroll-restore. Do not fake it with a FLIP clone unless the transition is the point of the page.",
+      "deps": []
+    },
+    {
+      "id": "context-menu",
+      "name": "Context menu",
+      "oneLiner": "A menu at the pointer or on a row's right-click, dismissed by Escape and outside clicks.",
+      "kind": "native",
+      "guides": ["declarative-dialog-popover-control", "light-dismiss-a-dialog", "anchor-positioning-tab-underline"],
+      "snippet": "<button popovertarget=\"row-menu\" class=\"menu-trigger\">Actions</button>\n<div id=\"row-menu\" popover class=\"menu\" role=\"menu\">\n  <button role=\"menuitem\">Open</button>\n  <button role=\"menuitem\">Duplicate</button>\n  <button role=\"menuitem\" class=\"danger\">Delete</button>\n</div>\n<script>\nfor (const trigger of document.querySelectorAll('.menu-trigger')) {\n  trigger.addEventListener('contextmenu', event => {\n    event.preventDefault()\n    const menu = document.getElementById(trigger.getAttribute('popovertarget'))\n    menu.style.setProperty('--menu-x', event.clientX + 'px')\n    menu.style.setProperty('--menu-y', event.clientY + 'px')\n    menu.showPopover()\n  })\n}\n</script>",
+      "notes": [
+        "`popover` gives Escape, light dismiss, and top-layer stacking for free — the three things hand-rolled menus get wrong.",
+        "For pointer positioning use `position-area` / anchor positioning where available, and fall back to the coordinates above.",
+        "`role=\"menu\"` plus `role=\"menuitem\"` obliges arrow-key movement; if you skip the keys, use links and buttons without the menu roles."
+      ],
+      "fallback": "Inside a table with many rows, one menu element reused per row keeps the DOM small; move the popover rather than creating one per row.",
+      "deps": []
+    },
+    {
+      "id": "toast",
+      "name": "Toast notification",
+      "oneLiner": "A short confirmation that does not steal focus.",
+      "kind": "css",
+      "guides": ["persistent-toast-notifications", "animate-element-entry-exit"],
+      "snippet": "<div class=\"toast-region\" aria-live=\"polite\" aria-atomic=\"false\"></div>\n<style>\n.toast-region { position: fixed; inset-block-end: 16px; inset-inline: 0; display: grid; gap: 8px; justify-items: center; pointer-events: none; }\n.toast {\n  pointer-events: auto;\n  background: var(--uiux-color-surface);\n  color: var(--uiux-color-text);\n  border: 1px solid var(--uiux-color-border);\n  border-radius: var(--uiux-radius-md);\n  padding: 10px 14px;\n  box-shadow: var(--uiux-shadow-md, 0 8px 24px rgb(0 0 0 / .12));\n  animation: toast-in 180ms ease-out both;\n}\n@keyframes toast-in { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }\n@media (prefers-reduced-motion: reduce) { .toast { animation: none } }\n</style>",
+      "notes": [
+        "`aria-live=\"polite\"` announces without interrupting; use `assertive` only for errors the user must act on.",
+        "Do not move focus to a toast. If the message needs a decision, it is a dialog, not a toast.",
+        "Auto-dismiss after 4–6s, and never dismiss something the user is reading — pause the timer on hover and focus."
+      ],
+      "fallback": "Persistent toasts for anything the user must acknowledge; transient ones for confirmations only.",
+      "deps": []
+    },
+    {
+      "id": "hover-lift",
+      "name": "Hover lift",
+      "oneLiner": "A small raise on pointer devices that signals the surface is interactive.",
+      "kind": "css",
+      "guides": ["animate-element-entry-exit", "physics-based-easing"],
+      "snippet": "<style>\n.lift { transition: transform 160ms cubic-bezier(.2, .8, .2, 1), box-shadow 160ms ease; }\n@media (hover: hover) and (pointer: fine) {\n  .lift:hover { transform: translateY(-2px); box-shadow: var(--uiux-shadow-lg, 0 10px 24px rgb(0 0 0 / .12)); }\n}\n.lift:active { transform: translateY(0); }\n@media (prefers-reduced-motion: reduce) { .lift, .lift:hover { transition: none; transform: none } }\n</style>",
+      "notes": [
+        "Guard with `(hover: hover) and (pointer: fine)`: without it, touch devices keep the lifted state after a tap.",
+        "Two pixels is a lift; eight is a bounce. The scale of the style decides, and the style's `motion` tokens give the duration.",
+        "Lift must never be the only affordance — a card that only looks clickable on hover is invisible to keyboards."
+      ],
+      "fallback": "Reduce or remove under `prefers-reduced-motion`; the card stays clickable.",
+      "deps": []
+    },
+    {
+      "id": "spring-entrance",
+      "name": "Spring entrance for a list",
+      "oneLiner": "Staggered spring entrance where the platform's easing cannot express overshoot.",
+      "kind": "library",
+      "guides": ["animate-element-entry-exit", "physics-based-easing"],
+      "snippet": "<script type=\"module\">\nimport { animate, stagger } from 'motion'\n\nanimate('.row', { opacity: [0, 1], y: [12, 0] }, { delay: stagger(0.04), type: 'spring', stiffness: 320, damping: 30 })\n</script>",
+      "notes": [
+        "Reach for this only when CSS `linear()` easing cannot express the motion; `linear()` covers most spring curves with zero bytes.",
+        "Run it after paint, and skip it entirely under `prefers-reduced-motion` by checking `matchMedia` first.",
+        "Stagger above ~60ms per item starts to feel slow beyond eight items; cap the total."
+      ],
+      "fallback": "CSS only: `transition` with a `linear()` easing plus `transition-delay: calc(var(--i) * 40ms)` per row.",
+      "deps": [
+        {
+          "name": "motion",
+          "install": "npm install motion",
+          "why": "The maintained successor to Framer Motion's imperative API; ~4 kB gzipped for `animate` + `stagger`."
+        }
+      ]
+    }
+  ]
+}

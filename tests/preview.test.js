@@ -256,6 +256,24 @@ test('gallery frames the real page for each style', () => {
   }
 })
 
+test('animations are opt-in, and gallery frames never opt in', () => {
+  const entry = catalog.find(row => row.slug === 'editorial')
+  assert.doesNotMatch(previewPage(entry), /motion-demo/u)
+  const animated = previewPage(entry, { animate: true })
+  assert.match(animated, /class="motion-demo"/u)
+  assert.match(animated, /@keyframes motion-sweep/u)
+  assert.match(animated, /prefers-reduced-motion: reduce/u)
+  assert.match(animated, /animation-timeline: view\(\)/u)
+  const { ctx, routes } = fakeHost()
+  registerRoutes(ctx, { catalog, config: {}, preview: createPreviewState() })
+  const gallery = response()
+  routes.get(`${PREVIEW_PREFIX}/gallery.json`)(request(`${PREVIEW_PREFIX}/gallery.json`), gallery)
+  for (const row of JSON.parse(gallery.result().body).styles) {
+    assert.doesNotMatch(row.page, /animate=1/u)
+    assert.doesNotMatch(row.darkPage, /animate=1/u)
+  }
+})
+
 test('compact pages drop the footer so a small frame reads as a picture', () => {
   const entry = catalog.find(row => row.slug === 'editorial')
   const full = previewPage(entry)

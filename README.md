@@ -18,7 +18,7 @@ dsh plugin install link:/home/humphrey-de-conqueror/dsh-uiux
 
 Or through the Plugin Manager: **Install bundle**, target
 `link:/home/humphrey-de-conqueror/dsh-uiux`. Restart or reload the session; the `uiux` skill
-appears in the skill catalog and the four tools become available.
+appears in the skill catalog and the five tools become available.
 
 ## Use
 
@@ -38,12 +38,13 @@ interaction guidance, then review. You can also call the tools directly:
 | `uiux_styles` | Find styles by mood, domain, or name. |
 | `uiux_spec` | Get one or more styles as Markdown, CSS, Tailwind v4, or JSON. |
 | `uiux_mix` | Blend two to four styles when one direction is not enough, e.g. `["editorial:70", "bento-grid:30"]`. |
+| `uiux_motion` | Resolve an animation need to a native-first recipe: skeleton, loading bar, scroll reveal, shared element, context menu, toast, hover lift, spring entrance. |
 | `uiux_platform_guide` | Search Chrome's Modern Web Guidance, then retrieve the guides that matter. |
 
 ## How to use it
 
 [docs/GUIDE.md](docs/GUIDE.md) splits the plugin into what runs on its own (the skill and the
-four tools) and what you drive by hand (the three panes, the + menu, the gallery-to-composer
+five tools) and what you drive by hand (the three panes, the + menu, the gallery-to-composer
 path). Read that first.
 
 ## Preview
@@ -89,6 +90,23 @@ one-line style request into the composer: press Enter to ask for it, or use **As
 preview header to send it straight away. A draft you typed is never overwritten. Rows come from
 `/dsh-uiux/preview/gallery.json`; the frames are `/dsh-uiux/preview/page.html`, so there are no
 image assets and no build step.
+
+## Motion
+
+`uiux_motion` answers the animation questions a UI actually has, and it leads with the
+platform every time: a skeleton sweep is CSS `@keyframes`, scroll reveal is
+`animation-timeline: view()`, a shared-element transition is `document.startViewTransition`,
+a context menu is `popover` + light dismiss. Each recipe ships a working snippet, the
+Modern Web Guidance ids behind it, and the accessibility trap it usually falls into.
+
+One recipe — staggered springs — genuinely needs a library, so it carries its install line
+(`npm install motion`) and `op: "probe"` reads the project's `package.json` first, so a
+recommendation is only made for something that is installed or clearly missing.
+
+The preview animates the same primitives: `page.html?animate=1` appends a small showcase
+(loading bar, skeleton, hover lift, scroll reveal). Gallery frames never pass it — a grid of
+animating documents is dozens of composited layers fighting for the same frames, while the
+single preview pane costs one document parse.
 
 ## What is inside
 
