@@ -1,8 +1,8 @@
 {
   "slug": "corporate",
   "name": "Corporate",
-  "depth": "brief",
-  "composition": "column",
+  "depth": "full",
+  "composition": "bento",
   "oneLiner": "Structured grids and enterprise patterns that read as reliable before the copy says anything.",
   "preferredScheme": "light",
   "aliases": [],
@@ -130,8 +130,8 @@
   },
   "a11y": {
     "notes": [
-      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
-      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+      "Blue on white reads as a link, so never colour body copy with the accent.",
+      "Status must not rely on colour alone: keep the text label next to every pill."
     ],
     "contrastPairs": [
       [
@@ -152,7 +152,12 @@
       ]
     ]
   },
-  "platformNotes": [],
+  "platformNotes": [
+    "sortable-table",
+    "responsive-table",
+    "size-aware-styling",
+    "dark-mode"
+  ],
   "sources": [
     {
       "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
@@ -163,5 +168,59 @@
     "upstream": "awesome-design-skills",
     "slug": "corporate",
     "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 40px; padding: 0 18px; border: 0; border-radius: 6px; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-size: 0.9375rem; font-weight: 500",
+        "hover": "filter: brightness(1.05)",
+        "focusVisible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 2px"
+      },
+      "secondary": {
+        "base": "height: 40px; padding: 0 18px; border: 1px solid var(--uiux-color-border); border-radius: 6px; background: var(--uiux-color-surface); color: var(--uiux-color-text); font-size: 0.9375rem",
+        "hover": "background: var(--uiux-color-surfaceAlt)"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "padding: 24px; border: 1px solid var(--uiux-color-border); border-radius: 8px; background: var(--uiux-color-surface); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04)"
+      }
+    },
+    "stat": {
+      "default": {
+        "base": "font-size: 2rem; line-height: 1.1; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--uiux-color-text)"
+      }
+    },
+    "table": {
+      "header": {
+        "base": "height: 40px; background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-textMuted); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; text-align: left"
+      },
+      "row": {
+        "base": "height: 44px; border-bottom: 1px solid var(--uiux-color-border); font-size: 14px",
+        "hover": "background: var(--uiux-color-surfaceAlt)"
+      }
+    },
+    "badge": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 4px; background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-textMuted); font-size: 12px; font-weight: 500"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Keep the blue for primary actions and links; it is the trust signal, not decoration.",
+      "Snap everything to an 8px grid and keep tables at 44px rows.",
+      "Use tabular figures for every money or metric value."
+    ],
+    "dont": [
+      "Do not introduce playful or warm accents into a business surface.",
+      "Do not use serif faces or display tracking.",
+      "Do not stack more than one level of card inside another."
+    ],
+    "antiPatterns": [
+      "A gradient hero on a product admin page.",
+      "Colour-coded status pills with no text label.",
+      "Financial figures in proportional numerals."
+    ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "slug": "claude",
   "name": "Claude",
-  "depth": "brief",
+  "depth": "full",
   "composition": "column",
   "oneLiner": "Research-journal warmth on stone with near-black ink and editorially strict contrast.",
   "preferredScheme": "light",
@@ -131,8 +131,8 @@
   },
   "a11y": {
     "notes": [
-      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
-      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+      "The warm paper reduces effective contrast: keep body text at the full text role and never use the muted role for long copy.",
+      "Terracotta on paper is safe for 16px and up; below that, use the text role."
     ],
     "contrastPairs": [
       [
@@ -153,7 +153,12 @@
       ]
     ]
   },
-  "platformNotes": [],
+  "platformNotes": [
+    "improve-text-layout-and-legibility",
+    "precise-text-alignment",
+    "equal-width-text-lines",
+    "visually-stable-font-fallbacks"
+  ],
   "sources": [
     {
       "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
@@ -164,5 +169,55 @@
     "upstream": "awesome-design-skills",
     "slug": "claude",
     "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 40px; padding: 0 18px; border: 0; border-radius: 4px; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-size: 0.9375rem; font-weight: 500",
+        "hover": "filter: brightness(0.95)",
+        "focusVisible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 2px"
+      },
+      "quiet": {
+        "base": "height: 40px; padding: 0; border: 0; border-bottom: 1px solid var(--uiux-color-border); border-radius: 0; background: transparent; color: var(--uiux-color-text); font-size: 0.9375rem",
+        "hover": "border-bottom-color: var(--uiux-color-accent)"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "padding: 24px; border: 1px solid var(--uiux-color-border); border-radius: 4px; background: var(--uiux-color-surface)"
+      }
+    },
+    "prose": {
+      "body": {
+        "base": "max-width: 68ch; font-size: 1.0625rem; line-height: 1.7; color: var(--uiux-color-text)"
+      }
+    },
+    "quote": {
+      "default": {
+        "base": "padding-left: 20px; border-left: 2px solid var(--uiux-color-accent); font-family: 'Fraunces', Georgia, serif; font-size: 1.25rem; line-height: 1.45; color: var(--uiux-color-text)"
+      }
+    },
+    "chip": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border: 1px solid var(--uiux-color-border); border-radius: var(--uiux-radius-full); background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-textMuted); font-size: 0.75rem"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Set body copy at a warm off-white and never at pure white — the paper tone is the identity.",
+      "Use the serif at ≥20px for headings and quotes only; labels and UI stay in the sans.",
+      "Keep one terracotta accent per screen, used for action and citation."
+    ],
+    "dont": [
+      "Do not add shadows: separation comes from hairline borders and paper tone.",
+      "Do not use the serif for buttons, labels, or body copy.",
+      "Do not push the measure past 70 characters, even in wide layouts."
+    ],
+    "antiPatterns": [
+      "Serif paragraphs in a dense dashboard.",
+      "Terracotta used as a background fill.",
+      "Cards floating on shadows above the paper."
+    ]
   }
 }

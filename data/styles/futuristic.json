@@ -1,7 +1,7 @@
 {
   "slug": "futuristic",
   "name": "Futuristic",
-  "depth": "brief",
+  "depth": "full",
   "composition": "poster",
   "oneLiner": "Tech-forward typography and sleek framing that position a product as the next version of itself.",
   "preferredScheme": "dark",
@@ -131,8 +131,8 @@
   },
   "a11y": {
     "notes": [
-      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
-      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+      "Clipped corners remove hit area at the edges: keep the focus ring outside the clip so it stays visible.",
+      "The cyan accent is legible on near-black but not on the panels' translucent surface; keep body copy at the text role."
     ],
     "contrastPairs": [
       [
@@ -153,7 +153,12 @@
       ]
     ]
   },
-  "platformNotes": [],
+  "platformNotes": [
+    "dark-mode",
+    "contrast-color",
+    "complex-shapes",
+    "component-specific-light-dark-theme"
+  ],
   "sources": [
     {
       "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
@@ -164,5 +169,52 @@
     "upstream": "awesome-design-skills",
     "slug": "futuristic",
     "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 42px; padding: 0 22px; border: 1px solid var(--uiux-color-accent); border-radius: 0; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
+        "hover": "filter: brightness(1.1)",
+        "focusVisible": "outline: 2px solid var(--uiux-color-accent); outline-offset: 3px"
+      }
+    },
+    "panel": {
+      "default": {
+        "base": "padding: 22px; border: 1px solid rgba(0, 210, 255, 0.25); border-radius: 0; background: rgba(255, 255, 255, 0.04)"
+      }
+    },
+    "hudLabel": {
+      "default": {
+        "base": "font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--uiux-color-accent)"
+      }
+    },
+    "stat": {
+      "default": {
+        "base": "font-family: 'Space Grotesk', Inter, sans-serif; font-size: 2.25rem; line-height: 1; font-variant-numeric: tabular-nums; color: var(--uiux-color-text)"
+      }
+    },
+    "field": {
+      "default": {
+        "base": "height: 42px; width: 100%; padding: 0 14px; border: 1px solid rgba(0, 210, 255, 0.3); border-radius: 0; background: rgba(255, 255, 255, 0.04); color: var(--uiux-color-text); font-size: 0.9375rem",
+        "focusVisible": "border-color: var(--uiux-color-accent); outline: none; box-shadow: 0 0 0 2px rgba(0, 210, 255, 0.2)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Draw the interface as a HUD: thin cyan lines, clipped corners, tabular readouts.",
+      "Keep the canvas near-black and the accent cool; warmth breaks the illusion.",
+      "Track labels wide and set them small; set numbers large and monospaced."
+    ],
+    "dont": [
+      "Do not use curved or heavily rounded shapes — the geometry is machined.",
+      "Do not animate scan lines or glitch effects over readable content.",
+      "Do not introduce a warm accent for danger; use the danger role only for a real failure."
+    ],
+    "antiPatterns": [
+      "A blurred glass card on a HUD grid.",
+      "Faux code rain behind a dashboard.",
+      "Cyan text on near-black at 2:1 for secondary labels."
+    ]
   }
 }

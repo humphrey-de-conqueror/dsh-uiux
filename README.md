@@ -92,9 +92,9 @@ image assets and no build step.
 
 ## What is inside
 
-- **20 full styles** with complete token sets, component recipes, do/don't rules,
+- **32 full styles** with complete token sets, component recipes, do/don't rules,
   anti-patterns, and contrast-verified palettes in light and dark.
-- **59 brief styles** carrying an authored palette and positioning.
+- **47 brief styles** carrying an authored palette and positioning.
 - **A review rubric** adapted from `vercel-labs/web-interface-guidelines`, plus a
   style-specific pass/fail review.
 - **Chrome Modern Web Guidance** wrapped as a tool, so interaction behaviour comes from a

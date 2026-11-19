@@ -1,7 +1,7 @@
 {
   "slug": "spacious",
   "name": "Spacious",
-  "depth": "brief",
+  "depth": "full",
   "composition": "column",
   "oneLiner": "Generous whitespace and a steady grid rhythm that lets long content breathe.",
   "preferredScheme": "light",
@@ -130,8 +130,8 @@
   },
   "a11y": {
     "notes": [
-      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
-      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+      "Generous whitespace lowers perceived contrast: keep body at the text role and labels at 11px only when tracked and capitalised.",
+      "Hairline borders are decorative; do not rely on them to indicate focus or state."
     ],
     "contrastPairs": [
       [
@@ -152,7 +152,11 @@
       ]
     ]
   },
-  "platformNotes": [],
+  "platformNotes": [
+    "fluid-scaling",
+    "size-aware-styling",
+    "improve-text-layout-and-legibility"
+  ],
   "sources": [
     {
       "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
@@ -163,5 +167,51 @@
     "upstream": "awesome-design-skills",
     "slug": "spacious",
     "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 46px; padding: 0 24px; border: 0; border-radius: var(--uiux-radius-full); background: var(--uiux-color-text); color: var(--uiux-color-bg); font-size: 0.9375rem; font-weight: 500",
+        "hover": "opacity: 0.88",
+        "focusVisible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 3px"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "padding: 32px; border: 1px solid var(--uiux-color-border); border-radius: var(--uiux-radius-md); background: var(--uiux-color-surface)"
+      }
+    },
+    "sectionLabel": {
+      "default": {
+        "base": "font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--uiux-color-textMuted)"
+      }
+    },
+    "prose": {
+      "body": {
+        "base": "max-width: 62ch; font-size: 1.0625rem; line-height: 1.75; color: var(--uiux-color-text)"
+      }
+    },
+    "divider": {
+      "default": {
+        "base": "height: 1px; border: 0; background: var(--uiux-color-border)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Let whitespace carry the layout: 96 to 160px between sections, 32px inside cards.",
+      "Keep one column and a generous outer margin; never fill the width because you can.",
+      "Use hairlines and small tracked labels instead of boxes and borders."
+    ],
+    "dont": [
+      "Do not add an element to balance empty space.",
+      "Do not use more than one accent, and prefer none at all.",
+      "Do not set body copy under 17px."
+    ],
+    "antiPatterns": [
+      "Dense grids with 8px gutters in a calm layout.",
+      "A coloured hero behind an airy page.",
+      "Borders on every card because the whitespace felt unfinished."
+    ]
   }
 }

@@ -1,8 +1,8 @@
 {
   "slug": "shadcn",
   "name": "Shadcn",
-  "depth": "brief",
-  "composition": "column",
+  "depth": "full",
+  "composition": "bento",
   "oneLiner": "Monochrome, utility-first components with quiet borders and predictable spacing, ready for a real app.",
   "preferredScheme": "light",
   "aliases": [],
@@ -131,8 +131,8 @@
   },
   "a11y": {
     "notes": [
-      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
-      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+      "Borders on white are decorative, not text: keep body copy at the full text role and never rely on the border alone to signal state.",
+      "The focus ring is the only colour most users will see on a neutral page; keep its 2px offset intact on every interactive element."
     ],
     "contrastPairs": [
       [
@@ -153,7 +153,12 @@
       ]
     ]
   },
-  "platformNotes": [],
+  "platformNotes": [
+    "component-specific-light-dark-theme",
+    "design-token-reactivity",
+    "light-dismiss-a-dialog",
+    "anchor-positioning-tab-underline"
+  ],
   "sources": [
     {
       "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
@@ -164,5 +169,67 @@
     "upstream": "awesome-design-skills",
     "slug": "shadcn",
     "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  },
+  "components": {
+    "button": {
+      "default": {
+        "base": "height: 36px; padding: 0 16px; border: 1px solid var(--uiux-color-text); border-radius: var(--uiux-radius-sm); background: var(--uiux-color-text); color: var(--uiux-color-bg); font-size: 0.875rem; font-weight: 500",
+        "hover": "opacity: 0.9",
+        "focusVisible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 2px"
+      },
+      "outline": {
+        "base": "height: 36px; padding: 0 16px; border: 1px solid var(--uiux-color-border); border-radius: var(--uiux-radius-sm); background: var(--uiux-color-surface); color: var(--uiux-color-text); font-size: 0.875rem; font-weight: 500",
+        "hover": "background: var(--uiux-color-surfaceAlt)",
+        "focusVisible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 2px"
+      },
+      "ghost": {
+        "base": "height: 36px; padding: 0 16px; border: 1px solid transparent; border-radius: var(--uiux-radius-sm); background: transparent; color: var(--uiux-color-text); font-size: 0.875rem; font-weight: 500",
+        "hover": "background: var(--uiux-color-surfaceAlt)"
+      }
+    },
+    "input": {
+      "default": {
+        "base": "height: 36px; width: 100%; padding: 0 12px; border: 1px solid var(--uiux-color-border); border-radius: var(--uiux-radius-sm); background: var(--uiux-color-surface); color: var(--uiux-color-text); font-size: 0.875rem",
+        "focusVisible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 2px",
+        "invalid": "border-color: var(--uiux-color-danger)",
+        "placeholder": "color: var(--uiux-color-textMuted)"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "padding: 20px; border: 1px solid var(--uiux-color-border); border-radius: var(--uiux-radius-md); background: var(--uiux-color-surface)"
+      },
+      "header": {
+        "base": "display: flex; align-items: center; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid var(--uiux-color-border); font-size: 0.9375rem; font-weight: 600"
+      }
+    },
+    "badge": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: var(--uiux-radius-full); background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-text); font-size: 0.75rem; font-weight: 500"
+      }
+    },
+    "tabs": {
+      "item": {
+        "base": "padding: 8px 12px; border-bottom: 2px solid transparent; color: var(--uiux-color-textMuted); font-size: 0.875rem",
+        "active": "color: var(--uiux-color-text); border-bottom-color: var(--uiux-color-text)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Use one neutral scale for chrome and reserve the accent for state and emphasis.",
+      "Prefer a 1px border over a shadow: borders carry structure, shadows only mark overlays.",
+      "Keep radii at 6px for controls and 8px for containers; nothing else."
+    ],
+    "dont": [
+      "Do not add gradients, blur, or glass effects — this language is flat by definition.",
+      "Do not colour large surfaces with a brand hue; the accent belongs to small elements.",
+      "Do not stack a border and a shadow on the same element."
+    ],
+    "antiPatterns": [
+      "Heavy drop shadows under every card.",
+      "Two competing accents in one view.",
+      "Muted text lightened so far it drops under 4.5:1 on white."
+    ]
   }
 }

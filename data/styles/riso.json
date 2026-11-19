@@ -1,8 +1,8 @@
 {
   "slug": "riso",
   "name": "Riso",
-  "depth": "brief",
-  "composition": "column",
+  "depth": "full",
+  "composition": "poster",
   "oneLiner": "Two-color risograph warmth with paper texture, vivid pink actions, and bold blue structure.",
   "preferredScheme": "light",
   "aliases": [],
@@ -131,8 +131,8 @@
   },
   "a11y": {
     "notes": [
-      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
-      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+      "The magenta accent is safe for headings and controls but not for small body copy on paper — keep body at the text role.",
+      "Overlapping inks darken: check any pair you add where a muted role sits on the overprint tint."
     ],
     "contrastPairs": [
       [
@@ -153,7 +153,11 @@
       ]
     ]
   },
-  "platformNotes": [],
+  "platformNotes": [
+    "visually-texture-content",
+    "improve-text-layout-and-legibility",
+    "content-first-noise-reduction"
+  ],
   "sources": [
     {
       "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
@@ -164,5 +168,53 @@
     "upstream": "awesome-design-skills",
     "slug": "riso",
     "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 42px; padding: 0 18px; border: 0; border-radius: 2px; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-weight: 600; letter-spacing: 0.01em",
+        "hover": "filter: brightness(0.95)",
+        "focusVisible": "outline: 2px solid var(--uiux-color-text); outline-offset: 2px"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "padding: 20px; border: 1px solid var(--uiux-color-border); border-radius: 2px; background: var(--uiux-color-surface)",
+        "hover": "border-color: var(--uiux-color-accent)"
+      }
+    },
+    "overprint": {
+      "chip": {
+        "base": "display: inline-flex; align-items: center; height: 24px; padding: 0 8px; border: 1px solid rgba(242, 55, 161, 0.35); border-radius: 2px; background: rgba(242, 55, 161, 0.16); color: var(--uiux-color-text); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase"
+      }
+    },
+    "figure": {
+      "default": {
+        "base": "margin: 0; padding: 8px; border: 1px solid var(--uiux-color-border); background: var(--uiux-color-surfaceAlt)"
+      }
+    },
+    "input": {
+      "default": {
+        "base": "height: 40px; width: 100%; padding: 0 12px; border: 1px solid var(--uiux-color-border); border-radius: 2px; background: var(--uiux-color-surface); color: var(--uiux-color-text); font-size: 0.9375rem",
+        "focusVisible": "border-color: var(--uiux-color-accent); outline: none; box-shadow: 0 0 0 2px rgba(242, 55, 161, 0.25)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Print with two inks — magenta and black on warm paper — and let overlaps read as a third.",
+      "Offset elements slightly from their grid; registration is allowed to be imperfect.",
+      "Keep type tight, left aligned, and large enough that the ink texture never eats it."
+    ],
+    "dont": [
+      "Do not introduce a third saturated ink.",
+      "Do not use gradients or glow; riso has no glow.",
+      "Do not centre long copy or justify it."
+    ],
+    "antiPatterns": [
+      "A magenta-to-violet gradient over paper.",
+      "Photographic drop shadows on a flat-ink layout.",
+      "11px body text in magenta."
+    ]
   }
 }

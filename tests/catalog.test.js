@@ -8,8 +8,8 @@ const catalog = loadCatalog(dataRoot)
 
 test('loads every style file', () => {
   assert.equal(catalog.length, 79)
-  assert.equal(catalog.filter(entry => entry.depth === 'full').length, 20)
-  assert.equal(catalog.filter(entry => entry.depth === 'brief').length, 59)
+  assert.equal(catalog.filter(entry => entry.depth === 'full').length, 32)
+  assert.equal(catalog.filter(entry => entry.depth === 'brief').length, 47)
 })
 
 test('sorts by name and keeps required fields', () => {
@@ -21,6 +21,12 @@ test('sorts by name and keeps required fields', () => {
     assert.ok(entry.tags.length > 0, entry.slug)
     assert.ok(entry.bestFor.length > 0, entry.slug)
   }
+})
+
+test('counts the two tiers', () => {
+  assert.equal(catalog.length, 79)
+  assert.equal(catalog.filter(entry => entry.depth === 'full').length, 32)
+  assert.equal(catalog.filter(entry => entry.depth === 'brief').length, 47)
 })
 
 test('ranks exact alias matches above partial slug matches', () => {
@@ -37,7 +43,7 @@ test('finds styles through aliases and CJK queries', () => {
 
 test('filters by depth and tags', () => {
   const briefOnly = rankStyles(catalog, { depth: 'brief', limit: 100 })
-  assert.equal(briefOnly.length, 59)
+  assert.equal(briefOnly.length, 47)
   assert.ok(briefOnly.every(entry => entry.depth === 'brief'))
   const dashboard = rankStyles(catalog, { tags: ['dashboard'], limit: 100 })
   assert.ok(dashboard.length > 0)

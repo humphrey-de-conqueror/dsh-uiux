@@ -6,7 +6,7 @@ import { renderSpec } from '../src/render.js'
 
 const catalog = loadCatalog(fileURLToPath(new URL('../data/', import.meta.url)))
 const full = catalog.find(entry => entry.slug === 'liquid-glass')
-const brief = catalog.find(entry => entry.slug === 'matrix')
+const brief = catalog.find(entry => entry.slug === 'sega')
 
 test('markdown contains the header and requested sections only', () => {
   const out = renderSpec(full, { sections: ['overview', 'tokens'] })
@@ -47,7 +47,7 @@ test('unknown sections fail with the known names', () => {
 
 test('brief styles render without component or rule sections', () => {
   const out = renderSpec(brief, { sections: ['tokens', 'components', 'rules'] })
-  assert.match(out, /`matrix`, brief tier/u)
+  assert.match(out, /`sega`, brief tier/u)
   assert.doesNotMatch(out, /## Components/u)
   assert.doesNotMatch(out, /## Rules/u)
   const json = JSON.parse(renderSpec(brief, { format: 'json' }))

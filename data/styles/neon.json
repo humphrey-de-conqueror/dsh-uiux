@@ -1,7 +1,7 @@
 {
   "slug": "neon",
   "name": "Neon",
-  "depth": "brief",
+  "depth": "full",
   "composition": "poster",
   "oneLiner": "Electric glow pairings and high-contrast color that demand attention and lose it deliberately.",
   "preferredScheme": "dark",
@@ -131,8 +131,8 @@
   },
   "a11y": {
     "notes": [
-      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
-      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+      "Glow is drawn outside the glyphs, so it adds no contrast: keep the accent text itself at the accent role and verify any pair you add.",
+      "The light scheme is a daylight variant, not a second identity — keep the accent hue, drop the glow."
     ],
     "contrastPairs": [
       [
@@ -153,7 +153,12 @@
       ]
     ]
   },
-  "platformNotes": [],
+  "platformNotes": [
+    "dark-mode",
+    "contrast-color",
+    "animate-element-entry-exit",
+    "component-specific-light-dark-theme"
+  ],
   "sources": [
     {
       "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
@@ -164,5 +169,56 @@
     "upstream": "awesome-design-skills",
     "slug": "neon",
     "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 44px; padding: 0 22px; border: 0; border-radius: var(--uiux-radius-sm); background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-weight: 600; letter-spacing: 0.01em; box-shadow: 0 0 24px rgba(187, 243, 81, 0.35)",
+        "hover": "box-shadow: 0 0 32px rgba(187, 243, 81, 0.55)",
+        "focusVisible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 3px"
+      },
+      "ghost": {
+        "base": "height: 44px; padding: 0 22px; border: 1px solid rgba(187, 243, 81, 0.35); border-radius: var(--uiux-radius-sm); background: transparent; color: var(--uiux-color-accent)",
+        "hover": "background: rgba(187, 243, 81, 0.08)"
+      }
+    },
+    "panel": {
+      "default": {
+        "base": "padding: 24px; border: 1px solid rgba(187, 243, 81, 0.18); border-radius: var(--uiux-radius-md); background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(12px)"
+      }
+    },
+    "badge": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border: 1px solid rgba(187, 243, 81, 0.35); border-radius: var(--uiux-radius-full); color: var(--uiux-color-accent); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase"
+      }
+    },
+    "input": {
+      "default": {
+        "base": "height: 44px; width: 100%; padding: 0 14px; border: 1px solid rgba(187, 243, 81, 0.25); border-radius: var(--uiux-radius-sm); background: rgba(255, 255, 255, 0.05); color: var(--uiux-color-text)",
+        "focusVisible": "border-color: var(--uiux-color-accent); box-shadow: 0 0 0 3px rgba(187, 243, 81, 0.18); outline: none"
+      }
+    },
+    "stat": {
+      "default": {
+        "base": "font-family: 'Space Grotesk', Inter, sans-serif; font-size: 2.5rem; line-height: 1; color: var(--uiux-color-accent); text-shadow: 0 0 24px rgba(187, 243, 81, 0.45)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Keep the page near-black and let the accent do all the glowing — one hue, one job.",
+      "Reserve glow for action, focus, and live status; a glow on static text means nothing.",
+      "Set labels small, uppercase, and widely tracked; set numbers large and monospaced."
+    ],
+    "dont": [
+      "Do not glow more than two elements in one viewport.",
+      "Do not place the accent on large fills; it belongs to strokes, text, and small solids.",
+      "Do not use a second neon hue without a semantic reason (danger, warning)."
+    ],
+    "antiPatterns": [
+      "Rainbow neon gradients across a hero.",
+      "Glowing body paragraphs.",
+      "Dark-on-dark text at 2:1 because the glow looked nice."
+    ]
   }
 }

@@ -71,7 +71,7 @@ test('mix handler renders a blend and explains failures', async () => {
   assert.match(text, /### Color — light/u)
   assert.match(await handlers.mix({ styles: ['nope'] }), /No style matched: nope/u)
   assert.match(await handlers.mix({ styles: [] }), /at least one style/u)
-  assert.match(await handlers.mix({ styles: ['editorial:70', 'neon:30'] }), /brief-tier styles/u)
+  assert.match(await handlers.mix({ styles: ['editorial:70', 'sega:30'] }), /brief-tier styles/u)
 })
 
 test('mix handler emits css and tailwind as well', async () => {

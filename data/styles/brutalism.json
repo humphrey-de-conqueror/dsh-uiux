@@ -1,7 +1,7 @@
 {
   "slug": "brutalism",
   "name": "Brutalism",
-  "depth": "brief",
+  "depth": "full",
   "composition": "toy",
   "oneLiner": "Unadorned slab layout with raw type, visible structure, and a deliberate refusal of decoration.",
   "preferredScheme": "light",
@@ -131,8 +131,8 @@
   },
   "a11y": {
     "notes": [
-      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
-      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+      "The offset shadow is decoration and adds no contrast: text must sit on the accent or surface role, never on the shadow gap.",
+      "Ink on paper is the high-contrast pair; white on blue passes at 5.58:1 but fails for text under 14px in the pixel face."
     ],
     "contrastPairs": [
       [
@@ -153,7 +153,11 @@
       ]
     ]
   },
-  "platformNotes": [],
+  "platformNotes": [
+    "complex-shapes",
+    "contrast-color",
+    "size-aware-styling"
+  ],
   "sources": [
     {
       "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
@@ -164,5 +168,59 @@
     "upstream": "awesome-design-skills",
     "slug": "brutalism",
     "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 52px; padding: 0 20px; border: 3px solid var(--uiux-color-text); border-radius: 0; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-family: 'Silkscreen', ui-monospace, monospace; font-size: 0.8125rem; box-shadow: 6px 6px 0 0 var(--uiux-color-text)",
+        "hover": "transform: translate(-2px, -2px); box-shadow: 8px 8px 0 0 var(--uiux-color-text)",
+        "active": "transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--uiux-color-text)",
+        "focusVisible": "outline: 3px solid var(--uiux-color-accent); outline-offset: 3px"
+      },
+      "secondary": {
+        "base": "height: 52px; padding: 0 20px; border: 3px solid var(--uiux-color-text); border-radius: 0; background: var(--uiux-color-surface); color: var(--uiux-color-text); font-family: 'Silkscreen', ui-monospace, monospace; font-size: 0.8125rem; box-shadow: 6px 6px 0 0 var(--uiux-color-text)",
+        "hover": "transform: translate(-2px, -2px); box-shadow: 8px 8px 0 0 var(--uiux-color-text)"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "padding: 20px; border: 3px solid var(--uiux-color-text); border-radius: 0; background: var(--uiux-color-surface); box-shadow: 8px 8px 0 0 var(--uiux-color-text)"
+      }
+    },
+    "input": {
+      "default": {
+        "base": "height: 48px; width: 100%; padding: 0 14px; border: 3px solid var(--uiux-color-text); border-radius: 0; background: var(--uiux-color-surface); color: var(--uiux-color-text); font-size: 1rem",
+        "focusVisible": "outline: 3px solid var(--uiux-color-accent); outline-offset: 2px",
+        "invalid": "border-color: var(--uiux-color-danger)"
+      }
+    },
+    "sticker": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; padding: 4px 10px; border: 3px solid var(--uiux-color-text); background: var(--uiux-color-surface); color: var(--uiux-color-text); font-family: 'Silkscreen', ui-monospace, monospace; font-size: 11px; transform: rotate(-3deg)"
+      }
+    },
+    "navItem": {
+      "default": {
+        "base": "padding: 8px 12px; border: 2px solid var(--uiux-color-text); border-radius: 0; background: var(--uiux-color-surface); color: var(--uiux-color-text); font-family: 'Silkscreen', ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em",
+        "active": "background: var(--uiux-color-text); color: var(--uiux-color-surface)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Draw every edge: 3px borders and hard offset shadows, never a blur.",
+      "Set labels, buttons, and navigation in the pixel font, and body copy in a plain sans.",
+      "Keep one loud accent (blue) against paper and ink."
+    ],
+    "dont": [
+      "Do not round a single corner.",
+      "Do not use soft shadows, gradients, blur, or transparency.",
+      "Do not set paragraphs in the pixel font — it is a display face only."
+    ],
+    "antiPatterns": [
+      "Pixel headings over stock photography.",
+      "A soft grey shadow on a hard-bordered card.",
+      "Body copy smaller than 16px in a pixel face."
+    ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "slug": "retro",
   "name": "Retro",
-  "depth": "brief",
+  "depth": "full",
   "composition": "poster",
   "oneLiner": "Vintage palettes and nostalgic type sitting on modern structure: nostalgic without being costume.",
   "preferredScheme": "light",
@@ -131,8 +131,8 @@
   },
   "a11y": {
     "notes": [
-      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
-      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+      "Burnt orange on cream clears 4.5:1 for headings but not for 12px text — use ink for anything small.",
+      "The cream ground lightens the whole page; keep muted copy at the textMuted role, never at an opacity."
     ],
     "contrastPairs": [
       [
@@ -153,7 +153,11 @@
       ]
     ]
   },
-  "platformNotes": [],
+  "platformNotes": [
+    "improve-text-layout-and-legibility",
+    "contrast-color",
+    "precise-text-alignment"
+  ],
   "sources": [
     {
       "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
@@ -164,5 +168,52 @@
     "upstream": "awesome-design-skills",
     "slug": "retro",
     "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 44px; padding: 0 22px; border: 0; border-radius: 2px; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase",
+        "hover": "filter: brightness(0.94)",
+        "focusVisible": "outline: 2px solid var(--uiux-color-text); outline-offset: 2px"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "padding: 22px; border: 1px solid var(--uiux-color-border); border-radius: 2px; background: var(--uiux-color-surface)"
+      }
+    },
+    "badge": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border: 1px solid var(--uiux-color-text); border-radius: var(--uiux-radius-full); background: transparent; color: var(--uiux-color-text); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase"
+      }
+    },
+    "rule": {
+      "default": {
+        "base": "height: 6px; border: 0; background: var(--uiux-color-accent)"
+      }
+    },
+    "field": {
+      "default": {
+        "base": "height: 44px; width: 100%; padding: 0 12px; border: 1px solid var(--uiux-color-border); border-radius: 2px; background: var(--uiux-color-surface); color: var(--uiux-color-text); font-size: 0.9375rem",
+        "focusVisible": "border-color: var(--uiux-color-accent); outline: none; box-shadow: 0 0 0 2px rgba(194, 65, 12, 0.22)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Keep to the 70s print palette: cream paper, burnt orange, mustard, ink.",
+      "Set the display face in Fraunces, tracked tight, at poster scale.",
+      "Separate with thick rules and colour blocks instead of shadows."
+    ],
+    "dont": [
+      "Do not use pure white or pure black as background.",
+      "Do not round controls into pills unless they are tags.",
+      "Do not add photographic images with modern drop shadows."
+    ],
+    "antiPatterns": [
+      "A gradient sunset behind a modern sans headline.",
+      "Stacked 12px all-caps paragraphs.",
+      "Blurred glass panels over print colours."
+    ]
   }
 }

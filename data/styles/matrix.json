@@ -1,7 +1,7 @@
 {
   "slug": "matrix",
   "name": "Matrix",
-  "depth": "brief",
+  "depth": "full",
   "composition": "terminal",
   "oneLiner": "Cyber-terminal mono density with one green interaction accent against deep black.",
   "preferredScheme": "dark",
@@ -131,8 +131,8 @@
   },
   "a11y": {
     "notes": [
-      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
-      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+      "Monospaced type at small sizes loses legibility fast: keep body at 13px minimum and at full accent or text contrast, never muted.",
+      "The green accent on near-black passes comfortably; check any dimmed or secondary green you introduce."
     ],
     "contrastPairs": [
       [
@@ -153,7 +153,12 @@
       ]
     ]
   },
-  "platformNotes": [],
+  "platformNotes": [
+    "dark-mode",
+    "contrast-color",
+    "design-token-reactivity",
+    "content-first-noise-reduction"
+  ],
   "sources": [
     {
       "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
@@ -164,5 +169,50 @@
     "upstream": "awesome-design-skills",
     "slug": "matrix",
     "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  },
+  "components": {
+    "prompt": {
+      "default": {
+        "base": "font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--uiux-color-accent)"
+      }
+    },
+    "panel": {
+      "default": {
+        "base": "padding: 20px; border: 1px solid rgba(45, 181, 138, 0.28); border-radius: 2px; background: rgba(45, 181, 138, 0.05)"
+      }
+    },
+    "key": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; padding: 2px 8px; border: 1px solid rgba(45, 181, 138, 0.4); border-radius: 2px; color: var(--uiux-color-accent); font-size: 12px"
+      }
+    },
+    "row": {
+      "default": {
+        "base": "display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 8px 0; border-bottom: 1px dashed rgba(45, 181, 138, 0.18); font-size: 13px"
+      }
+    },
+    "input": {
+      "default": {
+        "base": "width: 100%; padding: 8px 10px; border: 1px solid rgba(45, 181, 138, 0.35); border-radius: 2px; background: transparent; color: var(--uiux-color-accent); font-family: 'JetBrains Mono', monospace; font-size: 13px; caret-color: var(--uiux-color-accent)",
+        "focusVisible": "border-color: var(--uiux-color-accent); outline: none; box-shadow: 0 0 0 1px var(--uiux-color-accent)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Set everything monospaced; proportional type breaks the illusion immediately.",
+      "Keep the palette to two greens on near-black plus one white for headings.",
+      "Use dashed or single-pixel rules as separators and keep layouts grid-aligned to a character cell."
+    ],
+    "dont": [
+      "Do not add rounded corners beyond 2px or any shadow.",
+      "Do not use icons where a bracketed label reads better.",
+      "Do not animate text characters or add a typewriter effect to real content."
+    ],
+    "antiPatterns": [
+      "Glowing green body copy at 2:1 contrast.",
+      "Rain of falling characters behind the content.",
+      "A terminal frame around a marketing page."
+    ]
   }
 }

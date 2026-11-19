@@ -1,8 +1,8 @@
 {
   "slug": "ant",
   "name": "Ant",
-  "depth": "brief",
-  "composition": "column",
+  "depth": "full",
+  "composition": "bento",
   "oneLiner": "Data-dense enterprise clarity: consistent components, compact rows, and predictable interaction.",
   "preferredScheme": "light",
   "aliases": [],
@@ -131,8 +131,8 @@
   },
   "a11y": {
     "notes": [
-      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
-      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+      "The brand blue fails as small text on white at low weights; use the text role for copy and the accent for controls and links.",
+      "Row hover is a surface change, not a text change — keep the row's text contrast intact when it lightens."
     ],
     "contrastPairs": [
       [
@@ -153,7 +153,12 @@
       ]
     ]
   },
-  "platformNotes": [],
+  "platformNotes": [
+    "sortable-table",
+    "responsive-table",
+    "size-aware-styling",
+    "component-specific-light-dark-theme"
+  ],
   "sources": [
     {
       "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
@@ -164,5 +169,66 @@
     "upstream": "awesome-design-skills",
     "slug": "ant",
     "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 32px; padding: 0 15px; border: 1px solid var(--uiux-color-accent); border-radius: 6px; background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-size: 0.875rem; box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1)",
+        "hover": "background: var(--uiux-color-accent); filter: brightness(1.06)",
+        "active": "filter: brightness(0.94)",
+        "focusVisible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 1px"
+      },
+      "default": {
+        "base": "height: 32px; padding: 0 15px; border: 1px solid var(--uiux-color-border); border-radius: 6px; background: var(--uiux-color-surface); color: var(--uiux-color-text); font-size: 0.875rem",
+        "hover": "border-color: var(--uiux-color-accent); color: var(--uiux-color-accent)"
+      },
+      "text": {
+        "base": "height: 32px; padding: 0 8px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--uiux-color-accent); font-size: 0.875rem",
+        "hover": "background: var(--uiux-color-surfaceAlt)"
+      }
+    },
+    "input": {
+      "default": {
+        "base": "height: 32px; width: 100%; padding: 0 11px; border: 1px solid var(--uiux-color-border); border-radius: 6px; background: var(--uiux-color-surface); color: var(--uiux-color-text); font-size: 0.875rem",
+        "focusVisible": "border-color: var(--uiux-color-accent); box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.2); outline: none",
+        "invalid": "border-color: var(--uiux-color-danger)"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "padding: 24px; border: 1px solid var(--uiux-color-border); border-radius: 8px; background: var(--uiux-color-surface); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02)"
+      }
+    },
+    "tag": {
+      "default": {
+        "base": "display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border: 1px solid var(--uiux-color-border); border-radius: 4px; background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-textMuted); font-size: 12px"
+      }
+    },
+    "table": {
+      "header": {
+        "base": "height: 40px; background: var(--uiux-color-surfaceAlt); color: var(--uiux-color-textMuted); font-size: 13px; font-weight: 600; text-align: left"
+      },
+      "row": {
+        "base": "height: 48px; border-bottom: 1px solid var(--uiux-color-border); font-size: 14px",
+        "hover": "background: var(--uiux-color-surfaceAlt)"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Keep controls at 32px height and rows at 48px: this language is optimised for dense admin work.",
+      "Use the brand blue for primary actions and links only, never for large surfaces or headers.",
+      "Keep shadows under a 6px blur and pair them with a 1px border so edges stay crisp."
+    ],
+    "dont": [
+      "Do not vary radii within one view; 6px for controls and 8px for containers, nothing else.",
+      "Do not animate table or form interactions longer than 200ms.",
+      "Do not stack a coloured button inside a coloured card."
+    ],
+    "antiPatterns": [
+      "Gradient page headers over a data table.",
+      "Multiple primary buttons competing on one screen.",
+      "Body text set in pure black on white."
+    ]
   }
 }

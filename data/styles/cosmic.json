@@ -1,7 +1,7 @@
 {
   "slug": "cosmic",
   "name": "Cosmic",
-  "depth": "brief",
+  "depth": "full",
   "composition": "poster",
   "oneLiner": "Deep-space dark theme with neon accents and spatial depth that suggests a world beyond the viewport.",
   "preferredScheme": "dark",
@@ -131,8 +131,8 @@
   },
   "a11y": {
     "notes": [
-      "Brief tier: palette, type family, radii, and spacing are authored here; component recipes, rules, and motion are yours to design.",
-      "The second scheme is derived from the first; re-check any pair you add, especially accent text on dark surfaces."
+      "Decorative glow adds no contrast — keep body copy on the text role and glass panels at a surface opacity that still clears 4.5:1.",
+      "The light scheme is a daytime variant: keep the violet but drop the glow and lower the blur."
     ],
     "contrastPairs": [
       [
@@ -153,7 +153,12 @@
       ]
     ]
   },
-  "platformNotes": [],
+  "platformNotes": [
+    "dark-mode",
+    "contrast-color",
+    "component-specific-light-dark-theme",
+    "animate-element-entry-exit"
+  ],
   "sources": [
     {
       "label": "Palette and positioning authored for dsh-uiux; name from awesome-design-skills",
@@ -164,5 +169,56 @@
     "upstream": "awesome-design-skills",
     "slug": "cosmic",
     "ref": "f631a09b4fcc0166f2e2c1a8c81906ef680c57e8"
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "base": "height: 44px; padding: 0 24px; border: 0; border-radius: var(--uiux-radius-full); background: var(--uiux-color-accent); color: var(--uiux-color-accentText); font-weight: 600; box-shadow: 0 10px 30px rgba(131, 100, 255, 0.30)",
+        "hover": "box-shadow: 0 12px 36px rgba(131, 100, 255, 0.45)",
+        "focusVisible": "outline: 2px solid var(--uiux-color-focus); outline-offset: 3px"
+      },
+      "outline": {
+        "base": "height: 44px; padding: 0 24px; border: 1px solid rgba(131, 100, 255, 0.40); border-radius: var(--uiux-radius-full); background: rgba(255, 255, 255, 0.04); color: var(--uiux-color-text)",
+        "hover": "background: rgba(131, 100, 255, 0.10)"
+      }
+    },
+    "card": {
+      "default": {
+        "base": "padding: 24px; border: 1px solid rgba(131, 100, 255, 0.22); border-radius: var(--uiux-radius-lg); background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(14px)"
+      }
+    },
+    "eyebrow": {
+      "default": {
+        "base": "font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--uiux-color-textMuted)"
+      }
+    },
+    "stat": {
+      "default": {
+        "base": "font-family: 'Space Grotesk', Inter, sans-serif; font-size: 2.5rem; line-height: 1; letter-spacing: -0.02em; color: var(--uiux-color-text)"
+      }
+    },
+    "input": {
+      "default": {
+        "base": "height: 44px; width: 100%; padding: 0 16px; border: 1px solid rgba(131, 100, 255, 0.30); border-radius: var(--uiux-radius-full); background: rgba(255, 255, 255, 0.05); color: var(--uiux-color-text)",
+        "focusVisible": "border-color: var(--uiux-color-accent); box-shadow: 0 0 0 3px rgba(131, 100, 255, 0.20); outline: none"
+      }
+    }
+  },
+  "rules": {
+    "do": [
+      "Keep the page deep and the light local: one radial glow behind the hero, never across the whole viewport.",
+      "Use fully round pill controls and 20px containers — the radii are part of the language.",
+      "Let type do the work: large light-weight headings, wide-tracked uppercase labels."
+    ],
+    "dont": [
+      "Do not add a second saturated hue; violet carries the identity.",
+      "Do not put small text directly on the gradient without a surface behind it.",
+      "Do not animate the background; it competes with content."
+    ],
+    "antiPatterns": [
+      "Starfield noise behind body copy.",
+      "Glass cards stacked three deep.",
+      "White text at 40% opacity for secondary copy."
+    ]
   }
 }

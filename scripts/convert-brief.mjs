@@ -266,13 +266,28 @@ function convert(entry) {
   }
 }
 
+/**
+ * Styles that were promoted out of the brief tier and now carry authored recipes.
+ *
+ * A brief file is generated, so regenerating would silently throw that work away. Anything
+ * already on disk at full depth is treated as authored and left alone.
+ * @type {Set<string>}
+ */
+const promoted = new Set()
+for (const file of await readdir(STYLE_DIR)) {
+  if (!file.endsWith('.json')) continue
+  const spec = JSON.parse(await readFile(join(STYLE_DIR, file), 'utf8'))
+  if (spec.depth === 'full') promoted.add(spec.slug)
+}
+
 /** @type {Map<string, Record<string, any>>} */
 const written = new Map()
 for (const entry of entries) {
-  if (FULL_TIER.includes(entry.slug) || entry.slug in ALIASES) continue
+  if (FULL_TIER.includes(entry.slug) || entry.slug in ALIASES || promoted.has(entry.slug)) continue
   written.set(entry.slug, convert(entry))
 }
-const missing = Object.keys(meta).filter(slug => !written.has(slug) && !FULL_TIER.includes(slug) && !(slug in ALIASES))
+const missing = Object.keys(meta).filter(slug =>
+  !written.has(slug) && !FULL_TIER.includes(slug) && !(slug in ALIASES) && !promoted.has(slug))
 if (missing.length > 0) throw new Error(`data/brief-meta.json has entries with no upstream style: ${missing.join(', ')}`)
 
 if (CHECK) {
@@ -294,7 +309,7 @@ if (CHECK) {
   for (const file of await readdir(STYLE_DIR)) {
     if (!file.endsWith('.json')) continue
     const slug = file.slice(0, -'.json'.length)
-    if (written.has(slug)) continue
+    if (written.has(slug) || promoted.has(slug)) continue
     const spec = JSON.parse(await readFile(join(STYLE_DIR, file), 'utf8'))
     if (spec.origin?.upstream === 'awesome-design-skills') {
       await rm(join(STYLE_DIR, file))

@@ -25,17 +25,23 @@ startup. There is no separate index to drift out of sync.
 
 Two tiers:
 
-- **full** (20 styles) - complete specs: light and dark color roles, type roles and scale,
+- **full** (32 styles) - complete specs: light and dark color roles, type roles and scale,
   spacing, radius, elevation, effects, motion, 5–6 component recipes with states, do/don't
   rules, anti-patterns, verified contrast pairs, and Modern Web Guidance ids relevant to
   the style.
-- **brief** (59 styles) - palette, type, radius, spacing, and motion only. Names come from
+- **brief** (47 styles) - palette, type, radius, spacing, and motion only. Names come from
   `bergside/awesome-design-skills`; palettes and positioning are authored here.
 
-Full tier: aurora, bento-grid, claymorphism, cyberpunk, dark-luxury, data-dashboard,
-editorial, glassmorphism, japandi, liquid-glass, material-you, maximalist-pop,
-monochrome-architecture, neo-brutalism, neumorphism, paper-print, premium-minimalism,
+Full tier: ant, aurora, bento-grid, brutalism, claude, claymorphism, corporate, cosmic,
+cyberpunk, dark-luxury, data-dashboard, editorial, futuristic, glassmorphism, japandi,
+liquid-glass, material-you, matrix, maximalist-pop, monochrome-architecture, neo-brutalism,
+neon, neumorphism, paper-print, premium-minimalism, retro, riso, shadcn, spacious,
 swiss-international, terminal-crt, vaporwave.
+
+Brief styles stay brief by design: they are a palette, a typeface, a composition, and a
+positioning line, generated from `data/brief-meta.json`. A brief can be promoted by authoring
+components, rules, and accessibility notes in place and setting `depth: "full"`; the generator
+skips any file already at full depth, so promotion is a one-way edit rather than a fork.
 
 Every style also names a **composition**: `poster`, `column`, `bento`, `glass`, `soft`,
 `terminal`, or `toy`. Colour alone does not make a style — Swiss International is a grid of
